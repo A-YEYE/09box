@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.connect.mybatis.buyOption">
+	<resultMap type="BuyOption" id="buyOptionResult">
+		<result property="buyOptionCode" column="Buy_Option_Code"/>
+		<result property="rnum" column="RNUM"/>
+		<result property="dealCode" column="DEAL_CODE"/>
+		<result property="categoryCode" column="CATEGORY_CODE"/>
+		<result property="optionName" column="OPTION_NAME"/>
+		<result property="optionPrice" column="OPTION_PRICE"/>
+	</resultMap>  	
+	
+	<select id="SelectOne" resultType="BuyOption">
+		SELECT optionName, optionPrice FROM buy_option
+	</select>
+	
+	<insert id="Insert" parameterType="BuyOption">
+		INSERT INTO buy_option 
+		VALUES (BuyOption.nextval, #{rnum}, #{dealCode}, #{categoryCode}, #{optionName}, #{optionPrice})
+	</insert>
+	
+	
+  
+  
+</mapper>

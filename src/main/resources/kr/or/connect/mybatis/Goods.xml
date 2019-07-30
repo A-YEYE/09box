@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.connect.mybatis.goods">
+	<resultMap type="Goods" id="goodsResult">
+		<result	property="rnum" column="rnum"/>
+		<result	property="dealCode" column="DEAL_CODE"/>
+		<result	property="categoryCode" column="CATEGORY_CODE"/>
+		<result	property="goodsName" column="GOODS_NAME"/>
+		<result	property="price" column="PRICE"/>
+		<result	property="sellStart" column="SELL_START"/>
+		<result	property="sellEnd" column="SELL_END"/>
+		<result	property="goalNum" column="GOAL_NUM"/>
+		<result	property="content" column="CONTENT"/>
+		<result	property="summary" column="SUMMARY"/>
+		<result	property="sellNum" column="SELL_NUM"/>
+		<result	property="successTf" column="SUCCESSTF"/>
+		<result	property="id" column="ID"/>
+		<result	property="image" column="IMAGE"/>
+	</resultMap>
+	
+	<select id="select" resultType="GOODS">
+		SELECT categoryCode, goodsName, price, sellEnd, goalNum, content, sellNum, image FROM goods WHERE dealCode =#{dealCode} 
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM goods WHERE dealCode=#{dealCode} 
+	</delete>
+</mapper>

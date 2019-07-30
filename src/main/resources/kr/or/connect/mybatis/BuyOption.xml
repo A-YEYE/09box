@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.connect.mybatis.buyOption">
+	<resultMap type="BuyOption" id="buyOptionResult">
+		<result property="buyOptionCode" column="BUY_OPTION_CODE"></result>
+		<result property="rnum" column="RNUM"></result>
+		<result property="dealCode" column="DEAL_CODE"></result>
+		<result property="categoryCode" column="CATEGORY_CODE"></result>
+		<result property="optionName" column="OPTION_NAME"></result>
+		<result property="optionPrice" column="OPTIONPRICE"></result>
+	</resultMap>
+	
+	<select id="selectAll" resultType="BuyOption">
+		SELECT optionName, optionPrice FROM BUY_OPTION
+	</select>
+	
+	<select id="selectOne" resultType="BuyOption">
+		SELECT optionName, optionPrice FROM BUY_OPTION WHERE buyOptionCode =#{buyOptionCode}
+	</select>
+	
+	<insert id="insert" parameterType="BuyOption">
+		INSERT INTO BUY_OPTION VALUES(#{buyOptionCode}, #{rnum}, #{dealCode}, #{categoryCode}, #{categoryCode}, #{optionName}, #{optionPrice})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM buyOption WHERE buyOptionCode=#{buyOptionCode}
+	</delete>
+	
+</mapper>

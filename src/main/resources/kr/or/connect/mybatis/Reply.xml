@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.or.connect.mybatis.reply">
+  	<resultMap type="Reply" id="replyResult">
+  		<result property="replyNum" column="REPLY_NUM"/>
+  		<result property="rnum" column="RNUM"/>
+  		<result property="dealCode" column="DEAL_CODE"/>
+  		<result property="categoryCode" column="CATEGORY_CODE"/>
+  		<result property="id" column="ID"/>
+  		<result property="replyContent" column="REPLY_CONTENT"/>
+  		<result property="replyP" column="REPLY_P"/>
+  		<result property="replyC" column="REPLY_C"/>
+  		<result property="replyDate" column="REPLY_DATE"/>
+  	</resultMap>
+  	
+  	<select id="SELECT_ALL" resultType="Reply">
+  		SELECT id, replyContent, replyDate FROM reply WHERE rnum =#{rnum}
+  	</select>
+  
+  
+  
+  </mapper>

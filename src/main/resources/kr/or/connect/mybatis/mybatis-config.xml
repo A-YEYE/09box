@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="BuyOption" type="kr.or.connect.dto.BuyOption"/>
+		<typeAlias alias="Category" type="kr.or.connect.dto.Category"/>
+		<typeAlias alias="Deal" type="kr.or.connect.dto.Deal"/>
+		<typeAlias alias="Goods" type="kr.or.connect.dto.Goods"/>
+		<typeAlias alias="Member" type="kr.or.connect.dto.Member"/>
+		<typeAlias alias="PaymentInfo" type="kr.or.connect.dto.PaymentInfo"/>
+		<typeAlias alias="PaymentOption" type="kr.or.connect.dto.PaymentOption"/>
+		<typeAlias alias="Reply" type="kr.or.connect.dto.Reply"/>
+	</typeAliases>
+	<mappers>
+<!-- 		<mapper resource="kr/or/connect/mybatis/Category.xml" />
+		<mapper resource="kr/or/connect/mybatis/Member.xml" />
+		<mapper resource="kr/or/connect/mybatis/Deal.xml" />
+		<mapper resource="kr/or/connect/mybatis/PaymentOption.xml" />
+		<mapper resource="kr/or/connect/mybatis/PaymentInfo.xml" />
+		<mapper resource="kr/or/connect/mybatis/Goods.xml" />
+		<mapper resource="kr/or/connect/mybatis/BuyOption.xml" />
+		<mapper resource="kr/or/connect/mybatis/Reply.xml" />
+ -->	
+	</mappers>
+</configuration>
