@@ -1,59 +1,45 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    String ctx = request.getContextPath();    //콘텍스트명 얻어오기.
-%>
-<!doctype html> 
-<html class="no-js">
-
+<!DOCTYPE html>
+<html lang="ko">
 	<head>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>FOLDER TEMPLATE</title>
-		 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
- <script type="text/javascript" src="<%=ctx %>/resources/js/service/HuskyEZCreator.js" charset="utf-8"></script>  
-<!--<script type="text/javascript" src="${ctx }/resources/js/service/HuskyEZCreator.js" charset="utf-8"></script> -->
-<!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-				<script type="text/javascript">
-var oEditors = [];
-$(function(){
-      nhn.husky.EZCreator.createInIFrame({
-          oAppRef: oEditors,
-          elPlaceHolder: "ir1", //textarea에서 지정한 id와 일치해야 합니다. 
-          //SmartEditor2Skin.html 파일이 존재하는 경로
-          sSkinURI: "./resources/SmartEditor2Skin.html" ,  
-          htParams : {
-              // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-              bUseToolbar : true,             
-              // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-              bUseVerticalResizer : true,     
-              // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-              bUseModeChanger : true,         
-              fOnBeforeUnload : function(){
-            	 
-              }
-          }, 
-          fOnAppLoad : function(){
-              //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-              oEditors.getById["ir1"].exec("PASTE_HTML", ["내용을 입력하세요"]);
-          },
-          fCreator: "createSEditor2"
-      });
-      
-      //저장버튼 클릭시 form 전송
-      $("#save").click(function(){
-          oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-          $("#frm").submit();
-      });    
-});
- 
- 
- 
-</script> 
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>insert</title>
+  		<!-- 썸머노트 -->
+		<!-- include summernote bootstrap/jquery-->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+		
+		<!-- include summernote css/js-->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+		
+		<!-- 한국어 적용 -->
+		<script src="summernote/lang/summernote-ko-KR.js"></script> 
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	    
+	    <!-- 썸머노트에서 에러나서 넣어줌 -->
+	    <script>
+			// jQuery import 바로아래에 넣어 주면 됩니다.
+			// Cannot read property 'msie' of undefined 에러 나올때
+			jQuery.browser = {};
+			(function () {
+			    jQuery.browser.msie = false;
+			    jQuery.browser.version = 0;
+			    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+			        jQuery.browser.msie = true;
+			        jQuery.browser.version = RegExp.$1;
+			    }
+			})();
+			</script>
+		
+		
+		  
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -62,7 +48,6 @@ $(function(){
 		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->		
 				
 		<!-- JS -->
-		<script src="js/jquery-1.7.1.min.js"></script>
 		<script src="js/custom.js"></script>
 		<script src="js/tabs.js"></script>
 		<script src="js/css3-mediaqueries.js"></script>
@@ -177,78 +162,137 @@ $(function(){
 				
 			<!-- page content-->
         	<div id="page-content-sb" class="cf">        	
-	        		
+	        	<!-- hyoeun -->	
 	        	<!-- entry-content -->	
 	        	<div class="entry-content cf">
 	        		
-	        		<!-- hyoeun -->
-
 					<form id="frm" action="insert.jsp" method="post" >
-						
-						<table >
-				        <tr>
-				            
-				            <td><input type="text" id="title" name="title" placeholder="상품명" style="min-width: 650px; "></td>
-				        </tr>
-				        <tr>
-				            
-				            <td>
-				                <textarea rows="10" cols="30" id="ir1" name="ir1" style="width:650px; height:350px;"></textarea>
-				           
-				            </td>
-				        </tr>
-				        <tr>
-				            <td colspan="2">
-				                <input type="button" id="save" value="저장"/>
-				                <input type="button" value="취소"/>
-				            </td>
-				        </tr>
-				</table>
-				</form>
-				 <!-- hyoeun end-->						
+			<table  style="width=100%; border: 6px solid #FFFFFF;">
+        <tr>
+            <td colspan="2"><input type="text" id="title" name="title"  placeholder="상품명"
+			            			style="border-width:0px 0px 5px 0px; border-color : #8C8C8C; 
+			            			width:650px; height: 45px; font-size: 20pt; color: #8C8C8C;"/>
+            </td>
+        </tr>
+     
+        <tr>
+        	<td><img alt="썸네일" src="img/bg.jpg" style="width:220px; height: 150px"></td>
+        	<td ><textarea id="summary" placeholder="간략한 소개를 입력해 주세요" style=" Vertical-align: middle;height: 150px; width:430px;"></textarea></td>
+        </tr>
+       
+        <tr>
+            <td colspan="2">
+                <textarea id="summernote"></textarea>
+			    <script>
+		      $('#summernote').summernote({
+		        placeholder: '내용을 입력하세요',
+	        	tabsize: 2,
+	            height: 1000,          // 기본 높이값
+	            minHeight: null,      // 최소 높이값(null은 제한 없음)
+	            maxHeight: null,      // 최대 높이값(null은 제한 없음)
+	            focus: true,          // 페이지가 열릴때 포커스를 지정함
+	            lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+		      });
+		    </script>
+           
+            </td>
+      	</tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" id="save" value="저장"/>
+                <input type="button" value="취소"/>
+            </td>
+        </tr>
+		</table>
+		</form>
+										
 				</div>
 				<!-- ENDS entry content -->
+				<!-- ENDS hyoeun -->
 				
     		</div>
     		<!-- ENDS page content-->
-			
+			<!-- hyoeun -->
 			<!-- sidebar -->
-         	<aside id="sidebar">
+        	<aside id="sidebar">
         		
         		<ul>
 	        		<li class="block">
-		        		<h4>Text Widget</h4>
-						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. 
+		        		<h4>카테고리를 선택하세요</h4>
+						<select name="fluit" style="height:35px; width:210px;" class="form-control">
+						  <option value="바나나">바나나</option>
+						  <option value="사과">사과</option>
+						  <option value="파인애플" selected="selected">파인애플</option>
+						</select> 
 	        		</li>
 	        		
 	        		<li class="block">
-		        		<h4>Categories</h4>
+		        		<h4>마감일</h4>
+		<!-- 캘린더 -->
+		<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+		<link rel="stylesheet" href="demos/jquery-ui.min.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	    <script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+	    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+	    <script src="js/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
+		
+		<!-- datepicker 입력창 크기 조정 -->
+		<style>
+		.input-group.date{ font-size: 12px; width: 210px; }
+		</style>
+		<script type='text/javascript'>
+			
+		    $(function(){
+		    	
+		        $('.input-group.date').datepicker({
+		            calendarWeeks: false,
+		            todayHighlight: true,
+		            autoclose: true,
+		            format: "yyyy/mm/dd",
+		            language: "kr"
+		        });
+		
+		    });
+		
+		    </script>
+			<div class="container">
+		        <div class="input-group date">
+		            <input type="text" class="form-control">
+		            <span class="input-group-addon">
+		            <i class="glyphicon glyphicon-calendar"></i></span>
+		        </div>
+			</div>
+ 
+	        		</li>
+	        		
+	        		<li class="block">
+		        		<h4>목표수량</h4>
+		        		<style>
+						.goalNum{height: 35px; }
+						</style>
 						<ul>
-							<li class="cat-item"><a href="#" title="title">Film and video<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Print<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Photo and lomo<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Habitant morbi<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Film and video<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Print<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Photo and lomo<span class="post-counter"> (2)</span></a></li>
-							<li class="cat-item"><a href="#" title="title">Habitant morbi<span class="post-counter"> (2)</span></a></li>
+							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" />
 						</ul>
 	        		</li>
 	        		
 	        		<li class="block">
-		        		<h4>Archives</h4>
-						<ul>
-							<li class="cat-item"><a href="#" title="title">January</a></li>
-							<li class="cat-item"><a href="#" title="title">February</a></li>
-							<li class="cat-item"><a href="#" title="title">March</a></li>
-						</ul>
+		        		<h4>옵션</h4>
+		        		
+						<script language="JavaScript">
+
+						
+						
+						</script>
+ 
 	        		</li>
         		
         		</ul>
         		
         	</aside>
- 			<!-- ENDS sidebar -->
-			
+			<!-- ENDS sidebar -->
+			<!-- ENDShyoeun -->
 			
 			</div><!-- ENDS WRAPPER -->
 		</div>
@@ -341,7 +385,4 @@ $(function(){
 		<!-- ENDS FOOTER -->
 		
 	</body>
-	
-	
-	
 </html>

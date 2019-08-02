@@ -65,6 +65,13 @@
 	<artifactId>xstream</artifactId> 
 	<version>1.4.3</version> 
 	</dependency> 
+	
+	<dependency>
+    	<groupId>org.aspectj</groupId>
+    	<artifactId>aspectjrt</artifactId>
+    	<version>1.6.10</version>
+	</dependency>
+
 	<!-- XML Parser --> 
 	<dependency> 
 	<groupId>org.jdom</groupId> 

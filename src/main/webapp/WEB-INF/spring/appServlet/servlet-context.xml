@@ -22,13 +22,15 @@
     <resources mapping="/less/**" location="/resources/less/"/>
     <resources mapping="/player-skin/**" location="/resources/player-skin/"/>
     <resources mapping="/tests/**" location="/resources/tests/"/>
-<!-- 	
-	<resources mapping="/SE2/**" location="/SE2/" />
-	<resources mapping="/css/**" location="/SE2/css/"/>
-	<resources mapping="/img/**" location="/SE2/img/"/>
-	<resources mapping="/js/**" location="/SE2/js/"/>
-    <resources mapping="/js/**" location="/SE2/js_src/"/>
- -->    
+    <resources mapping="/font/**" location="/resources/font/"/>
+    <resources mapping="/plugin/**" location="/resources/plugin/"/>
+    <resources mapping="/demos/**" location="/resources/demos/"/>
+    
+    <resources mapping="/summernote/**" location="/resources/summernote/" />
+    <resources mapping="/calendar/**" location="/resources/calendar/" />
+    
+     
+  
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
