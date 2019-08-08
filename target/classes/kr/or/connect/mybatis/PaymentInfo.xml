@@ -10,7 +10,7 @@
   		<result property="dealDate" column="DEAL_DATE"/>
   	</resultMap>
   
-  	<select id="SelectOne" resultType="PAYMENT_INFO">
+  	<select id="SelectOne" resultType="PAYMENTINFO">
   		SELECT paymentInfoCode, dealDate 
   		FROM payment_info 
   		WHERE paymentInfoCode =#{paymentInfoCode}

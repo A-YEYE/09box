@@ -116,129 +116,65 @@
 		<!-- MAIN -->
 		<div id="main">
 			<div class="wrapper cf">
-			
-			
-			
-			
-			
-				
 			<!-- portfolio content-->
         	<div id="portfolio-content" class="cf">        	
 				
 				
 				
 				<ul id="filter-buttons">
-					<li><a href="#" data-filter="*" class="selected">show all</a></li>
-					<li><a href="#" data-filter=".web">web</a></li>
-					<li><a href="#" data-filter=".print">print</a></li>
-					<li><a href="#" data-filter=".design">design</a></li>
-					<li><a href="#" data-filter=".photo">photo</a></li>
+					<li><a href="#" data-filter="*" class="selected">전체보기</a></li>
+					<li><a href="#" data-filter=".web">의류</a></li>
+					<li><a href="#" data-filter=".print">식품</a></li>
+					<li><a href="#" data-filter=".design">아이</a></li>
+					<li><a href="#" data-filter=".photo">굿즈</a></li>
 				</ul>
 				
 				<!-- Filter container -->
 				<div id="filter-container" class="cf">
-					<figure class="web print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+			 		<figure class="web">
+						<c:forEach items="${list}" var="goods">
+						
 						<figcaption>
-							<a href="project.do"><h3 class="heading">Pellentesque </h3></a>
+							<a href="detail"><h3 class="heading">${goods.goodsName} </h3></a>
 							<div class="portfolio-cat">
-								<a href="#" >web</a>,
-								<a href="#" >print</a>
+								<a href="#" >의류</a> 
 							</div>
+							
 						</figcaption>
+						</c:forEach>
 					</figure>
 					
 					<figure class="print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/02.jpg" alt="alt" /></a>
+						<a href="detail.do" class="thumb"><img src="img/dummies/featured/02.jpg" alt="alt" /></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">Pellentesque habitant morbi</h3></a>
+							<a href="detail.do"><h3 class="heading">Pellentesque habitant morbi</h3></a>
 							<div class="portfolio-cat">
-								<a href="#" >print</a>
+								<a href="#" >식품</a>
 							</div>
 						</figcaption>
 					</figure>
 					
 					
 					<figure class="design">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/03.jpg" alt="alt" /></a>
+						<a href="detail.do" class="thumb"><img src="img/dummies/featured/03.jpg" alt="alt" /></a>
 						<figcaption>
-							<a href="project.do" ><h3 class="heading">Habitant morbi</h3></a>
+							<a href="detail.do" ><h3 class="heading">Habitant morbi</h3></a>
 							<div class="portfolio-cat">
-								<a href="#" >design</a>
+								<a href="#" >아이</a>
 							</div>
 						</figcaption>
 					</figure>
-					
-					
-					<figure class="photo print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/04.jpg" alt="alt" /></a>
-						<figcaption>
-							<a href="project.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
-							<div class="portfolio-cat">
-								<a href="#" >photo</a>,
-								<a href="#" >print</a>
-							</div>
-						</figcaption>
-					</figure>
-					
-					
-					<figure class="web photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/05.jpg" alt="alt" /></a>
-						<figcaption>
-							<a href="project.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
-							<div class="portfolio-cat">
-								<a href="#" >web</a>,
-								<a href="#" >photo</a>
-							</div>	
-						</figcaption>
-					</figure>
-					
-					
-					<figure class="web print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/06.jpg" alt="alt" /></a>
-						<figcaption>
-							<a href="project.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
-							<div class="portfolio-cat">
-								<a href="#" >web</a>,
-								<a href="#" >print</a>
-							</div>	
-						</figcaption>
-					</figure>
-					
 					
 					<figure class="photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/04.jpg" alt="alt" /></a>
+						<a href="detail.do" class="thumb"><img src="img/dummies/featured/04.jpg" alt="alt" /></a>
 						<figcaption>
-							<a href="project.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
+							<a href="detail.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
 							<div class="portfolio-cat">
-								<a href="#" >photo</a>
+								<a href="#" >굿즈</a>
 							</div>	
 						</figcaption>
 					</figure>
 					
-					
-					<figure class="web photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/05.jpg" alt="alt" /></a>
-						<figcaption>
-							<a href="project.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
-							<div class="portfolio-cat">
-								<a href="#" >web</a>,
-								<a href="#" >photo</a>
-							</div>	
-						</figcaption>
-					</figure>
-					
-					
-					<figure class="web print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
-						<figcaption>
-							<a href="project.do" ><h3 class="heading">Pellentesque habitant morbi</h3></a>
-							<div class="portfolio-cat">
-								<a href="#" >web</a>,
-								<a href="#" >print</a>
-							</div>	
-						</figcaption>
-					</figure>
 				
 				</div><!-- ENDS Filter container -->
 				
@@ -295,17 +231,6 @@
 						</div>
 						
 					</li>
-					
-					<li class="third-col">
-						
-						<div class="widget-block">
-							<div id="tweets" class="footer-col tweet">
-		         				<h4>TWITTER WIDGET</h4>
-		         			</div>
-		         		</div>
-		         		
-					</li>
-					
 					<li class="fourth-col">
 						
 						<div class="widget-block">
@@ -330,7 +255,6 @@
 					<div class="left">by <a href="http://luiszuno.com" >luiszuno.com</a></div>
 						<ul id="social-bar" class="cf sb">
 							<li><a href="http://www.facebook.com"  title="Become a fan" class="facebook">Facebbok</a></li>
-							<li><a href="http://www.twitter.com" title="Follow my tweets" class="twitter"></a></li>
 							<li><a href="http://plus.google.com" title="Enter my circles" class="plus"></a></li>
 						</ul>
 				</div>	

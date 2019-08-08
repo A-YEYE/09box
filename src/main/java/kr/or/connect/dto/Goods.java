@@ -8,6 +8,7 @@ public class Goods {
 	private String categoryCode;	// f.k
 	private String goodsName;
 	private int price;
+	private int deliveryCharge;
 	private Date sellStart;
 	private Date sellEnd;
 	private int goalNum;
@@ -18,6 +19,27 @@ public class Goods {
 	private String id;				// f.k
 	private String image;
 	
+	public Goods() {}
+	public Goods(int rnum, String dealCode, String categoryCode, String goodsName, int price, int deliveryCharge,
+			Date sellStart, Date sellEnd, int goalNum, String content, String summary, int sellNum, String successTf,
+			String id, String image) {
+		super();
+		this.rnum = rnum;
+		this.dealCode = dealCode;
+		this.categoryCode = categoryCode;
+		this.goodsName = goodsName;
+		this.price = price;
+		this.deliveryCharge = deliveryCharge;
+		this.sellStart = sellStart;
+		this.sellEnd = sellEnd;
+		this.goalNum = goalNum;
+		this.content = content;
+		this.summary = summary;
+		this.sellNum = sellNum;
+		this.successTf = successTf;
+		this.id = id;
+		this.image = image;
+	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -47,6 +69,12 @@ public class Goods {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
 	}
 	public Date getSellStart() {
 		return sellStart;
@@ -106,8 +134,8 @@ public class Goods {
 	@Override
 	public String toString() {
 		return "Goods [rnum=" + rnum + ", dealCode=" + dealCode + ", categoryCode=" + categoryCode + ", goodsName="
-				+ goodsName + ", price=" + price + ", sellStart=" + sellStart + ", sellEnd=" + sellEnd + ", goalNum="
-				+ goalNum + ", content=" + content + ", summary=" + summary + ", sellNum=" + sellNum + ", successTf="
-				+ successTf + ", id=" + id + ", image=" + image + "]";
+				+ goodsName + ", price=" + price + ", deliveryCharge=" + deliveryCharge + ", sellStart=" + sellStart
+				+ ", sellEnd=" + sellEnd + ", goalNum=" + goalNum + ", content=" + content + ", summary=" + summary
+				+ ", sellNum=" + sellNum + ", successTf=" + successTf + ", id=" + id + ", image=" + image + "]";
 	}
 }

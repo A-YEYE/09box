@@ -9,7 +9,7 @@
 		<result property="categoryName" column="CATEGORY_NAME"></result>
 	</resultMap>
 	
-	<select id="mySelectAll" resultType="Category">
-		SELECT categoryName FROM category 
+	<select id="SelectAllCategory" resultType="Category">
+		SELECT categoryCode, categoryName FROM category 
 	</select>
 </mapper>

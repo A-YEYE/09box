@@ -1,13 +1,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!doctype html> 
+<!DOCTYPE html> 
 <html class="no-js">
 
 	<head>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<meta charset="utf-8"/>
-		<title>FOLDER TEMPLATE</title>
-		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>09BOX_insert</title>
+		<!-- 썸머노트 -->
+		<!-- include summernote bootstrap/jquery-->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
+		<!-- 썸머노트에서 에러나서 넣어줌 -->
+	    <script>
+			// jQuery import 바로아래에 넣어 주면 됩니다.
+			// Cannot read property 'msie' of undefined 에러 나올때
+			jQuery.browser = {};
+			(function () {
+			    jQuery.browser.msie = false;
+			    jQuery.browser.version = 0;
+			    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+			        jQuery.browser.msie = true;
+			        jQuery.browser.version = RegExp.$1;
+			    }
+			})();
+			</script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	
+ 		<!-- include summernote css/js-->
+		<link href="summernote/summernote.css" rel="stylesheet">
+		<script src="summernote/summernote.js"></script>
+		<!-- summer note korean language pack -->
+ 		<script src="summernote/lang/summernote-ko-KR.js"></script>
+ 		
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -16,12 +43,12 @@
 		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->		
 				
 		<!-- JS -->
-		<script src="js/jquery-1.7.1.min.js"></script>
 		<script src="js/custom.js"></script>
 		<script src="js/tabs.js"></script>
 		<script src="js/css3-mediaqueries.js"></script>
 		<script src="js/jquery.columnizer.min.js"></script>
 		
+			
 		<!-- Isotope -->
 		<script src="js/jquery.isotope.min.js"></script>
 		
@@ -130,31 +157,101 @@
 	        		
 				<!-- entry-content -->	
 	        	<div class="entry-content cf">
-			    
+			    <form name="input" action="list2" method="post">
 					
 					<!-- Tabs -->
 					<ul class="tabs">
-						<li><a href="#"><span>Tab number 1</span></a></li>
-						<li><a href="#"><span>Tab number 2</span></a></li>
-						<li><a href="#"><span>Tab number 3</span></a></li>
+						<li><a href="#"><span>내용입력</span></a></li>
+						<li><a href="#"><span>추가 등록</span></a></li>
 					</ul>
 	
 					<div class="panes">
 						<div>
-							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-	
+							<input type="text" name="goodsName" value='' id="goodsName"  focus="true" class="form-control"
+									style="height: 35px;" placeholder="상품명을 입력하세요"/>
+							<br>
+							<textarea id="summernote" name="content"></textarea>
 						</div>
 						<div>
-							<p>Mauris habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat s</p>
-	
-						</div>
+							<li class="block">
+	<!--	        		<h4>마감일</h4>		
+		    				<input type="date" class="form-control" name="sellEnd" style="height:35px;">
+  		 -->
+	        		</li>
+	        		<textarea id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" style="height: 130px; width:430px;"></textarea>
+	        		<li class="block">
+		        		<h4>목표수량</h4>
+		        		<style>
+						.goalNum{height: 35px; }
+						</style>
+						<ul>
+							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1"/>
+						</ul>
+	        		</li>
+	        		
+	        		<li class="block">
+		        		<h4>옵션</h4>
+		        		
+						<script language="JavaScript">
+
 						
-						<div>
-							<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
-							<p> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. </p>
-	
+						
+						</script>
+ 
+	        		</li>
+	        		
+	        		<li class="block">
+		        		<h4>배송비</h4>
+	<!-- 	        		<form style="font-size: 10pt;" >
+						  <input type=radio name="deliveryCharge" value="free" onClick="this.form.text1.disabled=true">무료배송<br><br>
+						  <input type=radio name="deliveryCharge" value="charge" onClick="this.form.text1.disabled=true">2500원<br><br>
+						  <input type=radio name="deliveryCharge" value="etc" onClick="this.form.text1.disabled=false">기타<br>
+						  <input type= text name="deliveryChargetext" disabled style="width:100px; text-align:right;">원 이상 무료배송
+						<form>
+  	 -->					<script type="text/javascript">
+						    function radio_chk() {
+						        //라디오 버튼 Name 가져오기
+						        var radio_btn = document.getElementsByName("deliveryCharge");
+						 
+						        //라디오 버튼이 체크되었나 확인하기 위한 변수
+						        var radio_btn_check = 0;
+						        for(var i = 0; i<radio_btn.length; i++){
+						            //만약 라디오 버튼이 체크가 되어있다면 true
+						            if(radio_btn[i].checked==true){
+						                //라디오 버튼 값
+						                alert(radio_btn[i].value);
+						                //라디오 버튼이 체크되면 radio_btn_check를 1로 만들어준다.
+						                radio_btn_check++;
+						            }
+						        }
+						        
+						        if(radio_btn_check==0){
+						            alert("라디오 버튼을 선택해주세요");
+						            return;
+						        }
+						    }
+						</script>
+
+	        		</li>
+							<input type="submit" value="저장" onclick="check()"/>
+                			<input type="button" value="취소"/>
 						</div>
 					</div>
+					<!-- 썸머노트 -->
+					<script>
+					 $(document).ready(function() { 
+					 $('#summernote').summernote({
+				        placeholder: '내용을 입력하세요',
+			        	tabsize: 2,
+			            height: 500,          // 기본 높이값
+			            minHeight: null,      // 최소 높이값(null은 제한 없음)
+			            maxHeight: null,      // 최대 높이값(null은 제한 없음)
+			            focus: false,          // 페이지가 열릴때 포커스를 지정함
+			            lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+					 });
+				      });
+				    </script>
+					</form>
 					<!-- ENDS TABS -->
 					
 					

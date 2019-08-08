@@ -9,22 +9,48 @@
 		<result	property="categoryCode" column="CATEGORY_CODE"/>
 		<result	property="goodsName" column="GOODS_NAME"/>
 		<result	property="price" column="PRICE"/>
+		<result	property="deliveryCharge" column="DELIVERY_CHARGE"/>
 		<result	property="sellStart" column="SELL_START"/>
 		<result	property="sellEnd" column="SELL_END"/>
 		<result	property="goalNum" column="GOAL_NUM"/>
 		<result	property="content" column="CONTENT"/>
 		<result	property="summary" column="SUMMARY"/>
 		<result	property="sellNum" column="SELL_NUM"/>
-		<result	property="successTf" column="SUCCESSTF"/>
+		<result	property="successTf" column="SUCCESS_TF"/>
 		<result	property="id" column="ID"/>
 		<result	property="image" column="IMAGE"/>
 	</resultMap>
 	
-	<select id="select" resultType="GOODS">
-		SELECT categoryCode, goodsName, price, sellEnd, goalNum, content, sellNum, image FROM goods WHERE dealCode =#{dealCode} 
+	<select id="selectAllGoods" resultType="GOODS">
+		SELECT rnum, categoryCode, goodsName, price, deliveryCharge, sellEnd, goalNum, content, sellNum, image, summary FROM goods ORDER BY rnum DESC 
 	</select>
+	
+	<select id="selectOneGoods" resultType="GOODS">
+		SELECT categoryCode, goodsName, price, deliveryCharge, sellEnd, goalNum, content, sellNum, image FROM goods WHERE rnum =#{rnum} 
+	</select>
+	
+	<insert id="insertGoods" parameterType="GOODS">
+		INSERT into goods values (#{rnum}, #{dealCode}, #{categoryCode}, #{goodsName}, #{price}, ${deliveryCharge}, NOW(), #{sellEnd}, #{goalNum}, #{content}, #{summary}, #{sellNum}, #{image}, #{successTf}, #{id});
+	</insert>
 	
 	<delete id="delete" parameterType="int">
 		DELETE FROM goods WHERE dealCode=#{dealCode} 
 	</delete>
+	
+	
+	<!-- paging관련 -->
+	<!-- 
+	<select id="selectCount" resultType="int">
+		SELECT count(*) FROM goods;
+	</select>
+	
+	<select id="selectPaging" parameterType="HashMap" resultType="Goods">
+		SELECT *
+		FROM ( SELECT ROWNUM RN, P.* 
+			FROM( SELECT *
+				FROM GOODS
+				ORDER BY SEQ DESC) P)
+		WHERE RN BETWEEN #{start} AND #{limt}
+	</select>
+ -->	
 </mapper>

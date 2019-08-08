@@ -154,7 +154,7 @@
 			
 			<!-- masthead -->
 			<div class="masthead cf">
-				REGULAR PAGE WITH SIDEBAR
+				상품올리기
 			</div>
 			<!-- ENDS masthead -->
 			
@@ -166,23 +166,31 @@
 	        	<!-- entry-content -->	
 	        	<div class="entry-content cf">
 	        		
-					<form id="frm" action="insert.jsp" method="post" >
-			<table  style="width=100%; border: 6px solid #FFFFFF;">
+					<form name="input" action="portfolio" method="post">
+			<table  style="width:100%; border: 6px solid #FFFFFF;">
         <tr>
-            <td colspan="2"><input type="text" id="title" name="title"  placeholder="상품명"
+            <td colspan="2"><input type="text" id="title" name="goodsName"  placeholder="상품명을 입력하세요"
 			            			style="border-width:0px 0px 5px 0px; border-color : #8C8C8C; 
 			            			width:650px; height: 45px; font-size: 20pt; color: #8C8C8C;"/>
             </td>
         </tr>
      
         <tr>
-        	<td><img alt="썸네일" src="img/bg.jpg" style="width:220px; height: 150px"></td>
-        	<td ><textarea id="summary" placeholder="간략한 소개를 입력해 주세요" style=" Vertical-align: middle;height: 150px; width:430px;"></textarea></td>
+<!--         	<td><input type="file" name="image" alt="썸네일" required="required" src="img/bg.jpg" style="width:220px; height: 150px"></td>  --> 
+ <!-- 썸넬 필체        	<td><input type="file" name="image" required="required" style="Vertical-align: top; width:220px; height: 150px"></td>
+        	<td><input type="file" name="image"  style="Vertical-align: top; width:220px; height: 150px"></td> -->
+        	<td ><textarea id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" style="height: 130px; width:430px;"></textarea></td>
         </tr>
+        <tr>
+			<td colspan="2">
+				<input type="submit" value="업로드">
+				<input type="reset" value="취소">
+			</td>
+		</tr>
        
         <tr>
             <td colspan="2">
-                <textarea id="summernote"></textarea>
+                <textarea id="summernote" name="content"></textarea>
 			    <script>
 		      $('#summernote').summernote({
 		        placeholder: '내용을 입력하세요',
@@ -199,7 +207,7 @@
       	</tr>
         <tr>
             <td colspan="2">
-                <input type="button" id="save" value="저장"/>
+                <input type="submit" value="저장" onclick="check()"/>
                 <input type="button" value="취소"/>
             </td>
         </tr>
@@ -215,55 +223,25 @@
 			<!-- hyoeun -->
 			<!-- sidebar -->
         	<aside id="sidebar">
-        		
+        	   	<form name="input" action="portfolio" method="post" enctype="multipart/form-data">
         		<ul>
 	        		<li class="block">
 		        		<h4>카테고리를 선택하세요</h4>
-						<select name="fluit" style="height:35px; width:210px;" class="form-control">
-						  <option value="바나나">바나나</option>
-						  <option value="사과">사과</option>
-						  <option value="파인애플" selected="selected">파인애플</option>
-						</select> 
+		        		<c:if test="${empty category}">
+		        		<select name="categoryCode" id="category" style="width:180px; height:20px;" class="category">
+		        		<td>${category.categoryName}</td>
+		        		<c:forEach items="${category}" var="category">
+								<option value="${category.categoryCode}">${category.categoryName}</option>
+								
+						</c:forEach>
+						</select>
+						</c:if>
 	        		</li>
-	        		
+	     		<!-- 카테고리 -->
+	  
 	        		<li class="block">
-		        		<h4>마감일</h4>
-		<!-- 캘린더 -->
-		<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-		<link rel="stylesheet" href="demos/jquery-ui.min.css">
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	    <script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-	    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-	    <script src="js/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
-		
-		<!-- datepicker 입력창 크기 조정 -->
-		<style>
-		.input-group.date{ font-size: 12px; width: 210px; }
-		</style>
-		<script type='text/javascript'>
-			
-		    $(function(){
-		    	
-		        $('.input-group.date').datepicker({
-		            calendarWeeks: false,
-		            todayHighlight: true,
-		            autoclose: true,
-		            format: "yyyy/mm/dd",
-		            language: "kr"
-		        });
-		
-		    });
-		
-		    </script>
-			<div class="container">
-		        <div class="input-group date">
-		            <input type="text" class="form-control">
-		            <span class="input-group-addon">
-		            <i class="glyphicon glyphicon-calendar"></i></span>
-		        </div>
-			</div>
+		        		<h4>마감일</h4>		
+		   				<input type="date" class="form-control" name="sellEnd" style="height:35px;">
  
 	        		</li>
 	        		
@@ -273,7 +251,7 @@
 						.goalNum{height: 35px; }
 						</style>
 						<ul>
-							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" />
+							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1"/>
 						</ul>
 	        		</li>
 	        		
@@ -287,9 +265,43 @@
 						</script>
  
 	        		</li>
+	        		
+	        		<li class="block">
+		        		<h4>배송비</h4>
+		        		<form style="font-size: 10pt;" >
+						  <input type=radio name="deliveryCharge" value="free" onClick="this.form.text1.disabled=true">무료배송<br><br>
+						  <input type=radio name="deliveryCharge" value="charge" onClick="this.form.text1.disabled=true">2500원<br><br>
+						  <input type=radio name="deliveryCharge" value="etc" onClick="this.form.text1.disabled=false">기타<br>
+						  <input type= text name="deliveryCharge" disabled style="width:100px; text-align:right;">원 이상 무료배송
+						<form>
+  						<script type="text/javascript">
+						    function radio_chk() {
+						        //라디오 버튼 Name 가져오기
+						        var radio_btn = document.getElementsByName("deliveryCharge");
+						 
+						        //라디오 버튼이 체크되었나 확인하기 위한 변수
+						        var radio_btn_check = 0;
+						        for(var i = 0; i<radio_btn.length; i++){
+						            //만약 라디오 버튼이 체크가 되어있다면 true
+						            if(radio_btn[i].checked==true){
+						                //라디오 버튼 값
+						                alert(radio_btn[i].value);
+						                //라디오 버튼이 체크되면 radio_btn_check를 1로 만들어준다.
+						                radio_btn_check++;
+						            }
+						        }
+						        
+						        if(radio_btn_check==0){
+						            alert("라디오 버튼을 선택해주세요");
+						            return;
+						        }
+						    }
+						</script>
+
+	        		</li>
         		
         		</ul>
-        		
+        		</form>
         	</aside>
 			<!-- ENDS sidebar -->
 			<!-- ENDShyoeun -->
@@ -340,16 +352,6 @@
 						
 					</li>
 					
-					<li class="third-col">
-						
-						<div class="widget-block">
-							<div id="tweets" class="footer-col tweet">
-		         				<h4>TWITTER WIDGET</h4>
-		         			</div>
-		         		</div>
-		         		
-					</li>
-					
 					<li class="fourth-col">
 						
 						<div class="widget-block">
@@ -374,7 +376,6 @@
 					<div class="left">by <a href="http://luiszuno.com" >luiszuno.com</a></div>
 						<ul id="social-bar" class="cf sb">
 							<li><a href="http://www.facebook.com"  title="Become a fan" class="facebook">Facebbok</a></li>
-							<li><a href="http://www.twitter.com" title="Follow my tweets" class="twitter"></a></li>
 							<li><a href="http://plus.google.com" title="Enter my circles" class="plus"></a></li>
 						</ul>
 				</div>	
