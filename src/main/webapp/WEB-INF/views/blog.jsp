@@ -26,7 +26,7 @@
 			        jQuery.browser.version = RegExp.$1;
 			    }
 			})();
-			</script>
+		</script>
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 	
  		<!-- include summernote css/js-->
@@ -157,51 +157,56 @@
 	        		
 				<!-- entry-content -->	
 	        	<div class="entry-content cf">
-			    <form name="input" action="list2" method="post">
+			    <form name="input" action="list2" method="post" enctype="multipart/form-data">
 					
 					<!-- Tabs -->
 					<ul class="tabs">
-						<li><a href="#"><span>내용입력</span></a></li>
-						<li><a href="#"><span>추가 등록</span></a></li>
+						<li><a href="#"><span>내용 입력</span></a></li>
+						<li><a href="#"><span>상세 입력</span></a></li>
 					</ul>
 	
 					<div class="panes">
 						<div>
-							<input type="text" name="goodsName" value='' id="goodsName"  focus="true" class="form-control"
+							<input type="text" name="goodsName" value='' id="goodsName" class="form-control"
 									style="height: 35px;" placeholder="상품명을 입력하세요"/>
 							<br>
-							<textarea id="summernote" name="content"></textarea>
+							<textarea id="summernote" name="content" ></textarea>
 						</div>
 						<div>
-							<li class="block">
-	<!--	        		<h4>마감일</h4>		
-		    				<input type="date" class="form-control" name="sellEnd" style="height:35px;">
-  		 -->
-	        		</li>
-	        		<textarea id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" style="height: 130px; width:430px;"></textarea>
-	        		<li class="block">
-		        		<h4>목표수량</h4>
-		        		<style>
-						.goalNum{height: 35px; }
-						</style>
+						
+		        		<h5>카테고리를 선택하세요</h5><br>
+		         		<c:if test="${!empty category}">
+		        		<select id="category" name="category" class="form-control" style="min-width:404px; max-width:404px">
+							<option value="">선택</option>
+							<c:forEach var="result" items="${category}">
+								<option value="${result.categoryCode}">${result.categoryName}</option>
+							</c:forEach>
+						</select>
+						</c:if>
+	        	 		
+	  		 			<br>
+	  		 			<h5>상품 소개</h5><br>
+		        		<textarea class="form-control" id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" 
+	        					style=" height: 60px; min-width:404px; max-width:912px; resize: horizontal;"></textarea>
+	        			<br>
+		        		<h5>마감일</h5><br>		
+		    	 	 		<input type="date" class="form-control" id="sellEnd" name="sellEnd" style="height:35px; min-width:404px; max-width:404px" >
+  		 			  
+	        			<br>
+		        		<h5>목표수량</h5><br>
 						<ul>
-							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1"/>
+							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1" style="height:35px; min-width:404px; max-width:404px"/>
 						</ul>
-	        		</li>
-	        		
-	        		<li class="block">
-		        		<h4>옵션</h4>
+	        			
+	        			<br>
+		        		<h5>옵션</h5>
 		        		
 						<script language="JavaScript">
 
-						
-						
 						</script>
- 
-	        		</li>
-	        		
-	        		<li class="block">
-		        		<h4>배송비</h4>
+						
+						<br>	
+		        		<h5>배송비</h5>
 	<!-- 	        		<form style="font-size: 10pt;" >
 						  <input type=radio name="deliveryCharge" value="free" onClick="this.form.text1.disabled=true">무료배송<br><br>
 						  <input type=radio name="deliveryCharge" value="charge" onClick="this.form.text1.disabled=true">2500원<br><br>
@@ -231,14 +236,13 @@
 						        }
 						    }
 						</script>
-
-	        		</li>
 							<input type="submit" value="저장" onclick="check()"/>
                 			<input type="button" value="취소"/>
 						</div>
 					</div>
-					<!-- 썸머노트 -->
+					
 					<script>
+					<!-- 썸머노트 -->
 					 $(document).ready(function() { 
 					 $('#summernote').summernote({
 				        placeholder: '내용을 입력하세요',
@@ -250,6 +254,21 @@
 			            lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
 					 });
 				      });
+					 
+					 
+					 <!-- 종료일 -->
+					 var start = new Date();
+					 var end = document.getElementById('sellEnd').valueAsDate; 
+										 
+					$('#sellEnd').change(function (){
+						end = document.getElementById('sellEnd').valueAsDate;
+						alert(end);
+						if(end<start){
+							alert("날짜를 확인해주세요");
+							document.getElementById('sellEnd').valueAsDate = new Date();
+						}alert(end);
+					});
+					
 				    </script>
 					</form>
 					<!-- ENDS TABS -->

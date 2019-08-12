@@ -27,7 +27,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -43,5 +43,13 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- log 레벨 -->
+	<listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>/WEB-INF/config/log4j.properties</param-value>
+	</context-param>
 </web-app>
