@@ -10,6 +10,6 @@
 	</resultMap>
 	
 	<select id="SelectAllCategory" resultType="Category">
-		SELECT * FROM category 
+		SELECT * FROM category order by categoryCode
 	</select>
 </mapper>

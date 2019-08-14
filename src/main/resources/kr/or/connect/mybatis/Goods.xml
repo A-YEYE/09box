@@ -6,7 +6,7 @@
 	<resultMap type="Goods" id="goodsResult">
 		<result	property="rnum" column="rnum"/>
 		<result	property="dealCode" column="DEALCODE"/>
-		<result	property="categoryCode" column="CATEGORYCODE"/>
+		<result	property="categoryCode" column="categoryCode"/>
 		<result	property="goodsName" column="goodsname"/>
 		<result	property="price" column="PRICE"/>
 		<result	property="deliveryCharge" column="DELIVERYCHARGE"/>
@@ -22,15 +22,25 @@
 	</resultMap>
 	
 	<select id="selectAllGoods" resultType="GOODS">
-		SELECT rnum, summary, price, goalNum, goodsName, categoryCode,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image FROM goods ORDER BY rnum DESC 
+		SELECT rnum, summary, price, goalNum, goodsName, categoryCode,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf 
+		FROM goods
+		ORDER BY rnum DESC 
 	</select>
+	
+	<select id="selectCategoryGoods" resultType="GOODS">
+		SELECT rnum, summary, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf 
+		FROM goods A, category B
+		WHERE A.categoryCode = B.categoryCode
+		ORDER BY rnum DESC 
+	</select>
+	
 	
 	<select id="selectOneGoods" resultType="GOODS">
 		SELECT categoryCode, goodsName, price, deliveryCharge, sellEnd, goalNum, content, sellNum, image FROM goods WHERE rnum =#{rnum} 
 	</select>
 
 	<insert id="insertGoods" parameterType="GOODS">
-		INSERT into goods values (#{rnum}, #{dealCode}, #{categoryCode}, #{goodsName}, #{price}, ${deliveryCharge}, NOW(), #{sellEnd}, #{goalNum}, #{content}, #{summary}, #{sellNum}, #{image}, #{successTf}, #{id});
+		INSERT into goods values (#{rnum}, #{dealCode}, #{categoryCode}, #{goodsName}, #{price}, ${deliveryCharge}, NOW(), #{sellEnd}, #{goalNum}, #{content}, #{summary}, #{sellNum}, #{successTf}, #{id}, #{image});
 	</insert>
 		
 	<delete id="delete" parameterType="int">

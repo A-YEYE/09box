@@ -27,7 +27,8 @@
 	<!-- 어노테이션 기반으로 객체 자동 생성하기 -->
 	<context:annotation-config/>
 	<context:component-scan base-package="kr.or.connect">
-		<context:exclude-filter type="annotation"
-				 expression="org.springframework.stereotype.Controller"/>
+	<context:exclude-filter type="annotation"
+			 expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+	
 </beans>

@@ -167,27 +167,43 @@
 	
 					<div class="panes">
 						<div>
+							<c:if test="${!empty category}">
+		        		<select id="category" name="categoryCode" class="form-control" style="min-width:404px; max-width:404px">
+							<option value="">카테고리를 선택하세요</option>
+							<c:forEach var="category" items="${category}">
+								<option value="${category.categoryCode}">${category.categoryName}</option>
+							</c:forEach>
+						</select>
+						</c:if>
+							<br>
 							<input type="text" name="goodsName" value='' id="goodsName" class="form-control"
 									style="height: 35px;" placeholder="상품명을 입력하세요"/>
+							<br>
+							<div class="inputArea" >
+							 <label for="gdsImg">썸네일</label>
+							 <input type="file" id="gdsImg" name="file" />
+							 <div class="select_img" ><img src="" /></div>
+							 <script>
+							  $("#gdsImg").change(function(){
+							   if(this.files && this.files[0]) {
+							    var reader = new FileReader;
+							    reader.onload = function(data) {
+							     $(".select_img img").attr("src", data.target.result).width(300).height(100);        
+							    }
+							    reader.readAsDataURL(this.files[0]);
+							   }
+							  });
+							 </script>
+							</div>
+							<br>	
+			        		<textarea class="form-control" id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" 
+		        					style=" height: 60px; min-width:404px; max-width:912px; resize: horizontal;"></textarea>
 							<br>
 							<textarea id="summernote" name="content" ></textarea>
 						</div>
 						<div>
 						
-		        		<h5>카테고리를 선택하세요</h5><br>
-		         		<c:if test="${!empty category}">
-		        		<select id="category" name="category" class="form-control" style="min-width:404px; max-width:404px">
-							<option value="">선택</option>
-							<c:forEach var="result" items="${category}">
-								<option value="${result.categoryCode}">${result.categoryName}</option>
-							</c:forEach>
-						</select>
-						</c:if>
-	        	 		
-	  		 			<br>
-	  		 			<h5>상품 소개</h5><br>
-		        		<textarea class="form-control" id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" 
-	        					style=" height: 60px; min-width:404px; max-width:912px; resize: horizontal;"></textarea>
+	  		 			
 	        			<br>
 		        		<h5>마감일</h5><br>		
 		    	 	 		<input type="date" class="form-control" id="sellEnd" name="sellEnd" style="height:35px; min-width:404px; max-width:404px" >
@@ -207,13 +223,13 @@
 						
 						<br>	
 		        		<h5>배송비</h5>
-	<!-- 	        		<form style="font-size: 10pt;" >
-						  <input type=radio name="deliveryCharge" value="free" onClick="this.form.text1.disabled=true">무료배송<br><br>
-						  <input type=radio name="deliveryCharge" value="charge" onClick="this.form.text1.disabled=true">2500원<br><br>
-						  <input type=radio name="deliveryCharge" value="etc" onClick="this.form.text1.disabled=false">기타<br>
-						  <input type= text name="deliveryChargetext" disabled style="width:100px; text-align:right;">원 이상 무료배송
-						<form>
-  	 -->					<script type="text/javascript">
+	 	        		<form style="font-size: 10pt;">
+						  <input type=radio name="deliveryCharge" value="0" onClick="this.form.deliveryChargetext.disabled=true">무료배송<br><br>
+						  <input type=radio name="deliveryCharge" value="2500" onClick="this.form.deliveryChargetext.disabled=true"><label for="etc">2500원</label><br><br>
+						  <input type=radio name="deliveryCharge" id="etc" value="etc" onClick="this.form.deliveryChargetext.disabled=false">기타<br>
+						  <input type= text name="deliveryChargetext" id= "text" disabled style="width:100px; text-align:right;">원 이상 무료배송
+						</form>
+  	 					<script type="text/javascript">
 						    function radio_chk() {
 						        //라디오 버튼 Name 가져오기
 						        var radio_btn = document.getElementsByName("deliveryCharge");
@@ -228,13 +244,33 @@
 						                //라디오 버튼이 체크되면 radio_btn_check를 1로 만들어준다.
 						                radio_btn_check++;
 						            }
-						        }
-						        
+						            
+						  		}
+						        						        
 						        if(radio_btn_check==0){
 						            alert("라디오 버튼을 선택해주세요");
 						            return;
 						        }
 						    }
+
+						    // 기타 입력했다가 다른 버튼 눌렀을 때 초기화.
+						    $(document).ready(function(){
+						    	$("input[name=deliveryCharge]").change(function() {
+						    		var text = document.getElementById('text').value;
+						            $('#text').val('');
+						        });
+						    });
+						    
+						    // 기타로 입력한 값 전송
+						    var etc  = document.getElementById('etc').value;
+						    $('#text').keyup(function(){
+						    	var text = document.getElementById('text').value;
+						    	var etc  = document.getElementById('etc').value;
+						    	
+						    	$('#etc').val(document.getElementById('text').value);
+						    //	alert(etc); 
+						    	
+						    });
 						</script>
 							<input type="submit" value="저장" onclick="check()"/>
                 			<input type="button" value="취소"/>
@@ -262,11 +298,11 @@
 										 
 					$('#sellEnd').change(function (){
 						end = document.getElementById('sellEnd').valueAsDate;
-						alert(end);
+						
 						if(end<start){
 							alert("날짜를 확인해주세요");
 							document.getElementById('sellEnd').valueAsDate = new Date();
-						}alert(end);
+						}
 					});
 					
 				    </script>
