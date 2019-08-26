@@ -1,17 +1,27 @@
 package kr.or.connect.dto;
 
+import java.util.List;
+
 public class BuyOption {
-	private String buyOptionCode;
+	private int buyOptionCode;
 	private int rnum;				// f.k
 	private String dealCode;		// f.k
 	private String categoryCode;	// f.k
 	private String optionName;
 	private int optionPrice;
+	private List<BuyOption> optionList;
 	
-	public String getBuyOptionCode() {
+	public BuyOption(String optionName, int optionPrice, int rnum) {
+		super();
+		this.buyOptionCode = buyOptionCode;
+		this.rnum = rnum;
+		this.optionName = optionName;
+		this.optionPrice = optionPrice;
+	}
+	public int getBuyOptionCode() {
 		return buyOptionCode;
 	}
-	public void setBuyOptionCode(String buyOptionCode) {
+	public void setBuyOptionCode(int buyOptionCode) {
 		this.buyOptionCode = buyOptionCode;
 	}
 	public int getRnum() {
@@ -44,11 +54,17 @@ public class BuyOption {
 	public void setOptionPrice(int optionPrice) {
 		this.optionPrice = optionPrice;
 	}
+	public List<BuyOption> getOptionList() {
+		return optionList;
+	}
+	public void setOptionList(List<BuyOption> optionList) {
+		this.optionList = optionList;
+	}
 	
 	@Override
 	public String toString() {
 		return "BuyOption [buyOptionCode=" + buyOptionCode + ", rnum=" + rnum + ", dealCode=" + dealCode
 				+ ", categoryCode=" + categoryCode + ", optionName=" + optionName + ", optionPrice=" + optionPrice
-				+ "]";
+				+ ", optionList=" + optionList + "]";
 	}
 }

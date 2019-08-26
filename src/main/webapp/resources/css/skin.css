@@ -6,7 +6,7 @@ body a:hover {
   color: #cb5432;
 }
 a {
-  color: #cb5432;
+  color: #000000;
 }
 header,
 footer {
@@ -163,7 +163,9 @@ body {
   color: #cb5432;
 }
 #posts-list article.format-standard .feature-image {
-  background: #cb5432 url(../img/icon-link.png) no-repeat center center;
+ /* 
+ background: #cb5432 url(../img/icon-link.png) no-repeat center center; 
+ */ 
 }
 #posts-list article.format-image .feature-image {
   background: #cb5432 url(../img/icon-popup.png) no-repeat center center;

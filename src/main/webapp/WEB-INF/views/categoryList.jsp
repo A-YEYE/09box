@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!doctype html>
+<!doctype html> 
 <html class="no-js">
 
 	<head>
 		<meta charset="utf-8"/>
-		<title>FOLDER TEMPLATE</title>
-		 
+		<title>전체보기</title>
+		
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -71,20 +71,26 @@
 		<!-- Less framework -->
 		<link rel="stylesheet" media="all" href="css/lessframework.css"/>
 		
+		<!-- jplayer -->
+		<link href="player-skin/jplayer-black-and-yellow.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+		
 		<!-- flexslider -->
 		<link rel="stylesheet" href="css/flexslider.css" >
 		<script src="js/jquery.flexslider.js"></script>
-
+		
+		<!-- reply move form -->
+		<script src="js/moveform.js"></script>
+		
 	</head>
 	
 	
-	<body class="home">
+	<body class="page">
 	
 		<!-- HEADER -->
 		<header>
 			<div class="wrapper cf">
-				<!-- nav 상단메뉴 -->
-
+				<!-- nav -->
 					<div id="logo">
 						<a href="./"><img  src="img/logo.png" alt="Simpler"></a>
 					</div>
@@ -94,11 +100,11 @@
 						<li><a href="blog.do">상품올리기</a></li>
 						<li><a href="#">카테고리</a>
 							<ul>
-								<li><a href="page.do">전체보기</a></li>
-								<li><a href="#">웹</a></li>
-								<li><a href="#">프린트</a></li>
-								<li><a href="#">디자인</a></li>
-								<li><a href="#">포토</a></li>
+								<li><a href="list2.do">전체보기</a></li>
+								<li><a href="#">식품</a></li>
+								<li><a href="#">KIDS</a></li>
+								<li><a href="#">굿즈</a></li>
+								<li><a href="#">반려동물</a></li>
 							</ul>
 						</li>
 						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
@@ -106,111 +112,8 @@
 					</ul>
 					<div id="combo-holder"></div>
 
-				<!-- ends nav 상단메뉴 -->
-				
-				
-				<!-- SLIDER -->				
-				<div id="home-slider" class="lof-slidecontent">
-					
-					<div class="preload"><div></div></div>
-					
-					<!-- slider content --> 
-					<div class="main-slider-content" >
-					<ul class="sliders-wrap-inner">
-					    <li>
-					          <img src="img/dummies/slides/01.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>고양이야옹야옹</h4>
-					            <p>고양이는 호랑이가 낳은 새끼입니다.
-					            <a class="link" href="#">더보기</a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="img/dummies/slides/02.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>2번슬라이더/no.2 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="img/dummies/slides/03.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>3번슬라이더/no.3 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="img/dummies/slides/04.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>4번슬라이더/no.4 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="img/dummies/slides/05.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>5번슬라이더/no.5 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="img/dummies/slides/06.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>6번슬라이더/no.6 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="img/dummies/slides/07.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>7번슬라이더/no.7 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					  </ul>  	
-					</div>
-					<!-- ENDS slider content --> 
-				           
-					<!-- slider nav -->
-					<div class="navigator-content">
-					  <div class="navigator-wrapper">
-					        <ul class="navigator-wrap-inner">
-					           <li><img src="img/dummies/slides/01_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/02_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/03_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/04_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/05_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/06_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/07_thumb.jpg" alt="alt" /></li>
-					        </ul>
-					  </div>
-					  <div class="button-next">Next</div>
-					  <div  class="button-previous">Previous</div>
-					  <!-- REMOVED TILL FIXED <div class="button-control"><span>STOP</span></div> -->
-					</div> 
-					<!-- slider nav -->         
-				 </div> 
-				<!-- ENDS SLIDER -->
+				<!-- ends nav -->
+
 			</div>
 		</header>
 		<!-- ENDS HEADER -->
@@ -218,26 +121,37 @@
 		<!-- MAIN -->
 		<div id="main">
 			<div class="wrapper cf">
-			<!-- featured -->
-			<div class="home-featured">
 			
+			
+			
+			
+			
+				
+			<!-- portfolio content-->
+        	<div id="portfolio-content" class="cf">        	
+				
+				
+				
 				<ul id="filter-buttons">
-					<li><a href="#" data-filter="*" class="selected">show all</a></li>
-					<li><a href="#" data-filter=".web">web</a></li>
-					<li><a href="#" data-filter=".print">print</a></li>
-					<li><a href="#" data-filter=".design">design</a></li>
-					<li><a href="#" data-filter=".photo">photo</a></li>
+					<li><a href="#" data-filter="*" class="selected">전체보기</a></li>
+					<li><a href="#" data-filter=".web">식품</a></li>
+					<li><a href="#" data-filter=".print">KIDS</a></li>
+					<li><a href="#" data-filter=".design">굿즈</a></li>
+					<li><a href="#" data-filter=".photo">반려동물</a></li>
 				</ul>
 				
+				
+				<c:forEach items="${list2}" var="goods">
 				<!-- Filter container -->
 				<div id="filter-container" class="cf">
 					<figure class="web">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" style="text-align:center" /></a>
+						<a href="project.do" class="thumb">
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
 							<a href="project.do">
 								<h5 class="heading">
 									<span class="font_weight">
-										첫번째프로젝트입니다 글자수 조정해야할거같기도 합니다 왜냐햐면 이게 계속 늘어나면 안되거든요
+										<a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a>
 									</span>
 								</h5>
 							</a>
@@ -248,7 +162,7 @@
 							</div>
 							<div class="period">
 								<div class="p_left">
-									<img src="img/dummies/featured/calendar16.png" alt="alt">
+									<img src="${pageContext.request.contextPath}/${goods.image}"/>
 									<span class="font_weight">
 									34
 									</span>
@@ -264,12 +178,13 @@
 					</figure>
 					
 					<figure class="print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" style="text-align:center" /></a>
+						<a href="project.do" class="thumb">
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
 							<a href="project.do">
 								<h5 class="heading">
 									<span class="font_weight">
-										두두두두
+										<a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a>
 									</span>
 								</h5>
 							</a>
@@ -280,7 +195,7 @@
 							</div>
 							<div class="period">
 								<div class="p_left">
-									<img src="img/dummies/featured/calendar16.png" alt="alt">
+									<img src="${pageContext.request.contextPath}/${goods.image}"/>
 									<span class="font_weight">
 									34
 									</span>
@@ -297,57 +212,61 @@
 					
 					
 					<figure class="design">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<a href="project.do" class="thumb">
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">3번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							3번 </figcaption>
 					</figure>
 					
 					
 					<figure class="photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">4번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							4번 </figcaption>
 					</figure>
 					
 					
 					<figure class="web photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<a href="project.do" class="thumb">
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">5번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							5번 </figcaption>
 					</figure>
 					
 					
 					<figure class="web print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<a href="project.do" class="thumb">
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">6번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							6번 </figcaption>
 					</figure>
 					
 					
 					<figure class="photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<a href="project.do" class="thumb">
+						<img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">7번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							7번 </figcaption>
 					</figure>
 					
 					
 					<figure class="web photo">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<a href="project.do" class="thumb"><img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">8번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							8번 </figcaption>
 					</figure>
 					
 					
 					<figure class="web print">
-						<a href="project.do" class="thumb"><img src="img/dummies/featured/01.jpg" alt="alt" /></a>
+						<a href="project.do" class="thumb"><img src="${pageContext.request.contextPath}/${goods.image}"/></a>
 						<figcaption>
-							<a href="project.do"><h3 class="heading">9번 </h3></a>
+							<a href="project.do"><h3 class="heading"><a href='detail?rnum=${goods.rnum}'>${goods.goodsName}</a> </h3></a>
 							9번 </figcaption>
 					</figure>
 					
@@ -355,11 +274,13 @@
 				
 			</div>
 			<!-- ENDS featured -->
-			
+			</c:forEach>							
+				
 			
 			
 			
 			</div><!-- ENDS WRAPPER -->
+			
 		</div>
 		<!-- ENDS MAIN -->
 		

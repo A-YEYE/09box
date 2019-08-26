@@ -109,6 +109,11 @@
 		<!-- reply move form -->
 		<script src="js/moveform.js"></script>
 		
+		<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+		integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+		crossorigin="anonymous">
+				
 	</head>
 	
 	
@@ -124,8 +129,8 @@
 				</div>
 				
 				<ul id="nav" class="sf-menu">
-					<li class="current-menu-item"><a href="./">HOME</a></li>
-					<li><a href="blog.do">상품올리기</a></li>
+					<li><a href="./">HOME</a></li>
+					<li class="current-menu-item"><a href="blog.do">상품올리기</a></li>
 					<li><a href="#">카테고리</a>
 						<ul>
 							<li><a href="page.do">전체보기</a></li>
@@ -157,7 +162,7 @@
 	        		
 				<!-- entry-content -->	
 	        	<div class="entry-content cf">
-			    <form name="input" action="list2" method="post" enctype="multipart/form-data">
+			    <form name="input" action="./" method="post" enctype="multipart/form-data">
 					
 					<!-- Tabs -->
 					<ul class="tabs">
@@ -188,7 +193,7 @@
 							   if(this.files && this.files[0]) {
 							    var reader = new FileReader;
 							    reader.onload = function(data) {
-							     $(".select_img img").attr("src", data.target.result).width(300).height(100);        
+							     $(".select_img img").attr("src", data.target.result).width(300).height(180);        
 							    }
 							    reader.readAsDataURL(this.files[0]);
 							   }
@@ -213,14 +218,66 @@
 						<ul>
 							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1" style="height:35px; min-width:404px; max-width:404px"/>
 						</ul>
-	        			
+	         			
 	        			<br>
-		        		<h5>옵션</h5>
+		        		<h5>옵션</h5><p>
 		        		
-						<script language="JavaScript">
+<!-- 여기부터였음 -->
+						<table id="dyntbl1">
 
-						</script>
-						
+								<tr>
+									<th><div style="font-size:12px; display:inline; text-align:right;">품목명</div></th>
+									<th><div style="font-size:12px; display:inline; text-align:right;">가격</div></th>
+									<th></th>
+									<th>
+										<!--input type=button value=" + " onClick="addRow()"-->
+										<button class="mybtn" type="button" onClick="addRow()">
+											<i class="fa fa-plus"></i>
+										</button>
+									</th>
+								</tr>
+								<tr onMouseOver="dyntbl1.clickedRowIndex=this.rowIndex">
+									<td ><input class="form-control" style="width:100%" type=text name=itemcode></td> 
+									<td><input class="form-control" style="width:100%" type="number" name=itemname></td>
+									<td>
+										<!--input type=file name=itemnum-->
+									</td>
+									<td>
+										<!-- input type=button name=dyntbl1_delRow value=" X " onClick="delRow()"-->
+										<button class="mybtn" type="button" onClick="delRow()"
+											name=dyntbl1_delRow>
+											<i class="fas fa-trash-alt"></i>
+										</button>
+									</td>
+								</tr>
+							</table>
+							<script type="text/javascript">
+							function addRow() {
+								  var oRow = dyntbl1.insertRow();
+								  oRow.onmouseover=function(){dyntbl1.clickedRowIndex=this.rowIndex};
+								  var oCell1 = oRow.insertCell();
+								  var oCell2 = oRow.insertCell();
+								  var oCell3 = oRow.insertCell();
+								  var oCell4 = oRow.insertCell();
+								  oCell1.innerHTML = "<input style=\"width:100%\" class=form-control type=text name=itemcode>";
+								  oCell2.innerHTML = "<input style=\"width:100%\" class=form-control type=number name=itemname>";
+								  oCell3.innerHTML = "<!--input type=file name=itemnum-->";
+								  oCell4.innerHTML = "<button class=mybtn type=button onClick=\"delRow()\" name=dyntbl1_delRow><i class=\"fas fa-trash-alt\"></i></button>";
+								  
+								}
+								function delRow() {
+									var ln = document.getElementById("dyntbl1").rows.length;								
+									if(ln>2){
+										dyntbl1.deleteRow(dyntbl1.clickedRowIndex);
+									}
+									else{
+										alert("품목은 최소 1개 이상이어야 합니다.");
+									}
+								}
+							
+							
+							</script>				
+											
 						<br>	
 		        		<h5>배송비</h5>
 	 	        		<form style="font-size: 10pt;">
@@ -272,6 +329,7 @@
 						    	
 						    });
 						</script>
+							<br>
 							<input type="submit" value="저장" onclick="check()"/>
                 			<input type="button" value="취소"/>
 						</div>

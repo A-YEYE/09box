@@ -50,7 +50,7 @@ body p {
 #main h4,
 #main h5,
 #main h6 {
-  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+ 
 }
 #main,
 footer {
@@ -62,7 +62,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Voltaire', sans-serif;
+  font-family: 'Voltaire',  Helvetica, Arial, sans-serif;
 }
 h1 {
   font-size: 42px;
