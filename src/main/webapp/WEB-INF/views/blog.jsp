@@ -201,10 +201,10 @@
 							 </script>
 							</div>
 							<br>	
-			        		<textarea class="form-control" id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" 
+			        <!-- 		<textarea class="form-control" id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" 
 		        					style=" height: 60px; min-width:404px; max-width:912px; resize: horizontal;"></textarea>
 							<br>
-							<textarea id="summernote" name="content" ></textarea>
+					 -->	<textarea id="summernote" name="content" ></textarea>
 						</div>
 						<div>
 						
@@ -225,32 +225,32 @@
 <!-- 여기부터였음 -->
 						<table id="dyntbl1">
 
-								<tr>
-									<th><div style="font-size:12px; display:inline; text-align:right;">품목명</div></th>
-									<th><div style="font-size:12px; display:inline; text-align:right;">가격</div></th>
-									<th></th>
-									<th>
-										<!--input type=button value=" + " onClick="addRow()"-->
-										<button class="mybtn" type="button" onClick="addRow()">
-											<i class="fa fa-plus"></i>
-										</button>
-									</th>
-								</tr>
-								<tr onMouseOver="dyntbl1.clickedRowIndex=this.rowIndex">
-									<td ><input class="form-control" style="width:100%" type=text name=itemcode></td> 
-									<td><input class="form-control" style="width:100%" type="number" name=itemname></td>
-									<td>
-										<!--input type=file name=itemnum-->
-									</td>
-									<td>
-										<!-- input type=button name=dyntbl1_delRow value=" X " onClick="delRow()"-->
-										<button class="mybtn" type="button" onClick="delRow()"
-											name=dyntbl1_delRow>
-											<i class="fas fa-trash-alt"></i>
-										</button>
-									</td>
-								</tr>
-							</table>
+							<tr>
+								<th><div style="font-size:12px; display:inline; text-align:right;">품목명</div></th>
+								<th><div style="font-size:12px; display:inline; text-align:right;">가격</div></th>
+								<th></th>
+								<th>
+									<!--input type=button value=" + " onClick="addRow()"-->
+									<button class="mybtn" type="button" onClick="addRow()">
+										<i class="fa fa-plus"></i>
+									</button>
+								</th>
+							</tr>
+							<tr onMouseOver="dyntbl1.clickedRowIndex=this.rowIndex">
+								<td ><input class="form-control" style="width:100%" type=text name=itemcode></td> 
+								<td><input class="form-control" style="width:100%" type="number" name=itemname></td>
+								<td>
+									<!--input type=file name=itemnum-->
+								</td>
+								<td>
+									<!-- input type=button name=dyntbl1_delRow value=" X " onClick="delRow()"-->
+									<button class="mybtn" type="button" onClick="delRow()"
+										name=dyntbl1_delRow>
+										<i class="fas fa-trash-alt"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
 							<script type="text/javascript">
 							function addRow() {
 								  var oRow = dyntbl1.insertRow();
@@ -265,15 +265,15 @@
 								  oCell4.innerHTML = "<button class=mybtn type=button onClick=\"delRow()\" name=dyntbl1_delRow><i class=\"fas fa-trash-alt\"></i></button>";
 								  
 								}
-								function delRow() {
-									var ln = document.getElementById("dyntbl1").rows.length;								
-									if(ln>2){
-										dyntbl1.deleteRow(dyntbl1.clickedRowIndex);
-									}
-									else{
-										alert("품목은 최소 1개 이상이어야 합니다.");
-									}
+							function delRow() {
+								var ln = document.getElementById("dyntbl1").rows.length;								
+								if(ln>2){
+									dyntbl1.deleteRow(dyntbl1.clickedRowIndex);
 								}
+								else{
+									alert("품목은 최소 1개 이상이어야 합니다.");
+								}
+							}
 							
 							
 							</script>				

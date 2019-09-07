@@ -12,6 +12,8 @@
 		<typeAlias alias="PaymentInfo" type="kr.or.connect.dto.PaymentInfo"/>
 		<typeAlias alias="PaymentOption" type="kr.or.connect.dto.PaymentOption"/>
 		<typeAlias alias="Reply" type="kr.or.connect.dto.Reply"/>
+		<typeAlias alias="Criteria" type="kr.or.connect.dto.Criteria"/>
+		<typeAlias alias="PageMaker" type="kr.or.connect.dto.PageMaker"/>
 	</typeAliases>
 
 

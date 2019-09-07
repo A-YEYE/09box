@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html class="no-js">
 
@@ -10,70 +11,70 @@
 		 
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link rel="stylesheet" media="all" href="css/style.css"/>
+		<![endif]-->               
+		<link rel="stylesheet" media="all" href="${root}css/style.css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->		
 				
 		<!-- JS -->
-		<script src="js/jquery-1.7.1.min.js"></script>
-		<script src="js/custom.js"></script>
-		<script src="js/tabs.js"></script>
-		<script src="js/css3-mediaqueries.js"></script>
-		<script src="js/jquery.columnizer.min.js"></script>
+		<script src="${root}js/jquery-1.7.1.min.js"></script>
+		<script src="${root}js/custom.js"></script>
+		<script src="${root}js/tabs.js"></script>
+		<script src="${root}js/css3-mediaqueries.js"></script>
+		<script src="${root}js/jquery.columnizer.min.js"></script>
 		
 		<!-- Isotope -->
-		<script src="js/jquery.isotope.min.js"></script>
+		<script src="${root}js/jquery.isotope.min.js"></script>
 		
 		<!-- Lof slider -->
-		<script src="js/jquery.easing.js"></script>
-		<script src="js/lof-slider.js"></script>
-		<link rel="stylesheet" href="css/lof-slider.css" media="all"  /> 
+		<script src="${root}js/jquery.easing.js"></script>
+		<script src="${root}js/lof-slider.js"></script>
+		<link rel="stylesheet" href="${root}css/lof-slider.css" media="all"  /> 
 		<!-- ENDS slider -->
 		
 		<!-- Tweet -->
-		<link rel="stylesheet" href="css/jquery.tweet.css" media="all"  /> 
-		<script src="js/tweet/jquery.tweet.js" ></script> 
+		<link rel="stylesheet" href="${root}css/jquery.tweet.css" media="all"  /> 
+		<script src="${root}js/tweet/jquery.tweet.js" ></script> 
 		<!-- ENDS Tweet -->
 		
 		<!-- superfish -->
-		<link rel="stylesheet" media="screen" href="css/superfish.css" /> 
-		<script  src="js/superfish-1.4.8/js/hoverIntent.js"></script>
-		<script  src="js/superfish-1.4.8/js/superfish.js"></script>
-		<script  src="js/superfish-1.4.8/js/supersubs.js"></script>
+		<link rel="stylesheet" media="screen" href="${root}css/superfish.css" /> 
+		<script  src="${root}js/superfish-1.4.8/js/hoverIntent.js"></script>
+		<script  src="${root}js/superfish-1.4.8/js/superfish.js"></script>
+		<script  src="${root}js/superfish-1.4.8/js/supersubs.js"></script>
 		<!-- ENDS superfish -->
 		
 		<!-- prettyPhoto -->
-		<script  src="js/prettyPhoto/js/jquery.prettyPhoto.js"></script>
-		<link rel="stylesheet" href="js/prettyPhoto/css/prettyPhoto.css"  media="screen" />
+		<script  src="${root}js/prettyPhoto/js/jquery.prettyPhoto.js"></script>
+		<link rel="stylesheet" href="${root}js/prettyPhoto/css/prettyPhoto.css"  media="screen" />
 		<!-- ENDS prettyPhoto -->
 		
 		<!-- poshytip -->
-		<link rel="stylesheet" href="js/poshytip-1.1/src/tip-twitter/tip-twitter.css"  />
-		<link rel="stylesheet" href="js/poshytip-1.1/src/tip-yellowsimple/tip-yellowsimple.css"  />
-		<script  src="js/poshytip-1.1/src/jquery.poshytip.min.js"></script>
+		<link rel="stylesheet" href="${root}js/poshytip-1.1/src/tip-twitter/tip-twitter.css"  />
+		<link rel="stylesheet" href="${root}js/poshytip-1.1/src/tip-yellowsimple/tip-yellowsimple.css"  />
+		<script  src="${root}js/poshytip-1.1/src/jquery.poshytip.min.js"></script>
 		<!-- ENDS poshytip -->
 		
 		<!-- JCarousel -->
-		<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
-		<link rel="stylesheet" media="screen" href="css/carousel.css" /> 
+		<script type="text/javascript" src="${root}js/jquery.jcarousel.min.js"></script>
+		<link rel="stylesheet" media="screen" href="${root}css/carousel.css" /> 
 		<!-- ENDS JCarousel -->
 		
 		<!-- GOOGLE FONTS -->
 		<link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
 
 		<!-- modernizr -->
-		<script src="js/modernizr.js"></script>
+		<script src="${root}js/modernizr.js"></script>
 		
 		<!-- SKIN -->
-		<link rel="stylesheet" media="all" href="css/skin.css"/>
+		<link rel="stylesheet" media="all" href="${root}css/skin.css"/>
 		
 		<!-- Less framework -->
-		<link rel="stylesheet" media="all" href="css/lessframework.css"/>
+		<link rel="stylesheet" media="all" href="${root}css/lessframework.css"/>
 		
 		<!-- flexslider -->
-		<link rel="stylesheet" href="css/flexslider.css" >
-		<script src="js/jquery.flexslider.js"></script>
+		<link rel="stylesheet" href="${root}css/flexslider.css" >
+		<script src="${root}js/jquery.flexslider.js"></script>
 		
 		<style type="text/css">
 		.c {
@@ -92,7 +93,7 @@
 				<!-- nav 상단메뉴 -->
 
 					<div id="logo">
-						<a href="./"><img  src="img/logo.png" alt="Simpler"></a>
+						<a href="${root}./"><img  src="${root}img/logo.png" alt="Simpler"></a>
 					</div>
 					
 					<ul id="nav" class="sf-menu">
@@ -100,8 +101,8 @@
 						<li><a href="./blog">상품올리기</a></li>
 						<li><a href="#">카테고리</a>
 							<ul>
-								<li><a href="#" data-filter="*" class="selected">전체보기</a></li>
-								<li><a href="#" data-filter=".web">식품</a></li>
+								<li><a href="#" data-filter="*">전체보기</a></li>
+								<li><a href="#" data-filter=".web"  class="selected">식품</a></li>
 								<li><a href="#" data-filter=".print">KIDS</a></li>
 								<li><a href="#" data-filter=".design">굿즈</a></li>
 								<li><a href="#" data-filter=".photo">반려동물</a></li>
@@ -124,7 +125,7 @@
 					<div class="main-slider-content" >
 					<ul class="sliders-wrap-inner">
 					    <li>
-					          <img src="img/dummies/slides/01.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/01.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>고양이야옹야옹</h4>
 					            <p>고양이는 호랑이가 낳은 새끼입니다.
@@ -134,7 +135,7 @@
 					    </li>
 					    
 					    <li>
-					          <img src="img/dummies/slides/02.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/02.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>2번슬라이더/no.2 slider</h4>
 					            <p>상세문구
@@ -144,7 +145,7 @@
 					    </li>
 					    
 					    <li>
-					          <img src="img/dummies/slides/03.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/03.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>3번슬라이더/no.3 slider</h4>
 					            <p>상세문구
@@ -154,7 +155,7 @@
 					    </li>
 					    
 					    <li>
-					          <img src="img/dummies/slides/04.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/04.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>4번슬라이더/no.4 slider</h4>
 					            <p>상세문구
@@ -164,7 +165,7 @@
 					    </li>
 					    
 					    <li>
-					          <img src="img/dummies/slides/05.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/05.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>5번슬라이더/no.5 slider</h4>
 					            <p>상세문구
@@ -174,7 +175,7 @@
 					    </li>
 					    
 					    <li>
-					          <img src="img/dummies/slides/06.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/06.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>6번슬라이더/no.6 slider</h4>
 					            <p>상세문구
@@ -184,7 +185,7 @@
 					    </li>
 					    
 					    <li>
-					          <img src="img/dummies/slides/07.jpg" title="" alt="alt" />           
+					          <img src="${root}img/dummies/slides/07.jpg" title="" alt="alt" />           
 					          <div class="slider-description">
 					            <h4>7번슬라이더/no.7 slider</h4>
 					            <p>상세문구
@@ -201,13 +202,13 @@
 					<div class="navigator-content">
 					  <div class="navigator-wrapper">
 					        <ul class="navigator-wrap-inner">
-					           <li><img src="img/dummies/slides/01_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/02_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/03_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/04_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/05_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/06_thumb.jpg" alt="alt" /></li>
-					           <li><img src="img/dummies/slides/07_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/01_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/02_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/03_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/04_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/05_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/06_thumb.jpg" alt="alt" /></li>
+					           <li><img src="${root}img/dummies/slides/07_thumb.jpg" alt="alt" /></li>
 					        </ul>
 					  </div>
 					  <div class="button-next">Next</div>
@@ -227,52 +228,41 @@
 	 		
 		
 			<!-- featured -->
-	 <!--  카테고리 잘 되는 것. 	
-	  <form name="f" action="list2" method="post">	
+	 <!--  카테고리 잘 되는 것. -->	
+		                
  		<div class="home-featured">
 		 	<ul id="filter-buttons" class="category">
-		 		<li><a href="#" data-filter="*" class="selected" >전체보기</a></li>
-			<c:if test="${!empty category}">
+	<!--	 		<li><a href="#" data-filter="*" class="selected" >전체보기</a></li>
+	-->		<c:if test="${!empty category}">
 				<c:forEach var="category" items="${category}">
-					<li><a href="/?categoryCode=${category.categoryCode}" onclick="button1_click(${category.categoryCode})">${category.categoryName}</a></li>
-				</c:forEach>	
+				 	<li><a href="category/${category.categoryCode}" data-filter="*" onclick="buttonClick('${category.categoryCode}'); return false" <c:if test="${list eq category.categoryCode}">class="selected"</c:if>>${category.categoryName}</a></li>
+				
+				 	
+		<!-- 		 <li><a href="#" onclick="buttonClick('${category.categoryCode}'); return false" >${category.categoryName}</a></li>
+		 -->		</c:forEach>	
 			</c:if>
 			</ul>
-		</div>			
-		</form>
-	-->
-			<!-- featured -->
- 		<div class="home-featured">
-			<ul id="filter-buttons">
-		<!-- 		<li><a href="#" data-filter="all" class="selected">전체보기</a></li>  -->
-				<li><a href="#" data-filter="food" class="selected">식품</a></li>
-				<li><a href="#" data-filter="kids" >KIDS</a></li>
-				<li><a href="#" data-filter="goods" >굿즈</a></li>
-				<li><a href="#" data-filter="love" >반려동물</a></li>
-			</ul>
-		</div>				
 		
-			
-	 		<article class="post" data-cat="all">
+
+		<script>           
+			function buttonClick(list){
+				location.replace("${root}category/"+list); 
+			}
+		</script>	
+		
+		<div class="list">
+			<article class="post" data-cat="list">
 			<div id="filter-container" class="cf">
-				
-			</div>
-			</article>
-		 	
-		 	<div class="ffood">
-			<article class="post" data-cat="food">
-			<div id="filter-container" class="cf">
-				<c:forEach items="${one}" var="one">
+				<c:forEach items="${all}" var="list">
 	 			<!-- Filter container -->
-					<figure class="food">
-				<a href='detail?rnum=${one.rnum}' background-size:cover class="thumb"><img src="${pageContext.request.contextPath}/${one.image}" width="300" height="180"/></a>
+					<figure class="list">
+				<a href='detail?rnum=${list.rnum}' background-size:cover class="thumb"><img src="${pageContext.request.contextPath}/${list.image}" width="300" height="180"/></a>
 				<figcaption>
 						<h5 class="heading">
 							<span class="font_weight">
-								<a href='detail?rnum=${one.rnum}'>${one.goodsName}</a>
+								<a href='detail?rnum=${list.rnum}'>${list.goodsName}</a>
 							</span>
 						</h5>
-					${one.rnum} 얘도 마찬가지로 글자수 좀 조정해야합니다 자꾸 내려가요 어케하나여?  |  카테고리명 이렇게 넣을까요?
 					<!-- 프로그레스바 -->					
 					<div id="myProgress">
 					  	<div id="myBar"></div>
@@ -280,9 +270,34 @@
 					<div class="period">
 						<div class="p_left">
 							<span class="font_weight">
-							34
+							<c:set var="toDay" value="<%= new java.util.Date() %>" />
+							
+							<fmt:parseDate var="regDate" value="${list.sellEnd}" pattern="yyyy-MM-dd"/>
+		        			<fmt:parseNumber var="nowDays" value="${toDay.time/(1000*60*60*24)}" integerOnly="true"/>
+		        			<fmt:parseNumber var="oldDays" value="${regDate.time/(1000*60*60*24)}" integerOnly="true"/>
+		        			<fmt:parseNumber var="result" value="${(-1)*(nowDays-oldDays)}" integerOnly="true"/>
 							</span>
-							일 남음
+							
+							<c:choose>
+							<c:when test="${result > -1 }">
+							${result}일 남음
+							</c:when>
+							<c:otherwise>
+								<c:set var="progress" value="${list.progress}"/>
+								<c:choose>
+								<c:when test="${progress eq 1 }">
+									<span style="font-weight: bold; color: blue;">
+									공구 성공
+									</span>
+								</c:when>
+								<c:when test="${progress eq 2 }">
+									<span style="font-weight: bold; color: grey;">
+									공구 실패
+									</span>
+								</c:when>
+								</c:choose>
+							</c:otherwise>
+							</c:choose>
 						</div>
 						
 						<div class="p_right">
@@ -295,149 +310,35 @@
 					</c:forEach>
 					</div>
 			</article>
-			</div>
-			
-			<article class="post" data-cat="kids">
-				<div id="filter-container" class="cf">
-				<c:forEach items="${two}" var="two">
-	 			<!-- Filter container -->
-					<figure class="kids">
-				<a href='detail?rnum=${two.rnum}' background-size:cover class="thumb"><img src="${pageContext.request.contextPath}/${two.image}" width="300" height="180"/></a>
-				<figcaption>
-						<h5 class="heading">
-							<span class="font_weight">
-								<a href='detail?rnum=${two.rnum}'>${two.goodsName}</a>
-							</span>
-						</h5>
-					${two.rnum} 얘도 마찬가지로 글자수 좀 조정해야합니다 자꾸 내려가요 어케하나여?  |  카테고리명 이렇게 넣을까요?
-					<!-- 프로그레스바 -->					
-					<div id="myProgress">
-					  	<div id="myBar"></div>
-					</div>
-					<div class="period">
-						<div class="p_left">
-							<span class="font_weight">
-							34
-							</span>
-							일 남음
-						</div>
-						
-						<div class="p_right">
-							<span class="font_weight">5,693,000 원</span>
-							<span class="font_percent">600%</span>
-						</div>
-					</div>
-				</figcaption>
-					</figure>
-					</c:forEach>
-					</div>
-			</article>
-			
-			<article class="post" data-cat="goods">
-			<div id="filter-container" class="cf">
-				<c:forEach items="${three}" var="three">
-	 			<!-- Filter container -->
-					<figure class="goods">
-				<a href='detail?rnum=${three.rnum}' background-size:cover class="thumb"><img src="${pageContext.request.contextPath}/${three.image}" width="300" height="180"/></a>
-				<figcaption>
-						<h5 class="heading">
-							<span class="font_weight">
-								<a href='detail?rnum=${three.rnum}'>${three.goodsName}</a>
-							</span>
-						</h5>
-					${three.rnum} 얘도 마찬가지로 글자수 좀 조정해야합니다 자꾸 내려가요 어케하나여?  |  카테고리명 이렇게 넣을까요?
-					<!-- 프로그레스바 -->					
-					<div id="myProgress">
-					  	<div id="myBar"></div>
-					</div>
-					<div class="period">
-						<div class="p_left">
-							<span class="font_weight">
-							34
-							</span>
-							일 남음
-						</div>
-						
-						<div class="p_right">
-							<span class="font_weight">5,693,000 원</span>
-							<span class="font_percent">600%</span>
-						</div>
-					</div>
-				</figcaption>
-					</figure>
-					</c:forEach>
-					</div>
-			</article>
-			
-			<article class="post" data-cat="love">
-			<div id="filter-container" class="cf">
-				<c:forEach items="${four}" var="four">
-	 			<!-- Filter container -->
-				
-					<figure class="love">
-				<a href='detail?rnum=${four.rnum}' background-size:cover class="thumb"><img src="${pageContext.request.contextPath}/${four.image}" width="300" height="180"/></a>
-				<figcaption>
-						<h5 class="heading">
-							<span class="font_weight">
-								<a href='detail?rnum=${four.rnum}'>${four.goodsName}</a>
-							</span>
-						</h5>
-					${four.rnum} 얘도 마찬가지로 글자수 좀 조정해야합니다 자꾸 내려가요 어케하나여?  |  카테고리명 이렇게 넣을까요?
-					<!-- 프로그레스바 -->					
-					<div id="myProgress">
-					  	<div id="myBar"></div>
-					</div>
-					<div class="period">
-						<div class="p_left">
-							<span class="font_weight">
-							34
-							</span>
-							일 남음
-						</div>
-						
-						<div class="p_right">
-							<span class="font_weight">5,693,000 원</span>
-							<span class="font_percent">600%</span>
-						</div>
-					</div>
-				</figcaption>
-					</figure>
-					
-					
-					</c:forEach>
-					</div>
-			</article>
-			
-			<script>
-			var posts = $('.post');
-			posts.hide()
-			
-			
-			    
-			    $('#filter-buttons li a').click(function(){
-					var customType = $(this).data('filter');
-					
-					posts
-						.hide()
-						.filter(function(){
-							return $(this).data('cat') === customType;
-						})
-						.show();
-				})
-			    
-			
-			</script>
-			
-			
+			</div> 
+		
+		</div>			
+			<!-- 페이징 -->	 
+			<ul class="btn-group pagination">
+			    <c:if test="${pageMaker.prev }">
+			    <li>
+			        <a href='<c:url value="/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+			    </li>
+			    </c:if>
+			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="rnum">
+			    <li>
+			        <a href='<c:url value="/?page=${rnum}"/>'><i class="fa">${rnum}</i></a>
+			    </li>
+			    </c:forEach>
+			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    <li>
+			        <a href='<c:url value="/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+			    </li>
+			    </c:if>
+			</ul>
+		
 				
 			<!-- ENDS featured -->
-				
-			
-			
-			
 			
 			</div><!-- ENDS WRAPPER -->
 		</div>
+		
+		
 		<!-- ENDS MAIN -->
 		
 		

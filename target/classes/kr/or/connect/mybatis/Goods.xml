@@ -12,45 +12,65 @@
 		<result	property="deliveryCharge" column="DELIVERYCHARGE"/>
 		<result	property="sellStart" column="SELLSTART"/>
 		<result	property="sellEnd" column="SELLEND"/>
+		<result	property="period" column="PERIOD"/>
 		<result	property="goalNum" column="GOALNUM"/>
 		<result	property="content" column="CONTENT"/>
-		<result	property="summary" column="SUMMARY"/>
 		<result	property="sellNum" column="SELLNUM"/>
-		<result	property="successTf" column="SUCCESSTF"/>
 		<result	property="progress" column="progress"/>
 		<result	property="id" column="ID"/>
 		<result	property="image" column="IMAGE"/>
 	</resultMap>
  
-	<select id="selectAllGoods" resultType="GOODS">
-		SELECT rnum, summary, price, goalNum, goodsName, categoryCode,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf, progress
-		FROM goods
+	<select id="selectAllGoods" resultType="hashmap" parameterType="hashmap">
+		<![CDATA[
+        SELECT
+            *
+        FROM
+            goods
+        ORDER BY rnum DESC
+        LIMIT #{pageStart}, #{perPageNum}
+    	]]>
+	</select>
+	<!--	
+	<select id="selectPaging" parameterType="HashMap" resultType="Goods">
+		SELECT *
+		FROM ( SELECT ROWNUM RN, P.* 
+			FROM( SELECT *
+				FROM GOODS
+				ORDER BY SEQ DESC) P)
+		WHERE RN BETWEEN #{start} AND #{limt}
+	</select>
+ -->	
+ 	<select id="selectCategory" resultType="GOODS">
+		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
+		FROM goods A, category B
+		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = #{categoryCode}
 		ORDER BY rnum DESC 
 	</select>
-	 
+	
 	<select id="selectCategoryOne" resultType="GOODS">
-		SELECT rnum, summary, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf, progress
+		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate100'
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryTwo" resultType="GOODS">
-		SELECT rnum, summary, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf, progress
+		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate200'
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryThree" resultType="GOODS">
-		SELECT rnum, summary, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf, progress
+		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate300'
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryFour" resultType="GOODS">
-		SELECT rnum, summary, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart,  content, sellNum, image, successTf, progress
+		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate400'
 		ORDER BY rnum DESC 
@@ -62,27 +82,20 @@
 	</select>
 
 	<insert id="insertGoods" parameterType="GOODS">
-		INSERT into goods values (#{rnum}, #{dealCode}, #{categoryCode}, #{goodsName}, #{price}, ${deliveryCharge}, NOW(), #{sellEnd}, #{goalNum}, #{content}, #{summary}, #{sellNum}, #{successTf}, #{progress}, #{id}, #{image});
+		INSERT into goods values (#{rnum}, #{dealCode}, #{categoryCode}, #{goodsName}, #{price}, ${deliveryCharge}, NOW(), #{sellEnd}, #{period}, #{goalNum}, #{content}, #{sellNum}, #{progress}, #{id}, #{image});
 	</insert>
 		
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="Integer">
 		DELETE FROM goods WHERE dealCode=#{dealCode} 
 	</delete>
 	
 	
 	<!-- paging관련 -->
-	<!-- 
-	<select id="selectCount" resultType="int">
-		SELECT count(*) FROM goods;
+	<!-- 전체 데이터 개수 -->
+	<select id="totalCount" resultType="Integer">
+		<![CDATA[ 
+			SELECT count(*) FROM goods;
+		]]>
 	</select>
-	
-	<select id="selectPaging" parameterType="HashMap" resultType="Goods">
-		SELECT *
-		FROM ( SELECT ROWNUM RN, P.* 
-			FROM( SELECT *
-				FROM GOODS
-				ORDER BY SEQ DESC) P)
-		WHERE RN BETWEEN #{start} AND #{limt}
-	</select>
- -->	
+
 </mapper>

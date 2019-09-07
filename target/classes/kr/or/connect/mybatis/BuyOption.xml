@@ -6,8 +6,6 @@
 	<resultMap type="BuyOption" id="buyOptionResult">
 		<result property="buyOptionCode" column="BUYOPTIONCODE"></result>
 		<result property="rnum" column="RNUM"></result>
-		<result property="dealCode" column="DEALCODE"></result>
-		<result property="categoryCode" column="CATEGORYCODE"></result>
 		<result property="optionName" column="OPTIONNAME"></result>
 		<result property="optionPrice" column="OPTIONPRICE"></result>
 	</resultMap>
@@ -15,11 +13,21 @@
 	<select id="selectAllBuyOption" resultType="BuyOption">
 		SELECT * FROM buyOption ORDER BY buyOptionCode desc
 	</select>
-	
-	<select id="selectOne" resultType="BuyOption">
-		SELECT optionName, optionPrice FROM buyOption WHERE buyOptionCode =#{buyOptionCode}
+ 	
+	<select id="selectOneBuyOption" resultType="BuyOption" parameterType="int">
+		SELECT buyOptionCode, B.rnum, optionName, optionPrice 
+		FROM buyOption A, goods B
+		WHERE A.rnum = B.rnum AND B.rnum =#{rnum}
+		ORDER BY buyOptionCode desc
 	</select>
-	
+<!--
+	<select id="selectOneBuyOption" resultType="BuyOption" parameterType="int">
+		SELECT optionName, optionPrice 
+		FROM buyOption
+		WHERE rnum = #{rnum} 
+		ORDER BY buyOptionCode desc
+	</select>
+-->	
 	<insert id="insertBuyOption" parameterType="BuyOption">
 		INSERT INTO buyOption(buyOptionCode, optionName, optionPrice, rnum) VALUES(#{buyOptionCode}, #{optionName}, #{optionPrice}, #{rnum})
 	</insert>
