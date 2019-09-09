@@ -31,6 +31,10 @@
         LIMIT #{pageStart}, #{perPageNum}
     	]]>
 	</select>
+	
+	<select id="optionGoods" resultType="Goods">
+		select * from goods;
+	</select>
 	<!--	
 	<select id="selectPaging" parameterType="HashMap" resultType="Goods">
 		SELECT *

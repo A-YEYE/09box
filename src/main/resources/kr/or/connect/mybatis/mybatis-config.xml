@@ -21,6 +21,7 @@
 		<mapper resource="kr/or/connect/mybatis/Goods.xml" />	
 		<mapper resource="kr/or/connect/mybatis/Category.xml" />
 		<mapper resource="kr/or/connect/mybatis/BuyOption.xml" />
+		<mapper resource="kr/or/connect/mybatis/Deal.xml" />
 	</mappers>
 <!-- 
 	<mappers>

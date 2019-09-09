@@ -49,6 +49,13 @@ public class GoodsDaoImpl implements GoodsDao{
 		return list;
 	}
 	
+	@Override
+	public List<Goods> select() {
+		List<Goods> list2 = sqlSession.selectList(ns+".optionGoods");
+		
+		return list2;
+	}
+	
 //	@Override
 //	public List<Goods> selectCategoryOne(Map map) {
 //		List<Goods> list = sqlSession.selectList(ns+".selectCategoryOne", map);

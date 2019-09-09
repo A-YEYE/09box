@@ -17,5 +17,6 @@ public interface GoodsDao {
 //	List<Goods> selectCategoryFour(Map map);
 	void insert(Goods goods);
 	Goods selectOne(int rnum);
+	List<Goods> select();
 	public int totalCount();
 }

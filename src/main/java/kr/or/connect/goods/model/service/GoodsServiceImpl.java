@@ -83,6 +83,13 @@ public class GoodsServiceImpl implements GoodsService {
 	public int totalcount() {
 		return goodsDao.totalCount();
 	}
+
+	@Override
+	public List<Goods> optionSelect() {
+		List<Goods> list2 = goodsDao.select();
+		
+		return list2;
+	}
 	
 	
 }

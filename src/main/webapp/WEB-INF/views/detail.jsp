@@ -16,8 +16,6 @@
 		<link rel="stylesheet" media="all" href="css/style.css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->		
-		<!-- Modal--> 
-		<script src="css/blog.css"></script>
 		
 		<!-- JS -->
 		<script src="js/jquery-1.7.1.min.js"></script>
@@ -236,7 +234,7 @@
 		        		<!-- 추가 -->
 						<!-- Trigger/Open The Modal -->
 					    <button id="myBtn" style="font-size: 20px; padding: 10px 50px; margin: 1em auto;">옵션 선택</button>
-					 	<form id="saleForm" action="sale.do" method="post">
+					 	<form id="saleForm" action="sale" method="post">
 					    <!-- The Modal -->
 					    <div id="myModal" class="modal" style="display: none; /* Hidden by default */
 											            position: fixed; /* Stay in place */
@@ -265,26 +263,30 @@
 					        <script language="javascript">
 							    var liRowIdx = 0;
 							    const set = new Set();
-							    
+							            
 							    function myListener(obj){
-							    	var now = $("#selectOption option").index($("#selectOption option:selected"));	// 현재 선택한 리스트
-							        var num = $("#dyntbl1 tr").find('input[id="num"]').val();	// 상품 코드 값
+							//    	var now = $("#selectOption option").index($("#selectOption option:selected"));	// 현재 선택한 리스트 / 필요없어짐
 							        var listCount = $("#selectOption option").size();	// listbox 전체 데이터 수
 							       
-									var name = $("#selectOption option:selected").text();	// 선택한 값 text(상품명) / 가격은 안나옴.
+									//var name = $("#selectOption option:selected").text();	// 선택한 값 text(상품명) / 가격은 안나옴.
+									
 							    	var baseprice = obj.value;	// 선택한 값 value(가격) / 변하면 안됨
 									var price = obj.value;	// 선택한 값 value(가격) / 옵션별 가격 용
 									var langSelect = document.getElementById("selectOption");
-									var num = langSelect.options[langSelect.selectedIndex].id;	// 선택한 값 id(상품코드)
-							//		var name = langSelect.options[langSelect.selectedIndex].val;	// 선택한 값 text(상품명)
-								
+									var num = langSelect.options[langSelect.selectedIndex].id;	// 선택한 값 id(옵션코드)
+									var name = langSelect.options[langSelect.selectedIndex].text;	// 선택한 값 text(상품명) / 가격까지 출력
+									var rnum = obj.options[obj.options.selectedIndex].getAttribute("name");	// 선택한 값 id(상품코드)
+									//var rnum = $("select[rnum=NAME]").val();
+									
+									rnum = Number(rnum);
+									
 							       	for(var i=0; i<(set.size)+1; i++){
-							       		if(set.has(now)){
+							       		if(set.has(num)){
 							       		//	alert("이미 선택한 옵션입니다.");
 							       			
 							       		}else{
-							       			set.add(now);
-							       			success(name, baseprice, price, num);
+							       			set.add(num);
+							       			success(name, baseprice, price, num, rnum);
 							       		}
 							       	}
 							       	
@@ -294,7 +296,7 @@
 							    
 							    // Row 추가.
 							    //$("#selectOption").change(function()
-							    function success(name, baseprice, price, num)
+							    function success(name, baseprice, price, num, rnum)
 							   {      	
 							    	var oRow = document.all.dyntbl1.insertRow();
 							 		
@@ -309,14 +311,16 @@
 							        var oCell6 = oRow.insertCell();
 							        var oCell7 = oRow.insertCell();
 							        var oCell8 = oRow.insertCell();
-							        oCell1.innerHTML = "<input type=text id=\"num\" style=\display:none\ value="+ num +">";
-							        oCell2.innerHTML = "<input type=text value="+ name +">";
+							        var oCell9 = oRow.insertCell();
+							        oCell1.innerHTML = "<input type=text name=item_index id=\"num\" style=\display:none\ value="+ num +">"; // option_code
+							        oCell2.innerHTML = "<input type=text name=item_name value="+ name +">";	// option_name
 							        oCell3.innerHTML = "<button class=mybtn2 type=button onClick=\"minusCount()\" name=buytable_minusCount><i class=\"fas fa-minus\"></i></button>";
-							        oCell4.innerHTML = "<input type = number id=\"count\" name=option_count value=0>";
+							        oCell4.innerHTML = "<input type = number name=option_count id=\"count\" value=0>";	// option_count
 							        oCell5.innerHTML = "<button class=mybtn2 type=button onClick=\"plusCount()\" name=buytable_plusCount><i class=\"fas fa-plus\"></i></button>";
-							        oCell6.innerHTML = "<input type = number id=\"price\" value="+ (price-price) +">";
+							        oCell6.innerHTML = "<input type = number name=item_price id=\"price\" value="+ (price-price) +">";	// option_price_total
 							        oCell7.innerHTML = "<button class=mybtn2 type=button onClick=\"delRow()\" name=buytable_deleteRow><i class=\"fas fa-times\" ></i></button>";
-							        oCell8.innerHTML = "<input type = number style=\display:none\ id=\"base_price\" value="+ baseprice +">";
+							        oCell8.innerHTML = "<input type = number name=base_price style=\display:none\ id=\"base_price\" value="+ baseprice +">";	// option_price_base
+							        oCell9.innerHTML = "<input type = number name=rnum style=\display:none\ id=\"rnum\" value="+ rnum +">";	// 상품코드
 							        
 							        // RowIndex는 자동으로 재설정 된다는 것을 보여 주기 위한 함수 호출.
 							        fncReOrderByTdRowIndex();
@@ -366,10 +370,14 @@
 							    // Row 삭제.
 							   function delRow() 
 							  {
+								   var num = $("#dyntbl1 tr").find('input[id="num"]').val();	// 상품 코드 값
+							       set.delete(num);
+								          
 							       // table에서 지정한 줄(tr)을 rows 컬렉션에서 삭제한다.
 							       document.all.dyntbl1.deleteRow(dyntbl1.clickedRowIndex);
 							    	
 							       var total_price = $( 'input#total_price' ).val(0);
+							       
 							       
 							       // Row 삭제후 RowIndex의 변화를 보여주기 위해 호출.
 							       fncReOrderByTdRowIndex();
@@ -414,7 +422,8 @@
 										border: 1px solid #ccc; border-radius: 4px;" onchange="javascript:myListener(this);">
 							<option value="">선택하세요</option>
 								<c:forEach var="buyOption" items="${buyOption}">
-									<option id="${buyOption.buyOptionCode}" value="${buyOption.optionPrice}" name="${buyOption.optionName}">${buyOption.optionName}  (￦ ${buyOption.optionPrice})</option>
+									<option id="${buyOption.buyOptionCode}" value="${buyOption.optionPrice}" name="${buyOption.rnum}">${buyOption.optionName}  (￦ ${buyOption.optionPrice})</option>
+									
 								</c:forEach>
 							</select>
 								<br>
@@ -433,7 +442,7 @@
 							<br>
 							<div class="total_price"><input type="number" class="total_price" id="total_price" value="0" readonly style="width:95%; height:30px; size=15px; text-align:right"> 원</div>
 						<div class="modal-footer">
-						<button class="btn-2" style="font-size: 15px; padding: 10px 50px; margin: 1em auto;">구매하기</button>
+						<button type="submit" class="btn-2" style="font-size: 15px; padding: 10px 50px; margin: 1em auto;">구매하기</button>
 						</div>
 						<style>
 						

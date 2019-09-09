@@ -19,4 +19,5 @@ public interface GoodsService {
 //	List<Goods> selectCategoryThree(Map map);
 //	List<Goods> selectCategoryFour(Map map);
 	int totalcount();
+	List<Goods> optionSelect();
 }

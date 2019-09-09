@@ -4,19 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.connect.mybatis.Deal">
 	<resultMap type="Deal" id="dealResult">
-		<result property="dealCode" column="DEAL_CODE"/>
+		<result property="dealCode" column="DEALCODE"/>
 		<result property="id" column ="ID"/>
-		<result property="dealDate" column ="DEAL_DATE"/>
-		<result property="deliveryCharge" column ="DELIVERY_CHARGE"/>
-		<result property="totalCost" column ="TOTAL_COST"/>
+		<result property="dealDate" column ="DEALDATE"/>
+		<result property="deliveryCharge" column ="DELIVERYCHARGE"/>
+		<result property="totalPrice" column ="TOTALPrice"/>
 	</resultMap>
-	
+<!-- 	
 	<select id="selectOne" resultType="Deal">
 		SELECT goodsName, price, deliveryCharge, tatalCost, name, C.phon, addr2, addr3, addr1
 		FROM member A, deal B, goods C
 		WHERE A.id = B.id
 		AND B.deal_code = C.deal_code;
 	</select>
-	
+ -->	
+ 	<select id="selectOne" resultType="Deal" parameterType="long">
+       select * from Deal where dealCode=#{dealCode}
+  	</select>
+  	
+  	<insert id="insertDeal" parameterType="Deal">
+  		INSERT INTO deal VALUES (#{dealCode}, #{id}, #{dealDate}, #{deliveryCharge}, #{totalPrice})
+  	</insert>
 	
 </mapper>
