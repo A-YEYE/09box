@@ -27,8 +27,8 @@
     </logger>    
 
   	<root>
-		<level value="INFO" />
-		<appender-ref ref="INFO" />
+		<level value="DEBUG" />
+		<appender-ref ref="DEBUG" />
 	</root>
 
 </configuration>

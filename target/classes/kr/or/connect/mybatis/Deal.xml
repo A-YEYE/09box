@@ -9,6 +9,7 @@
 		<result property="dealDate" column ="DEALDATE"/>
 		<result property="deliveryCharge" column ="DELIVERYCHARGE"/>
 		<result property="totalPrice" column ="TOTALPrice"/>
+		<result property="successTf" column ="successTf"/>
 	</resultMap>
 <!-- 	
 	<select id="selectOne" resultType="Deal">
@@ -23,7 +24,11 @@
   	</select>
   	
   	<insert id="insertDeal" parameterType="Deal">
-  		INSERT INTO deal VALUES (#{dealCode}, #{id}, #{dealDate}, #{deliveryCharge}, #{totalPrice})
+  		INSERT INTO deal VALUES (#{dealCode}, #{id}, #{dealDate}, #{deliveryCharge}, #{totalPrice}, #{successTf})
   	</insert>
+  	
+  	<delete id="deleteDeal" parameterType="Integer">
+  		DELETE FROM deal WHERE dealCode=#{dealCode}
+  	</delete>
 	
 </mapper>

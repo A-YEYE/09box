@@ -80,13 +80,12 @@ public class GoodsController {
 				
 		goodsService.insert(goods);		
 //		System.out.println(goods);
-//		List<Goods> list2 = goodsService.selectAll();
-//		for(Goods g : list2) System.out.println("for문: " + g.getRnum());
-		
-//		System.out.println("for문 뒤에: " + goods.getRnum());
+
 		List<Goods> list2 = goodsService.optionSelect();
 		Goods end = list2.get(list2.size()-1);	// list2의 마지막 값 구하기
+		
 		saveBuyOption(itemcode, itemname, end.getRnum());
+//		System.out.println("goods.getRnum(): " + goods.getRnum());
 		return "redirect:/";
 	}
 
@@ -190,12 +189,13 @@ public class GoodsController {
 			if(totalPrice > deliveryCharge) {
 				deliveryCharge = 0;
 			}else {
-				deliveryCharge = deliveryCharge;
+				deliveryCharge = 2500;
 			}
 		}
 		
 		mv.addObject("deliveryCharge", deliveryCharge);
 		mv.addObject("totalPrice", totalPrice);
+		mv.addObject("rnum", rnum);
 		
 		
 		return mv;

@@ -20,4 +20,5 @@ public interface GoodsService {
 //	List<Goods> selectCategoryFour(Map map);
 	int totalcount();
 	List<Goods> optionSelect();
+	void updqteSellNum(Goods goods);
 }

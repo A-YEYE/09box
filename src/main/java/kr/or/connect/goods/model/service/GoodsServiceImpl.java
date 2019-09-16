@@ -90,6 +90,11 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return list2;
 	}
+
+	@Override
+	public void updqteSellNum(Goods goods) {
+		goodsDao.updateSellNum(goods);
+	}
 	
 	
 }

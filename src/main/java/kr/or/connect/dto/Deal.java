@@ -8,7 +8,14 @@ public class Deal {
 	private Date dealDate;
 	private int deliveryCharge;
 	private int totalCost;
+	private String successTf;
 	
+	public String getSuccessTf() {
+		return successTf;
+	}
+	public void setSuccessTf(String successTf) {
+		this.successTf = successTf;
+	}
 	public String getDealCode() {
 		return dealCode;
 	}
@@ -39,10 +46,9 @@ public class Deal {
 	public void setTotalCost(int totalCost) {
 		this.totalCost = totalCost;
 	}
-	
 	@Override
 	public String toString() {
 		return "Deal [dealCode=" + dealCode + ", id=" + id + ", dealDate=" + dealDate + ", deliveryCharge="
-				+ deliveryCharge + ", totalCost=" + totalCost + "]";
+				+ deliveryCharge + ", totalCost=" + totalCost + ", successTf=" + successTf + "]";
 	}
 }

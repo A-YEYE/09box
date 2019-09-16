@@ -93,7 +93,7 @@
 				<!-- nav 상단메뉴 -->
 
 					<div id="logo">
-						<a href="${root}./"><img  src="${root}img/logo.png" alt="Simpler"></a>
+						<a href="${root}./"><img  src="${root}img/gonggu_logo.png" alt="Simpler"></a>
 					</div>
 					
 					<ul id="nav" class="sf-menu">
@@ -109,7 +109,7 @@
 							</ul>
 						</li>
 						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
-						<li><a href="contact.do">회원가입/로그인</a></li>
+						<li><a href="./login">회원가입/로그인</a></li>
 					</ul>
 					<div id="combo-holder"></div>
 

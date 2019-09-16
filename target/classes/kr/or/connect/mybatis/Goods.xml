@@ -20,7 +20,7 @@
 		<result	property="id" column="ID"/>
 		<result	property="image" column="IMAGE"/>
 	</resultMap>
- 
+ 	
 	<select id="selectAllGoods" resultType="hashmap" parameterType="hashmap">
 		<![CDATA[
         SELECT
@@ -93,6 +93,9 @@
 		DELETE FROM goods WHERE dealCode=#{dealCode} 
 	</delete>
 	
+	<update id="sellNumupdate" parameterType="Goods" >
+		UPDATE goods SET sellNum = #{sellNum} where rnum = #{rnum}
+	</update>
 	
 	<!-- paging관련 -->
 	<!-- 전체 데이터 개수 -->

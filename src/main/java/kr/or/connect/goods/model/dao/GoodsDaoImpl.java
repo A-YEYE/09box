@@ -18,7 +18,6 @@ public class GoodsDaoImpl implements GoodsDao{
 	String ns = "kr.or.connect.mybatis.goods";
 //	private RowMapper<Goods> rowMapper = BeanPropertyRowMapper.newInstance(Goods.class);
 	
-
 	@Override
 	public void insert(Goods goods) {
 		sqlSession.insert(ns+".insertGoods", goods);
@@ -113,6 +112,12 @@ public class GoodsDaoImpl implements GoodsDao{
 	@Override
 	public int totalCount() {
 		return (Integer)sqlSession.selectOne(ns+".totalCount");
+	}
+
+	@Override
+	public void updateSellNum(Goods goods) {
+		sqlSession.update(ns+".sellNumupdate", goods);
+		
 	}
 	
 //	@Override

@@ -19,4 +19,5 @@ public interface GoodsDao {
 	Goods selectOne(int rnum);
 	List<Goods> select();
 	public int totalCount();
+	void updateSellNum(Goods goods);
 }

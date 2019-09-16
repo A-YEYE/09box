@@ -164,7 +164,7 @@
 				<p><h3>주문 확인</h3></p>
 				<!-- form -->
 				<script type="text/javascript" src="js/form-validation.js"></script>
-				<form id="contactForm" action="#" method="post">
+				<form id="contactForm" action="paySuccess" method="post">
 					<fieldset>
 					<!-- 주문확인 테이블 -->
 					
@@ -185,10 +185,9 @@
 				                    <c:forEach items="${optionList}" var="optionList">
 				                        <tr>
 				                            <td style="text-align:left"><input name="buyOptionCode"type="hidden" value="${optionList.buyOptionCode}">${optionList.optionName}</td>
-				                            <td>${optionList.optionCount}개</td>
+				                            <td><input name="optionCount"type="hidden" value="${optionList.optionCount}">${optionList.optionCount}개</td>
 				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${optionList.optionPrice}" />원</td>
-				                           
-				                        </tr>
+				                       </tr>
 				                    </c:forEach>  
 				                    </tbody>
 				         </table>   
@@ -205,24 +204,29 @@
 				                    </thead>
 				                    <tbody>
 				                        <tr>
-				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${totalPrice}" /></td>
+				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${totalPrice}" /></td>	<!-- 선택상품수량 * 가격 -->
 				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${deliveryCharge}" />원</td>
 				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${totalPrice+deliveryCharge}" />원</td>
 				                        </tr>  
 				                    </tbody>
 				         </table>   
+				         <p>
+							<input type="hidden" name="totalPrice" value="${totalPrice+deliveryCharge}">
+							<input type="hidden" name="payDeliveryCharge" value="${deliveryCharge}">
+							<input type="hidden" name="rnum" value="${rnum}">
+							<input type="hidden" name="imp_uid" id="imp_uid">
+						</p>
 						</div>
 					</div>  				
 						<p><h3>구매자 정보</h3></p>		    			
 						
-						
+						     
 						<input name="name"  id="name" type="text" class="form-poshytip" placeholder="이름" />
-						<input name="phone"  id="phone" type="text" class="form-poshytip" placeholder="핸드폰 번호" />
-						<input type="text" id="sample6_postcode" placeholder="우편번호">
-						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample6_address" placeholder="주소"><br>
-						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+						<input name="phone"  id="phone" type="text" class="form-poshytip" placeholder="핸드폰 번호" /><br>
+						<input type="text" id="postCode" name="postCode" style="width:40%" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly>
+						<input type="button" onclick="sample6_execDaumPostcode()" style="width:10%" value="우편번호 찾기"><br>
+						<input type="text" id="address" name="address" placeholder="주소"><br>
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">   
 						
 						<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 						<script>
@@ -259,62 +263,98 @@
 						                        extraAddr = ' (' + extraAddr + ')';
 						                    }
 						                    // 조합된 참고항목을 해당 필드에 넣는다.
-						                    document.getElementById("sample6_extraAddress").value = extraAddr;
+						                    document.getElementById("detailAddress").value = extraAddr;
 						                
 						                } else {
-						                    document.getElementById("sample6_extraAddress").value = '';
+						                    document.getElementById("detailAddress").value = '';
 						                }
 						
 						                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-						                document.getElementById('sample6_postcode').value = data.zonecode;
-						                document.getElementById("sample6_address").value = addr;
+						                document.getElementById('postCode').value = data.zonecode;
+						                document.getElementById("address").value = addr;
 						                // 커서를 상세주소 필드로 이동한다.
-						                document.getElementById("sample6_detailAddress").focus();
+						                document.getElementById("detailAddress").focus();
 						            }
 						        }).open();
 						    }
 						</script>						
-						<button type="button" onclick="requestPay()" style="background-color:white;margin-left:25%;margin-right:25%;text-align: center;width:50%;color:black;font-size: 18px;padding: 10px;vertical-align: middle;" />
+						<button type="button" onclick="requestPay()" style="background-color:white;margin-left:25%;margin-right:25%;text-align: center;width:50%;color:black;font-size: 18px;padding: 10px;vertical-align: middle;" >
 							<i class="fas fa-comment" style="color:black;"></i> kakaoPAY
 						</button>
 						<script>
 						function requestPay() {
-						var IMP = window.IMP; // 생략가능
-						   IMP.init('imp02414568');  // 가맹점 식별 코드
-
+							// 결제완료 후 보여줄 내용들. 필수 값 체크
+							var name = $('#name').val();
+							var phone = $('#phone').val();
+							var postCode = $('#postCode').val();
+							var address = $('#address').val();
+							var detailAddress = $('#detailAddress').val();
+							if(name ==  "") { alert("이름을 입력하세요"); return;}
+							if(phone ==  "") { alert("핸드폰 번호를 입력하세요"); return; }
+							if(postCode ==  "") { alert("우편주소를 선택하세요"); return; }
+							
+							var IMP = window.IMP; // 생략가능
+						    IMP.init('imp02414568');  // 가맹점 식별 코드
 						   IMP.request_pay({
-						      pg : 'kakao', // 결제방식
+						       pg : 'kakao', // 결제방식
 						       pay_method : 'card',	// 결제 수단
 						       merchant_uid : 'merchant_' + new Date().getTime(),
-						      name : '주문명: 결제 테스트',	// order 테이블에 들어갈 주문명 혹은 주문 번호
+						       name : '주문명: 결제 테스트',	// order 테이블에 들어갈 주문명 혹은 주문 번호
 						       amount : ${totalPrice+deliveryCharge},	// 결제 금액
 						       buyer_email : '',	// 구매자 email
-						      buyer_name :  '',	// 구매자 이름
-						       buyer_tel :  '',	// 구매자 전화번호
-						       buyer_addr :  '',	// 구매자 주소
-						       buyer_postcode :  '',	// 구매자 우편번호
-						       m_redirect_url : '/khx/payEnd.action'	// 결제 완료 후 보낼 컨트롤러의 메소드명
+						       buyer_name :  $('#name').val(),	// 구매자 이름
+						       buyer_tel :  $('#phone').val(),	// 구매자 전화번호
+						//       buyer_addr :  $('#address').val() + $('#detailAddress').val(),	// 구매자 주소
+						       buyer_postcode :  $('#postCode').val(),	// 구매자 우편번호
+						       kakaoOpenApp : true
+						      // m_redirect_url : "http://localhost:8080/09box/payments/complete"	// "/payments/complete", // 결제 완료 후 보낼 컨트롤러의 메소드명
 						   }, function(rsp) {
 							if ( rsp.success ) { // 성공시
-								var msg = '결제가 완료되었습니다.';
-								msg += '고유ID : ' + rsp.imp_uid;
-								msg += '상점 거래ID : ' + rsp.merchant_uid;
-								msg += '결제 금액 : ' + rsp.paid_amount;
-								msg += '카드 승인번호 : ' + rsp.apply_num;
-							} else { // 실패시
-								var msg = '결제에 실패하였습니다.';
-								msg += '에러내용 : ' + rsp.error_msg;
-							}
-						});
+								//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+						    	jQuery.ajax({
+						    		url: "payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+									// var msg = '결제가 완료되었습니다.';
+							    	type: 'POST',
+						    		dataType: 'json',
+						    		data: {
+							    		imp_uid : rsp.imp_uid
+							    //		merchant_uid: rsp.merchant_uid
+							    		//기타 필요한 데이터가 있으면 추가 전달
+						    		}
+						    	}).done(function(data) {
+						    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+						    		if ( data != null ) {
+						    			var msg = '결제가 완료되었습니다.';
+						    			msg += '\n고유ID : ' + rsp.imp_uid;
+						    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+						    			msg += '\결제 금액 : ' + rsp.paid_amount;
+						    			msg += '카드 승인번호 : ' + rsp.apply_num;
+						    			
+						    			alert(msg);
+						    			payOk(rsp.imp_uid);
+						    		} else {
+						    			//[3] 아직 제대로 결제가 되지 않았습니다.
+						    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+						    		}
+						    	});
+						    } else {
+						        var msg = '결제에 실패하였습니다.';
+						        msg += '에러내용 : ' + rsp.error_msg;
+						      //실패시 이동할 페이지
+				                location.href="<%=request.getContextPath()%>/payFail";
+						        alert(msg);
+						    }
+						})};
+						function payOk(imp_uid){
+							$("#imp_uid").val(imp_uid);
+							$("#contactForm").submit();
+						}
+						function payFail(imp_uid){
+							$("#imp_uid").val(imp_uid);
+							$("#contactForm").submit();
 						}
 						</script>					
-						<!-- send mail configuration -->
-						<input type="hidden" value="your@email.com" name="to" id="to" />
-						<input type="hidden" value="ENter the subject here" name="subject" id="subject" />
-						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
-						<!-- ENDS send mail configuration -->
 						
-						<p><input type="button" value="Send" name="submit" id="submit" /> <span id="error" class="warning">Message</span></p>
 					</fieldset>
 					
 				</form>

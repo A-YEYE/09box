@@ -86,7 +86,7 @@ public class HomeController {
 	
 //	@RequestMapping(value="/")
 	@GetMapping(path="category/{categoryCode}")
-	public ModelAndView search(@PathVariable(name="categoryCode")String categoryCode) {
+	public ModelAndView search(@PathVariable(value="categoryCode")String categoryCode) {
 		// 선택된 카테고리(list) 
 		List<Goods> list = goodsService.selectCategory(categoryCode);
 

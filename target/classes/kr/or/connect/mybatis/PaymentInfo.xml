@@ -4,16 +4,48 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="kr.or.connect.paymentInfo">
   	<resultMap type="PaymentInfo" id="paymentInfoResult">
-  		<result property="paymentInfoCode" column="PAYMENT_INFO_CODE"/>	
-  		<result property="dealCode" column="DEAL_CODE"/>
-  		<result property="paymentTf" column="PAYMENT_TF"/>
-  		<result property="dealDate" column="DEAL_DATE"/>
+  		<result property="dealCode" column="dealCode"/>
+  		<result property="payOptionCode" column ="payOptionCode"/>
+  		<result property="dealDate" column ="dealDate"/>
+  		<result property="paymentTf" column ="paymentTf"/>
+  		<result property="id" column ="id"/>  		
+  		<result property="receiveName" column ="receiveName"/>
+		<result property="receivePhon" column ="receivePhon"/>
+  		<result property="receiveAddr1" column="receiveAddr1"/>
+  		<result property="receiveAddr2" column="receiveAddr2"/>
+  		<result property="receivePostCode" column="receivePostCode"/>
+  		<result property="rnum" column="rnum"/>
+  		<result property="payDeliveryCharge" column="payDeliveryCharge"/>
+  		<result property="totalPrice" column="totalPrice"/>
+  		<result property="impUid" column="impUid"/>
   	</resultMap>
   
-  	<select id="SelectOne" resultType="PAYMENTINFO">
-  		SELECT paymentInfoCode, dealDate 
-  		FROM payment_info 
-  		WHERE paymentInfoCode =#{paymentInfoCode}
+  	<select id="SelectOnePayInfo" resultType="PAYMENTINFO">
+  		SELECT *
+  		FROM PaymentInfo 
+  		WHERE dealCode =#{dealCode}
   	</select>
+  	
+  	<insert id="insertPayInfo" parameterType="PaymentInfo">
+  		INSERT INTO PaymentInfo VALUES (#{dealCode}, #{payOptionCode}, Now(), #{paymentTf}, #{id}, #{receiveName}, #{receivePhon},
+								#{receiveAddr1}, #{receiveAddr2}, #{receivePostCode}, #{rnum}, #{payDeliveryCharge}, #{totalPrice}, #{impUid})
+  	</insert>
+  	
+  	<select id="SelectAllPayInfo" resultType="PAYMENTINFO">
+  		SELECT * FROM PaymentInfo
+  	</select>
+  	
   
   </mapper>
+  
+  
+  
+  <!-- 
+  	<resultMap type="PaymentInfo" id="paymentInfoResult">
+  		<result property="paymentInfoCode" column="paymentInfoCode"/>	
+  		<result property="dealCode" column="dealCode"/>
+  		<result property="paymentTf" column="paymentTf"/>
+  		<result property="dealDate" column="dealDate"/>
+  		<result property="impUid" column="impUid"/>
+  	</resultMap>  
+   -->

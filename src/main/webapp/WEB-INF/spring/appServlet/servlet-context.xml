@@ -11,7 +11,10 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-
+	
+	<!-- add
+	<default-servlet-handler/>
+	-->
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/views/**" location="/resources/views/" /> 
@@ -27,26 +30,21 @@
     <resources mapping="/demos/**" location="/resources/demos/"/>
     
     <resources mapping="/summernote/**" location="/resources/summernote/" />
-<!--     <resources mapping="/dist/**" location="/resources/dist/" /> -->
     <resources mapping="/calendar/**" location="/resources/calendar/" />
     
-     
+    <!-- add
+    <beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+     -->
   
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<!-- add 
+		<beans:property name="contentType" value="text/html; charset=UTF-8" />
+		-->
 	</beans:bean>
 	
-	<!-- MultipartResolver -->
- <!--	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <beans:property name="maxUploadSize" value="100000000"/>
-        <beans:property name="maxInMemorySize" value="100000000"/>
-    </beans:bean>
- 	 maxUploadSize : 한 번에 최대 올릴 수 있는 파일 사이즈
-	   	 maxInMemorySize : 해당 경로에 최대로 저장할 수 있는 파일 사이즈
-	 -->
-	 
 	 <!-- 업로드 패스 설정 --> 
 	<beans:bean class="java.lang.String" id="uploadPath">
 	 <beans:constructor-arg value="C:\springWork\spring\sts-bundle\sts-3.9.4.RELEASE\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\09box\resources" />
@@ -58,9 +56,12 @@
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 	 <beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
-
+	
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="kr.or.connect.login.NaverLoginBO" />
 	
 	<context:component-scan base-package="kr.or.connect" />
 	<context:component-scan base-package="kr.or.connect.goods.controller" />
 	<context:component-scan base-package="kr.or.connect.utils"/>
+	<context:component-scan base-package="kr.or.connect.dto.BuyOption"/>
 </beans:beans>

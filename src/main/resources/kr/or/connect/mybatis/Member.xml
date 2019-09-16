@@ -9,18 +9,21 @@
  		<result property="name" column="NAME"></result>
  		<result property="addr1" column="ADDR1"></result>
  		<result property="addr2" column="ADDR2"></result>
- 		<result property="addr3" column="ADDR3"></result>
+ 		<result property="postCode" column="postCode"></result>
  		<result property="email" column="EMAIL"></result>
- 		<result property="emailCheck" column="EMAIL_CHECK"></result>
+ 		<result property="emailCheck" column="EMAILCHECK"></result>
  		<result property="authority" column="AUTHORITY"></result>
  		<result property="phon" column="PHON"></result>
  		<result property="odate" column="ODATE"></result>
  		<result property="idate" column="IDATE"></result> 	
  	</resultMap>
  	
- 	<select id="SelectOne" resultType="Member">
- 		SELECT id, pwd, name, addr1, addr2, addr3, email, phon FROM member WHERE id=#{id}
+ 	<select id="memberSelectOne" resultType="Member">
+ 		SELECT * FROM member WHERE id=#{id}
  	</select>
- 
- 
+ 	
+ 	<update id="memberUpdate" parameterType="Member">
+ 		UPDATE member SET addr1 = #{addr1}, addr2 = #{addr2}, postCode = #{postCode}, phon = #{phon} WHERE id = #{id}
+ 	</update>
+ 	
  </mapper>

@@ -182,7 +182,7 @@
 						</c:if>
 							<br>
 							<input type="text" name="goodsName" value='' id="goodsName" class="form-control"
-									style="height: 35px;" placeholder="상품명을 입력하세요"/>
+								   style="height: 35px;" placeholder="상품명을 입력하세요"/>
 							<br>
 							<div class="inputArea" >
 							 <label for="gdsImg">썸네일</label>

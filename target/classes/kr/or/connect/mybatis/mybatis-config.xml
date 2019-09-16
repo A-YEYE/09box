@@ -19,19 +19,19 @@
 
 	<mappers>
 		<mapper resource="kr/or/connect/mybatis/Goods.xml" />	
-		<mapper resource="kr/or/connect/mybatis/Category.xml" />
-		<mapper resource="kr/or/connect/mybatis/BuyOption.xml" />
-		<mapper resource="kr/or/connect/mybatis/Deal.xml" />
+		<mapper resource="kr/or/connect/mybatis/Category.xml" />	
+		<mapper resource="kr/or/connect/mybatis/BuyOption.xml" />		<!-- 상품 옵션정보 -->
+		<mapper resource="kr/or/connect/mybatis/PaymentInfo.xml" />		<!-- 결제 정보 -->
+		<mapper resource="kr/or/connect/mybatis/PaymentOption.xml" />	<!-- 구매한 상품 옵션 정보 -->
+		<mapper resource="kr/or/connect/mybatis/Member.xml" />
 	</mappers>
 <!-- 
 	<mappers>
  		
 		<mapper resource="kr/or/connect/mybatis/Member.xml" />
 		<mapper resource="kr/or/connect/mybatis/Deal.xml" />
-		<mapper resource="kr/or/connect/mybatis/PaymentOption.xml" />
 		<mapper resource="kr/or/connect/mybatis/PaymentInfo.xml" />
 		<mapper resource="kr/or/connect/mybatis/Goods.xml" />
-		
 		<mapper resource="kr/or/connect/mybatis/Reply.xml" /> 	
 	</mappers>
  -->
