@@ -5,7 +5,7 @@
 		<head>
 		
 		<meta charset="utf-8"/>
-		<title>LOGIN</title>
+		<title>LOGIN TEMPLATE</title>
 		<link rel="stylesheet" href="css/join.css"/>
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -74,6 +74,13 @@
 		<link rel="stylesheet" href="css/flexslider.css" >
 		 
 		<script src="js/jquery.flexslider.js"></script>
+		
+		<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -87,7 +94,7 @@
 				</div>
 				
 				<ul id="nav" class="sf-menu">
-					<li class="current-menu-item"><a href="./">HOME</a></li>
+					<li><a href="./">HOME</a></li>
 					<li><a href="#" onclick="alert('로그인을 해주세요'); return false;"">상품올리기</a></li>
 					<!-- 회원가입임시 -->	
 					<li><a href="list/category/0">카테고리</a>
@@ -97,7 +104,7 @@
 							</c:forEach>
 						</ul>
 					</li>
-					<li><a href="login.do">회원가입/로그인</a></li>
+					<li class="current-menu-item"><a href="login.do">회원가입/로그인</a></li>
 				</ul>
 				<div id="combo-holder"></div>
 
@@ -110,28 +117,83 @@
 		</div>
 	</header>
 		<!-- ENDS HEADER ----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-	<center>
-	<c:choose>
-	<c:when test="${sessionId != null}">
-		<h2> 네이버 아이디 로그인 성공하셨습니다!! </h2>
-		<h3>'${sessionId}' 님 환영합니다! </h3>
-		<h3><a href="logout">로그아웃</a></h3>
-	</c:when>
-	<c:otherwise>
-		<form action="login" method="post" name="frm" style="width:470px;">
-		<h2>로그인</h2>
-		<input type="text" name="id" id="id" class="w3-input w3-border" placeholder="아이디" value="${id}"> <br>
-		<input type="password" id="pwd" name="pwd" class="w3-input w3-border" placeholder="비밀번호" > <br>
-		<input type="submit" value="로그인" onclick="#" style="display:none"> <br>
-	</form>
-	<br>
-	<!-- 네이버 로그인 창으로 이동 -->
-	<div id="naver_id_login" style="text-align:center"><a href="${url}">
-	<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
-	<br>
-	</c:otherwise>
-	</c:choose>
-	</center>
+		<c:if test="${not empty cookie.user_check}">
+			<c:set value="checked" var="checked"/>
+		</c:if>
+
+		<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<div class="modal-header" style="padding: 35px 50px;">
+				<h4>
+					<span class="glyphicon glyphicon-lock"></span> 로그인
+				</h4>
+				<label>정상적인 서비스 사용을 위해서 로그인해야 합니다.</label>
+			</div>
+			<div class="modal-body" style="padding: 40px 50px;">
+				<form role="form" method="post" action="j_spring_security_check">
+					<div class="form-group">
+						<label for="id"> ID :</label> <input type="text"
+							class="form-control" id="id" name="j_username" placeholder="Enter ID"
+							required="required" value="${cookie.user_check.value}">
+					</div>
+					<div class="form-group">
+						<label for="pw"> Password :</label> <input type="password"
+							class="form-control" id="pw" name="j_password"
+							placeholder="Enter Password" required="required">
+					</div>
+					<div class="form-group">
+						<span id="spanLoginCheck">
+						</span>
+					</div>
+					<div class="form-group"> 
+						<label for="rememberId"> ID 기억하기</label> <input type="checkbox"
+							 id="rememberId" name="rememberId" ${checked}>
+					</div>
+					<button type="button" id="loginBtn" class="btn btn-default btn-block">
+						Login</button>
+					<a href="./join" class="btn btn-default btn-block">회원가입</a>
+				</form>		
+				
+			</div>
+			<div class="modal-footer"></div>
+		</div>
+
+	</div>
+	<script>
+	$('#loginBtn').click(function() {
+		var id = $('#id').val();
+		var pw = $('#pw').val();
+		var remember_us = $('#rememberId').is(':checked');
+			$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}/loginform',
+			data : {
+				user_id : id,
+				user_pw : pw,
+				remember_userId : remember_us
+				},
+				success : function(data) {
+					if (data == 0) { //로그인 실패시
+						console.log(data);
+						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
+					} else if (data == -2) { //인증하지 않았다면?
+						console.log(data);
+						$('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!');						
+					} //else if (data == -3) { // 아이디가 사용중이라면?
+					//	console.log(data);
+					//	location.href = '${pageContext.request.contextPath}/user/redundant?id=' + id + '&pw=' + pw + '&rememberId=' + rememberId;						
+				//	} 
+					else { //로그인 성공시
+						console.log(data);
+						location.href = '${pageContext.request.contextPath}/loginsuccess';
+					}
+				}
+			});
+		});
+	</script>
   <!-- FOOTER -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 		<footer id="footer">
 			<div class="wrapper cf">

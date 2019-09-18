@@ -109,7 +109,7 @@
 							</ul>
 						</li>
 						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
-						<li><a href="./login">회원가입/로그인</a></li>
+						<li><a href="./loginform">회원가입/로그인</a></li>
 					</ul>
 					<div id="combo-holder"></div>
 

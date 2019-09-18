@@ -12,9 +12,6 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	
-	<!-- add
-	<default-servlet-handler/>
-	-->
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/views/**" location="/resources/views/" /> 
@@ -32,10 +29,6 @@
     <resources mapping="/summernote/**" location="/resources/summernote/" />
     <resources mapping="/calendar/**" location="/resources/calendar/" />
     
-    <!-- add
-    <beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
-     -->
-  
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -57,8 +50,7 @@
 	 <beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
-	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
-	<beans:bean id="naverLoginBO" class="kr.or.connect.login.NaverLoginBO" />
+	
 	
 	<context:component-scan base-package="kr.or.connect" />
 	<context:component-scan base-package="kr.or.connect.goods.controller" />

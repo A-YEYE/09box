@@ -2,6 +2,7 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
 <configuration>
 	<typeAliases>
 		<typeAlias alias="BuyOption" type="kr.or.connect.dto.BuyOption"/>
@@ -23,7 +24,7 @@
 		<mapper resource="kr/or/connect/mybatis/BuyOption.xml" />		<!-- 상품 옵션정보 -->
 		<mapper resource="kr/or/connect/mybatis/PaymentInfo.xml" />		<!-- 결제 정보 -->
 		<mapper resource="kr/or/connect/mybatis/PaymentOption.xml" />	<!-- 구매한 상품 옵션 정보 -->
-		<mapper resource="kr/or/connect/mybatis/Member.xml" />
+		<mapper resource="kr/or/connect/mybatis/Member2.xml" />
 	</mappers>
 <!-- 
 	<mappers>

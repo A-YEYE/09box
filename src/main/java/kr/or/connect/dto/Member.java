@@ -7,15 +7,25 @@ public class Member {
 	private String pwd;
 	private String name;
 	private String email;
-	private String emailCheck;
-	private int authrity;	// 일반 사용자: 9, 관리자: 8
+	private String emailCheck;	// 확인했으면 yes
+	private int authority;	// 일반 사용자: 9, 관리자: 8
 	private Date odate;
 	private Date idate;
-
-	private String addr1;
-	private String addr2;
-	private String postCode;
-	private int phon;
+	
+	public Member() {
+	
+	}
+	public Member(String id, String pwd, String name, String email, String emailCheck, int authority, Date odate,
+			Date idate) {
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.email = email;
+		this.emailCheck = emailCheck;
+		this.authority = authority;
+		this.odate = odate;
+		this.idate = idate;
+	}
 	
 	public String getId() {
 		return id;
@@ -47,11 +57,11 @@ public class Member {
 	public void setEmailCheck(String emailCheck) {
 		this.emailCheck = emailCheck;
 	}
-	public int getAuthrity() {
-		return authrity;
+	public int getAuthority() {
+		return authority;
 	}
-	public void setAuthrity(int authrity) {
-		this.authrity = authrity;
+	public void setAuthority(int authority) {
+		this.authority = authority;
 	}
 	public Date getOdate() {
 		return odate;
@@ -65,6 +75,9 @@ public class Member {
 	public void setIdate(Date idate) {
 		this.idate = idate;
 	}
-
-	
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", emailCheck="
+				+ emailCheck + ", authority=" + authority + ", odate=" + odate + ", idate=" + idate + "]";
+	}	
 }
