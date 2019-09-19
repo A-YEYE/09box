@@ -81,8 +81,7 @@ public class LoginController {
 	@RequestMapping(value = "/loginfail", method = RequestMethod.GET)
 	public String loginfail() {
 
-		/* View 정보를 반환하는 부분 */
-		return "loginfail"; // "/WEB-INF/views/loginfail.jsp"
+		return "loginfail";
 	}
 
 	// 로그아웃폼 페이지 요청
@@ -94,7 +93,8 @@ public class LoginController {
 	}
 
 	// 계정별 로그인
-	@RequestMapping(value = "/loginsuccess", method = RequestMethod.GET)
+//	@RequestMapping(value = "/loginsuccess", method = RequestMethod.GET)
+	@GetMapping(path="/loginsuccess")
 	public String loginresult() {
 
 		return "loginsuccess";// "/WEB-INF/views/loginsuccess.jsp"
@@ -119,15 +119,6 @@ public class LoginController {
 		String user_id = request.getParameter("user_id");	// form에 입력한 id
 		userVO = memberService.selectOneMember(user_id);	// db에 있는 member
 		System.out.println(userVO.getPwd());
-//여기서부터
-//		String user_pw = request.getParameter("user_pw");	// 입력된 pw
-//		userVO.setPwd(user_pw);
-//		System.out.println("비번" + user_pw);
-//		
-//		// 로그인 메서드
-//		int result = loginService.loginService(userVO, httpSession, user_check, response);
-//
-//		return result;
 		
 		if(userVO == null) {
 			// 로그인 메서드
@@ -136,11 +127,8 @@ public class LoginController {
 			return result;
 		}else {
 			// 비밀번호 암호화
-	//		String user_pw = userVO.getPwd();
 			String user_pw = request.getParameter("user_pw");
 			System.out.println("비번" + user_pw);
-//			BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
-//			userVO.setPwd(scpwd.encode(user_pw));
 			userVO.setPwd(user_pw);
 			
 //			// 암호화 확인

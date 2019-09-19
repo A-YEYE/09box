@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Welcome! ${pageContext.request.userPrincipal.name}! This is
+		<h1>Welcome! ${userSession.id}! This is
 			Login Success Page :)</h1>
 		<a href="j_spring_security_logout" style="color: red">
 			${pageContext.request.userPrincipal.name} ·Î±×¾Æ¿ô</a>

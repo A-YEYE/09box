@@ -33,5 +33,7 @@ public class MemberServiceImpl implements MemberService{
 	public int idcheck(String id) {
 		return dao.idcheck(id);
 	}
+	
+	
 
 }

@@ -52,7 +52,7 @@ public class GoodsController {
 	
 	//글 쓰기	
 	@PostMapping(path="/")
-	public String create(@ModelAttribute Goods goods, MultipartFile file,
+	public String create(@ModelAttribute Goods goods, MultipartFile file, 
 			@RequestParam(value="itemcode") String[] itemcode, 
 			@RequestParam(value="itemname") int[] itemname,
 							HttpServletRequest request) {
@@ -103,7 +103,7 @@ public class GoodsController {
 //	입력한 글 보기
 	@GetMapping(path="/detail")
 	public String detail(@RequestParam(name="rnum", required=false)int rnum,	
-			ModelMap model) {
+			ModelMap model, HttpSession httpSession) {
 		
 		Goods goods = goodsService.selectOne(rnum);
 //		System.out.println(rnum + " , " + goods);

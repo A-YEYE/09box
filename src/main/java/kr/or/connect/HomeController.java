@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import kr.or.connect.dto.Criteria;
 import kr.or.connect.dto.Goods;
 import kr.or.connect.dto.PageMaker;
 import kr.or.connect.goods.model.service.GoodsService;
+import kr.or.connect.login.service.LoginService;
 
 /**
  * Handles requests for the application home page.
@@ -31,10 +33,13 @@ public class HomeController {
 	GoodsService goodsService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	LoginService loginService; 
 	
 	// main
 	@GetMapping(path="/")
 	public String behindCreate(HttpServletRequest request,
+								HttpSession httpSession,
 								Criteria criteria,
 								ModelMap model) {
 	//	int totalCount = goodsService.totalcount();

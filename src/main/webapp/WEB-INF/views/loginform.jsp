@@ -132,8 +132,11 @@
 				</h4>
 				<label>정상적인 서비스 사용을 위해서 로그인해야 합니다.</label>
 			</div>
+			<c:if test="${not empty cookie.user_check}">
+				<c:set value="checked" var="checked"/>
+			</c:if>	
 			<div class="modal-body" style="padding: 40px 50px;">
-				<form role="form" method="post" action="j_spring_security_check">
+				<form role="form" method="post" action="./">
 					<div class="form-group">
 						<label for="id"> ID :</label> <input type="text"
 							class="form-control" id="id" name="j_username" placeholder="Enter ID"
@@ -188,7 +191,7 @@
 				//	} 
 					else { //로그인 성공시
 						console.log(data);
-						location.href = '${pageContext.request.contextPath}/loginsuccess';
+						location.href = '${pageContext.request.contextPath}';
 					}
 				}
 			});

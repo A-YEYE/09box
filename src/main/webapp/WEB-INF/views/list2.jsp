@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
@@ -99,7 +99,7 @@
 					<ul id="nav" class="sf-menu">
 						<li class="current-menu-item"><a href="./">HOME</a></li>
 						<li><a href="./blog">상품올리기</a></li>
-						<li><a href="#">카테고리</a>
+						<li><a href="#">카테고리</a>  
 							<ul>
 								<li><a href="#" data-filter="*">전체보기</a></li>
 								<li><a href="#" data-filter=".web"  class="selected">식품</a></li>
@@ -109,7 +109,16 @@
 							</ul>
 						</li>
 						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
-						<li><a href="./loginform">회원가입/로그인</a></li>
+						<li><c:choose>
+								<c:when test="${userSession != null}">
+									<a>${userSession.id} 님</a>
+									<ul><li><a href="logout">로그아웃</a></li></ul>
+								</c:when>  
+								<c:otherwise> 
+									<a href="./loginform">회원가입/로그인</a>
+								</c:otherwise>
+							</c:choose>
+						</li>
 					</ul>
 					<div id="combo-holder"></div>
 

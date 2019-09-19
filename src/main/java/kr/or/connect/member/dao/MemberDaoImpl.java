@@ -24,7 +24,8 @@ public class MemberDaoImpl implements MemberDao{
 	public void insert(Member member) {
 		sqlSession.insert(ns+".memberInsert", member);
 	}
-
+	
+	// id중복체크(사용은 안함..)
 	@Override
 	public int idcheck(String id) {
 		return sqlSession.selectOne(ns+".idcheck", id);
