@@ -1,5 +1,7 @@
 package kr.or.connect.paymentOption.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class PaymentOptionServiceImpl implements PaymentOptionService {
 	@Override
 	public void insertPaymentOption(PaymentOption paymentOption) {
 		dao.paymentOptionInsert(paymentOption);
+	}
+
+	@Override
+	public List<PaymentOption> selectOnePaymentOption(int dealCode) {
+		return dao.selectPayOptionOne(dealCode);
 	}
 
 }

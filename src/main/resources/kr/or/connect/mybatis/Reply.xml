@@ -4,21 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="kr.or.connect.mybatis.reply">
   	<resultMap type="Reply" id="replyResult">
-  		<result property="replyNum" column="REPLY_NUM"/>
-  		<result property="rnum" column="RNUM"/>
-  		<result property="dealCode" column="DEAL_CODE"/>
-  		<result property="categoryCode" column="CATEGORY_CODE"/>
-  		<result property="id" column="ID"/>
-  		<result property="replyContent" column="REPLY_CONTENT"/>
-  		<result property="replyP" column="REPLY_P"/>
-  		<result property="replyC" column="REPLY_C"/>
-  		<result property="replyDate" column="REPLY_DATE"/>
+  		<result property="replyCode" column="replyCode"/>
+  		<result property="id" column="id"/>
+  		<result property="replyContent" column="replyContent"/>
+  		<result property="replyDate" column="replyDate"/>
+  		<result property="rnum" column="rnum"/>
+  		<result property="replyParent" column="replyParent"/>
+  		<result property="replyOrder" column="replyOrder"/>
   	</resultMap>
   	
-  	<select id="SELECT_ALL" resultType="Reply">
-  		SELECT id, replyContent, replyDate FROM reply WHERE rnum =#{rnum}
+  	<select id="selectAllReply" resultType="Reply">
+  		SELECT * FROM reply 
   	</select>
+  	
+  	<select id="selectByReply" resultType="Reply">
+  		SELECT * FROM reply WHERE rnum =#{rnum} ORDER BY replyCode DESC, replyParent DESC, replyOrder ASC
+  	</select>
+  	
+  	<insert id="insertReply" parameterType="Reply">
+  		INSERT INTO reply value(#{replyCode}, #{id},
+	   #{replyContent}, NOW(), #{rnum}, #{replyParent}, #{replyOrder})
+  	</insert>
   
-  
+  	<update id="updateReply" parameterType="int">
+  		UPDATE reply SET replyParent=#{replyParent} WHERE replyCode=#{replyCode}
+  	</update>
   
   </mapper>

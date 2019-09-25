@@ -9,4 +9,5 @@ public interface BuyOptionDao {
 	List<BuyOption> selectAllBuyOption();
 	void insertBuyOption(BuyOption buyOption);
 	List<BuyOption> selectBuyOptionOne(int rnum);
+	BuyOption buyOption(int buyOption);
 }

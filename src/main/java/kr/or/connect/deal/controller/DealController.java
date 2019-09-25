@@ -1,6 +1,9 @@
 package kr.or.connect.deal.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,8 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
+import kr.or.connect.buyOption.model.service.BuyOptionService;
+import kr.or.connect.dto.BuyOption;
 import kr.or.connect.dto.Goods;
 import kr.or.connect.dto.PaymentInfo;
 import kr.or.connect.dto.PaymentOption;
@@ -38,6 +44,8 @@ public class DealController {
 	MemberService member;
 	@Autowired
 	GoodsService goodsService;
+	@Autowired
+	BuyOptionService buyOptionService;
 	
 	@RequestMapping(value = "payments/complete", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
@@ -49,6 +57,7 @@ public class DealController {
 	@PostMapping(path="/paySuccess")
 	public String paySuccess( @RequestParam(value="rnum") int rnum,/*상품코드*/
 		@RequestParam(value="buyOptionCode") int[] buyOptionCode, /*옵션코드*/
+		@RequestParam(value="loginId") String[] loginId, /*구매하는 id*/
 		@RequestParam(value="optionCount") int[] optionCount, /*옵션 구매 갯수*/
 		@RequestParam(value="name") String receiveName, /*수신자이름*/
 		@RequestParam(value="phone") int receivePhon, /*핸드폰번호*/
@@ -58,9 +67,11 @@ public class DealController {
 		@RequestParam(value="payDeliveryCharge") int payDeliveryCharge,/*배송비*/
 		@RequestParam(value="totalPrice") int totalPrice,/*총결제금액*/
 		@RequestParam(value="imp_uid") String impUid,/*결제승인번호*/
-		HttpSession session, HttpServletResponse response) {
+		HttpSession session, HttpServletResponse response, ModelMap model) {
 		
-		String id = "member1";
+		String[] idList = loginId;
+		String id = idList[0];		
+		
 		// 판매정보(PaymentInfo) insert
 		PaymentInfo paymentInfo = new PaymentInfo(2, id, receiveName, receivePhon, receiveAddr1,
 				receiveAddr2, receivePostCode, rnum, payDeliveryCharge, totalPrice, impUid );
@@ -69,6 +80,7 @@ public class DealController {
 		// 판매옵션(PaymentOption) insert
 		List<PaymentInfo> list = paymentInfoService.selectAll();
 		PaymentInfo paymentInfo2 = list.get(list.size()-1);	// list의 마지막 값 구하기
+		int dealCode = paymentInfo2.getDealCode();
 		
 		PaymentOption paymentOption = null;
 		for(int i=0; i<buyOptionCode.length; i++) {
@@ -84,10 +96,42 @@ public class DealController {
 			goods.setRnum(rnum);
 			goods.setSellNum(sellNum);
 			goodsService.updqteSellNum(goods);
-			
 		}
 		
+		// 결제 성공 후 보여지는 화면
+		model.addAttribute("payOption", getPaymentOption(dealCode));
+		model.addAttribute("payInfo", getPaymentInfo(dealCode));
+		System.out.println("1: " + model.addAttribute("payOption", getPaymentOption(dealCode)));
+		System.out.println("2: " + model.addAttribute("payInfo", getPaymentInfo(dealCode)));
+		
+
 		return "paySuccess";
+	}
+	
+	// 구매한 옵션 가져오기
+	public List<Map<String, Object>> getPaymentOption(int dealCode) {
+		List<PaymentOption> payOptionList = paymentOptionService.selectOnePaymentOption(dealCode);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = null;
+		for(int i=0; i<payOptionList.size(); i++) {
+			int buytOptionCode = payOptionList.get(i).getBuyOptionCode();
+			BuyOption buyOption = buyOptionService.buyOption(buytOptionCode);
+			String optionName = buyOption.getOptionName();
+			int optionPrice = buyOption.getOptionPrice();
+			int saleOptionCount = payOptionList.get(i).getOptionCount();
+			map = new HashMap<String, Object>();
+			map.putIfAbsent("optionName", optionName);
+			map.putIfAbsent("optionPrice", optionPrice);
+			map.putIfAbsent("saleOptionCount", saleOptionCount);
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 구매정보 가져오기
+	public PaymentInfo getPaymentInfo(int dealCode) {
+		PaymentInfo payInfo = paymentInfoService.selectOne(dealCode);
+		return payInfo;
 	}
 	
 	@GetMapping(path="/payFail")
@@ -128,10 +172,86 @@ public class DealController {
 			goods.setRnum(rnum);
 			goods.setSellNum(sellNum);
 			goodsService.updqteSellNum(goods);
-			
 		}
 		
 		return "payFail";
 	}
+	
+	@GetMapping(path="/myOrder")
+	public String myOrder(HttpSession session, 
+							ModelMap model) {
+		
+		String id = (String) session.getAttribute("loginId");
+		System.out.println("id: " + id);
+		
+		// id를 이용하여 rnum, dealCode 구하기
+		model.addAttribute("orderInfo", getOrderInfo(id, model));
+		System.out.println("과연?: " + model.addAttribute("payInfo", getOrderInfo(id, model)));
+			
+		return "myOrder";
+	}  
 
+
+	private List<PaymentInfo> getOrderInfo(String id, ModelMap model) {
+		List<PaymentInfo> orderInfoList = paymentInfoService.selectAllPayinfo(id);
+		System.out.println("orderInfoList: " + orderInfoList);
+		
+		List<PaymentOption> dealCodeList;
+		int dealCode=0;
+		List<Goods> goods;
+		for(int i=0; i<orderInfoList.size(); i++) {
+			dealCode = orderInfoList.get(i).getDealCode(); // dealCode 획득. paymentOption에 접근 가능
+			System.out.println("dealCode: " + dealCode);
+			// 구매한 옵션 정보  획득.
+			model.addAttribute("dealCode", getPaymentOption(dealCode));
+			
+			int rnum = orderInfoList.get(i).getRnum();	// rnum획득. goods Table 접근 가능. 
+			goods = goodsService.selectAllById(rnum);
+			System.out.println("rnum: " + rnum);
+			System.out.println("goods: " + goods);
+			model.addAttribute("goods", goods);
+		}    
+		
+		return orderInfoList;	// 이게 맞나??
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

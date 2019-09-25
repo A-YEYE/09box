@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page session="true" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
 		<head>
@@ -87,33 +87,7 @@
 	<!-- HEADER -->
 	<header>
 		<div class="wrapper cf">
-			<!-- nav 상단메뉴 -->
-
-				<div id="logo">
-					<a href="./"><img  src="img/gonggu_logo.png" alt="Simpler"></a>
-				</div>
-				
-				<ul id="nav" class="sf-menu">
-					<li><a href="./">HOME</a></li>
-					<li><a href="#" onclick="alert('로그인을 해주세요'); return false;"">상품올리기</a></li>
-					<!-- 회원가입임시 -->	
-					<li><a href="list/category/0">카테고리</a>
-						<ul>
-							<c:forEach items="${list_category}" var="list_category">
-								<li><a href="list/category/${list_category.category_code}">${list_category.category_name}</a></li>
-							</c:forEach>
-						</ul>
-					</li>
-					<li class="current-menu-item"><a href="login.do">회원가입/로그인</a></li>
-				</ul>
-				<div id="combo-holder"></div>
-
-			<!-- ends nav 상단메뉴 -->
 			
-			
-			<!-- SLIDER -->				
-
-			<!-- ENDS SLIDER -->
 		</div>
 	</header>
 		<!-- ENDS HEADER ----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -132,72 +106,5 @@
 	</body>	
 	
   <!-- FOOTER -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-		<footer id="footer">
-			<div class="wrapper cf">
-			
-				<!-- widgets -->
-				<ul  class="widget-cols cf">
-					<li class="first-col">
-						<div class="widget-block">
-							<div id="tweets" class="footer-col tweet">
-		         				<h4>
-		         					<a href="./">이용약관</a>
-		         				</h4>
-		         			</div>
-						</div>
-					</li>
-					
-					<li class="second-col">
-						<div class="widget-block">
-							<div id="tweets" class="footer-col tweet">
-		         				<h4>
-		         					<a href="./">개인정보 보호정책</a>
-		         				</h4>
-		         			</div>
-						</div>
-					</li>
-					
-					<li class="third-col">
-						
-						<div class="widget-block">
-							<div id="tweets" class="footer-col tweet">
-		         				<h4>
-		         					<a href="./">고객센터</a>
-		         				</h4>
-		         			</div>
-		         		</div>
-		         		
-					</li>
-					
-					<li class="fourth-col">
-						<div class="widget-block">
-							<div id="tweets" class="footer-col tweet">
-		         				<h4>
-		         					<a href="./">Q&A</a>
-		         				</h4>
-		         			</div>
-						</div>
-					</li>	
-				</ul>
-				<!-- ENDS widgets -->	
-				
-				
-				<!-- bottom -->
-				<div class="footer-bottom">
-					<div class="left">텀블벅(주) | 대표 염재승 105-87-52823 | 서울시 중구 삼일대로 343, 13층 |<br/> 통신판매업 2017-서울중구-1156 | 대표전화 02-6080-0760
-						<a href="http://luiszuno.com" >© 2017 Tumblbug Inc.</a>
-					</div>
-						<ul id="social-bar" class="cf sb">
-							<li><a href="http://www.facebook.com"  title="Become a fan" class="facebook">Facebook</a></li>
-							<li><a href="http://www.twitter.com" title="Follow my tweets" class="twitter"></a></li>
-							<li><a href="http://plus.google.com" title="Enter my circles" class="plus"></a></li>
-						</ul>
-				</div>	
-				<!-- ENDS bottom -->
-			
-			</div>
-		</footer>
 		
-		<!-- ENDS FOOTER -->
-</body>
 </html>

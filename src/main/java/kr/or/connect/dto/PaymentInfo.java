@@ -5,7 +5,6 @@ import java.util.Date;
 // 결제 정보
 public class PaymentInfo {
 	private int dealCode;	// p.k 결제 코드 
-	private int payOptionCode;	// 구매한 옵션 코드
 	private Date dealDate;		// 결제일
 	private int paymentTf;	// 결제  실패 1, 성공 2, 취소 3
 	private String id;
@@ -26,9 +25,7 @@ public class PaymentInfo {
 	public PaymentInfo(int paymentTf, String id,
 			String receiveName, int receivePhon, String receiveAddr1, String receiveAddr2, String receivePostCode,
 			int rnum, int payDeliveryCharge, int totalPrice, String impUid) {
-		
-//		this.payOptionCode = payOptionCode;
-	//	this.dealDate = dealDate;
+
 		this.paymentTf = paymentTf; 
 		this.id = id;
 		this.receiveName = receiveName;
@@ -48,14 +45,6 @@ public class PaymentInfo {
 
 	public void setDealCode(int dealCode) {
 		this.dealCode = dealCode;
-	}
-
-	public int getPayOptionCode() {
-		return payOptionCode;
-	}
-
-	public void setPayOptionCode(int payOptionCode) {
-		this.payOptionCode = payOptionCode;
 	}
 
 	public Date getDealDate() {
@@ -154,5 +143,12 @@ public class PaymentInfo {
 		this.impUid = impUid;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "PaymentInfo [dealCode=" + dealCode + ", dealDate=" + dealDate + ", paymentTf=" + paymentTf + ", id="
+				+ id + ", receiveName=" + receiveName + ", receivePhon=" + receivePhon + ", receiveAddr1="
+				+ receiveAddr1 + ", receiveAddr2=" + receiveAddr2 + ", receivePostCode=" + receivePostCode + ", rnum="
+				+ rnum + ", payDeliveryCharge=" + payDeliveryCharge + ", totalPrice=" + totalPrice + ", impUid="
+				+ impUid + "]";
+	}
 }

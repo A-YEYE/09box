@@ -20,5 +20,10 @@ public interface GoodsService {
 //	List<Goods> selectCategoryFour(Map map);
 	int totalcount();
 	List<Goods> optionSelect();
+	List<Goods> selectPopular();
 	void updqteSellNum(Goods goods);
+	void updqteScheduler(Goods goods);
+	void deleteGoods(int rnum);
+	List<Goods> selectAllById(int rnum);
+	List<Goods> selectMySell(String id);
 }

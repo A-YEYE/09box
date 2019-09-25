@@ -1,6 +1,8 @@
 package kr.or.connect.paymentInfo.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,18 @@ public class PaymentInfoDaoImpl implements PaymentInfoDao {
 	}
 
 	@Override
-	public List<PaymentInfo> selectAllPayinfo() {
-		return sqlSession.selectList(ns+".SelectAllPayInfo");
+	public List<PaymentInfo> selectAll() {
+		return sqlSession.selectList(ns+".SelectAll");
+	}
+
+	@Override
+	public List<PaymentInfo> selectAllPayinfo(String id) {
+		return sqlSession.selectList(ns+".SelectAllPayInfo", id);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllPayinfoMap(HashMap map) {
+		return sqlSession.selectList(ns+".SelectAllPayInfoMap");
 	}
 
 }

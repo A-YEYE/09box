@@ -28,11 +28,6 @@ public class GoodsServiceImpl implements GoodsService {
 		Goods goods = goodsDao.selectOne(rnum);
 		return goods;
 	}
-
-//	@Override
-//	public List<Goods> selectAll(Integer start) {
-//		return goodsDao.selectAll(start, GoodsService.LIMIT);
-//	}
 	
 	@Override
 	public List<Map<String, Object>> selectAll(Criteria criteria) {
@@ -87,13 +82,40 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<Goods> optionSelect() {
 		List<Goods> list2 = goodsDao.select();
-		
 		return list2;
 	}
 
 	@Override
 	public void updqteSellNum(Goods goods) {
 		goodsDao.updateSellNum(goods);
+	}
+
+	@Override
+	public void deleteGoods(int rnum) {
+		goodsDao.deleteGoods(rnum);		
+	}
+
+	@Override
+	public void updqteScheduler(Goods goods) {
+		goodsDao.updateScheduler(goods);;
+	}
+
+	@Override
+	public List<Goods> selectPopular() {
+		List<Goods> list = goodsDao.selectPopular();
+		return list;
+	}
+
+	@Override
+	public List<Goods> selectAllById(int rnum) {
+		List<Goods> list = goodsDao.selectAllById(rnum);
+		return list;
+	}
+
+	@Override
+	public List<Goods> selectMySell(String id) {
+		List<Goods> list = goodsDao.selectMySell(id);
+		return list;
 	}
 	
 	

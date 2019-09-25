@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html> 
@@ -122,24 +122,40 @@
 			<div class="wrapper cf">
 				
 				<div id="logo">
-					<a href="./"><img  src="img/logo.png" alt="Simpler"></a>
+					<a href="./"><img  src="img/gonggu_logo.png" alt="Simpler"></a>
 				</div>
 				
 				<!-- nav -->
 				<ul id="nav" class="sf-menu">
-					<li><a href="./"><span>HOME</span></a></li>
-					<li><a href="blog.do">BLOG</a></li>
-					<li><a href="page.do">ABOUT</a>
-						<ul>
-							<li><a href="page-elements.do">Elements</a></li>
-							<li><a href="page-icons.do">Icons</a></li>
-							<li><a href="page-typography.do">Typography</a></li>
-						</ul>
+					<li class="current-menu-item"><a href="./">HOME</a></li>
+						<li><a href="./blog">상품올리기</a></li>
+						<li><a href="#">카테고리</a>  
+							<ul>
+								<li><a href="#" data-filter="*">전체보기</a></li>
+								<li><a href="#" data-filter=".web"  class="selected">식품</a></li>
+								<li><a href="#" data-filter=".print">KIDS</a></li>
+								<li><a href="#" data-filter=".design">굿즈</a></li>
+								<li><a href="#" data-filter=".photo">반려동물</a></li>
+							</ul>
+						</li>
+						<li><c:choose>
+							<c:when test="${userSession != null}">
+								<a>${userSession.id} 님</a>
+								<ul>
+									<li><a href="logout">로그아웃</a></li>
+									<li><a href="http://localhost:8080/09box/myOrder" class="selected">주문 확인</a></li>
+									<li><a href="http://localhost:8080/09box/mySell" data-filter="*">판매 확인</a></li>
+								</ul>
+							</c:when>  
+							<c:otherwise> 
+								<a href="./loginform">회원가입/로그인</a>
+							</c:otherwise>
+						</c:choose>
 					</li>
-					<li><a href="portfolio.do">WORK</a></li>
-					<li  class="current-menu-item"><a href="contact.do">CONTACT</a></li>
-				</ul>
-				<div id="combo-holder"></div>
+					</ul>
+					<div id="combo-holder"></div>
+
+
 				<!-- ends nav -->
 
 			</div>
@@ -156,12 +172,12 @@
         	<div id="page-content" class="cf"> 
 				<!-- masthead -->
 			<div class="masthead cf">
-				주문 하기
+				결제 하기
 			</div>
 			<!-- ENDS masthead -->
 				
 				
-				<p><h3>주문 확인</h3></p>
+				<p><h3>결제 확인</h3></p>
 				<!-- form -->
 				<script type="text/javascript" src="js/form-validation.js"></script>
 				<form id="contactForm" action="paySuccess" method="post">
@@ -190,7 +206,7 @@
 				                       </tr>
 				                    </c:forEach>  
 				                    </tbody>
-				         </table>   
+				         </table>     
 						</div>
 						
 						<div class="col-md-9">
@@ -198,15 +214,19 @@
 				                    <thead>
 				                        <tr>
 				                            <th>가격</th>
+				                            <th style="width:5%"></th>
 				                            <th>배송비</th>
+				                            <th style="width:5%"></th>
 				                            <th>총 결제금액</th>
 				                        </tr>
 				                    </thead>
 				                    <tbody>
 				                        <tr>
-				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${totalPrice}" /></td>	<!-- 선택상품수량 * 가격 -->
-				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${deliveryCharge}" />원</td>
-				                            <td style="text-align:right"><fmt:formatNumber pattern="###,###,###" value="${totalPrice+deliveryCharge}" />원</td>
+				                            <td style="text-align:center"><fmt:formatNumber pattern="###,###,###" value="${totalPrice}" /></td>	<!-- 선택상품수량 * 가격 -->
+				                            <td>+</td>
+				                            <td style="text-align:center"><fmt:formatNumber pattern="###,###,###" value="${deliveryCharge}" />원</td>
+				                            <td>=</td>
+				                            <td style="text-align:center"><fmt:formatNumber pattern="###,###,###" value="${totalPrice+deliveryCharge}" />원</td>
 				                        </tr>  
 				                    </tbody>
 				         </table>   
@@ -218,11 +238,11 @@
 						</p>
 						</div>
 					</div>  				
-						<p><h3>구매자 정보</h3></p>		    			
+						<p><h3>배송 정보</h3></p>		    			
 						
-						     
-						<input name="name"  id="name" type="text" class="form-poshytip" placeholder="이름" />
-						<input name="phone"  id="phone" type="text" class="form-poshytip" placeholder="핸드폰 번호" /><br>
+						<input name="loginId"  id="loginId" type="hidden" value="${loginId}" placeholder="id" />     
+						<input name="name"  id="name" type="text" placeholder="이름" />
+						<input name="phone"  id="phone" type="text" placeholder="핸드폰 번호" /><br>
 						<input type="text" id="postCode" name="postCode" style="width:40%" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly>
 						<input type="button" onclick="sample6_execDaumPostcode()" style="width:10%" value="우편번호 찾기"><br>
 						<input type="text" id="address" name="address" placeholder="주소"><br>
@@ -330,7 +350,7 @@
 						    			msg += '\결제 금액 : ' + rsp.paid_amount;
 						    			msg += '카드 승인번호 : ' + rsp.apply_num;
 						    			
-						    			alert(msg);
+						    		//	alert(msg);
 						    			payOk(rsp.imp_uid);
 						    		} else {
 						    			//[3] 아직 제대로 결제가 되지 않았습니다.

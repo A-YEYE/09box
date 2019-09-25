@@ -2,7 +2,11 @@ package kr.or.connect.goods.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +14,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +32,11 @@ import kr.or.connect.category.model.service.CategoryService;
 import kr.or.connect.dto.BuyOption;
 import kr.or.connect.dto.Category;
 import kr.or.connect.dto.Goods;
+import kr.or.connect.dto.Member;
+import kr.or.connect.dto.Reply;
 import kr.or.connect.goods.model.service.GoodsService;
+import kr.or.connect.interceptor.Auth;
+import kr.or.connect.reply.service.ReplyService;
 import kr.or.connect.utils.UploadFileUtils;
 
 @Controller
@@ -36,12 +45,15 @@ public class GoodsController {
 	GoodsService goodsService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	ReplyService replyService;
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	@Autowired
 	BuyOptionService buyOptionService;
 		
 	// list2->blog (list-> write)
+	@Auth
 	@GetMapping(path="/blog")
 	public ModelAndView create() {
 		List<Category> category = categoryService.selectAllCategory();
@@ -82,7 +94,12 @@ public class GoodsController {
 //		System.out.println(goods);
 
 		List<Goods> list2 = goodsService.optionSelect();
-		Goods end = list2.get(list2.size()-1);	// list2의 마지막 값 구하기
+//		Goods end = list2.get(list2.size()-1);	// list2의 마지막 값 구하기
+		Goods end = null;
+		for(Goods g : list2) {
+			end = g;
+			break;
+		}
 		
 		saveBuyOption(itemcode, itemname, end.getRnum());
 //		System.out.println("goods.getRnum(): " + goods.getRnum());
@@ -103,8 +120,7 @@ public class GoodsController {
 //	입력한 글 보기
 	@GetMapping(path="/detail")
 	public String detail(@RequestParam(name="rnum", required=false)int rnum,	
-			ModelMap model, HttpSession httpSession) {
-		
+			ModelMap model, HttpServletRequest request) throws ParseException {
 		Goods goods = goodsService.selectOne(rnum);
 //		System.out.println(rnum + " , " + goods);
 		
@@ -118,39 +134,54 @@ public class GoodsController {
 		model.addAttribute("sellNum", goods.getSellNum());
 		model.addAttribute("image", goods.getImage());
 		model.addAttribute("deliveryCharge", goods.getDeliveryCharge());
-		 
-		
+		model.addAttribute("id", goods.getId());
+		 		
 		// 현재 날짜
-		Date date = new Date(); 		
-		
+		Date date = new Date();
+		// 종료 날짜
+		Date enDate= goods.getSellEnd();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		c.setTime(enDate);
+		c.add(Calendar.DATE, 1);
+		String nextDate = sdf.format(c.getTime());
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date to = transFormat.parse(nextDate);
 		// 종료날짜의 time.
-		long reqDateTime = goods.getSellEnd().getTime();
-		
+		long reqDateTime = to.getTime();	// 종료시간은 다음날 자정까지.(+1)
 		// 현재날짜의 time.
 		long curDateTime = date.getTime(); 
-		
-		// 종료시간-현재시간
+		// 현재시간-종료시간
 		long time = (curDateTime - reqDateTime); 
-		
+		model.addAttribute("time", time);
 		// 일
 		long day = time / (24*60*60*1000);
 		model.addAttribute("day", day);
 		// 시간
 		long hour = time / (60*60*1000)%24;
 		model.addAttribute("hour", hour);
-				
-//		if(reqDateTime < curDateTime) {
-//			
-//			if(goods.getSellNum() < goods.getGoalNum()) {
-//				goods.setProgress(1);
-//			}else {
-//				goods.setProgress(2);
-//			}
-//			model.addAttribute("progress", goods.getProgress());
-//			goodsService.insert(goods);	
-//		}
+
 		List<BuyOption> buyOption = buyOptionService.selectOneBuyOption(rnum);
 		model.addAttribute("buyOption", buyOption);
+		model.addAttribute("product_code", rnum);
+		
+		// 댓글
+		String reply = (String)request.getParameter("reply");
+		List<Reply> listReply = replyService.selectAll();
+		Reply finalreply =listReply.get(listReply.size()-1);	// 마지막 리플
+		int replyParent;
+		
+		if(finalreply.getId()==null) {
+			replyParent = 1;
+		}else {
+			replyParent = finalreply.getReplyCode()+1;
+		}
+		
+		
+		model.addAttribute("reply", reply);
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("replyParent", replyParent);
 				
 		return "detail";
 	}
@@ -162,6 +193,7 @@ public class GoodsController {
 			@RequestParam(value="option_count") int[] option_count,	// 구매하는 아이템 갯수
 			@RequestParam(value="item_price") int[] item_price,	// 구매하려는 아이템 가격 * 갯수
 			@RequestParam(value="rnum") int rnum, 
+			@RequestParam(value="loginId") String loginId, 
 			HttpServletRequest request, HttpSession session) {
 		Map<String, Object> map;
 		List<Map<String, Object>> optionList = new ArrayList<Map<String, Object>>();
@@ -196,35 +228,63 @@ public class GoodsController {
 		mv.addObject("deliveryCharge", deliveryCharge);
 		mv.addObject("totalPrice", totalPrice);
 		mv.addObject("rnum", rnum);
-		
+		mv.addObject("loginId", loginId);
 		
 		return mv;
 	}
-//	카테고리
-//	@GetMapping(path="/detail")
-//	public String list(ModelMap model) {
-//		List<Category> category = categoryService.selectAllCategory();
-//		model.addAttribute("category", JSONArray.fromObject(category));
-//		return "detail";
-//	}
-//	카테고리
-//	@GetMapping(path="/blog")
-//	public String list(ModelAndView model) {
-//		List<Category> category = categoryService.selectAllCategory();
-//		String view = "blog";
-//		model = new ModelAndView(view, "category", category);
-//		return "blog";
-//	}
-
 	
-
-//
-//	
-////	입력하고 넘어가는 창
-//	@GetMapping(path="/portfolio")
-//	public String behindCreate(ModelMap model) {
-//		List<Goods> list = goodsService.selectAll();
-//		model.addAttribute("list", list);
-//		return "portfolio";
-//	}
+	// 내가 판 물건들
+	@GetMapping(path="/mySell")
+	public String mySell(HttpSession session, ModelMap model) {
+		String id = (String) session.getAttribute("loginId");
+		System.out.println("id: " + id);
+		
+		List<Goods> list = goodsService.selectMySell(id);
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		
+		return "mySell";
+	}
+	
+	// 댓글 달기
+	@PostMapping(path="/replySave")
+	public String replySave(Reply reply, HttpSession session, HttpServletResponse response,
+							@RequestParam(value="loginId") String loginId, 
+							@RequestParam(value="product_code") int product_code, 
+							@RequestParam(value="reply_order") int reply_order, 
+							@RequestParam(value="reply_parent") int reply_parent, 
+							@RequestParam(value="reply_content") String reply_content) {
+		System.out.println("session: "+session);
+		System.out.println("loginId: "+loginId);
+		System.out.println("product_code: "+product_code);
+		System.out.println("reply_order: "+reply_order);
+		System.out.println("reply_parent: "+reply_parent);
+		System.out.println("reply_content: "+reply_content);
+		if(loginId !=null) {//로그인 중
+		//	Member m = ((Member)session.getAttribute("userLoginInfo"));
+			reply.setId(loginId);
+			reply.setRnum(product_code);
+			reply.setReplyOrder(reply_order);
+			reply.setReplyParent(reply_parent);
+			reply.setReplyContent(reply_content);
+			replyService.inserReply(reply);
+			if(reply.getReplyParent()==0) {
+				replyService.updateReply(reply.getReplyCode());
+			}
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('다시 로그인해주세요'); location.href='./loginform';</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/detail?rnum="+product_code+"&reply=on";
+	}
+	
 }

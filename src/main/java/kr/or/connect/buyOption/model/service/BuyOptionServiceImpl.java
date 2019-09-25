@@ -28,4 +28,9 @@ public class BuyOptionServiceImpl implements BuyOptionService {
 		return buyOptionDao.selectBuyOptionOne(rnum);
 	}
 
+	@Override
+	public BuyOption buyOption(int buyOption) {
+		return buyOptionDao.buyOption(buyOption);
+	}
+
 }

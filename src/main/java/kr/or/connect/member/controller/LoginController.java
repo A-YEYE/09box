@@ -1,6 +1,7 @@
 package kr.or.connect.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.connect.dto.Criteria;
+import kr.or.connect.dto.Goods;
 import kr.or.connect.dto.Member;
+import kr.or.connect.goods.model.service.GoodsService;
+import kr.or.connect.interceptor.Auth;
+import kr.or.connect.interceptor.Auth.Role;
 import kr.or.connect.login.service.LoginService;
 import kr.or.connect.mail.service.MailSendService;
 import kr.or.connect.member.service.MemberService;
@@ -35,6 +42,7 @@ public class LoginController {
 	@Autowired
 	LoginService loginService; 
 	
+	
 	// 회원가입 페이지 요청
 	@GetMapping(path="/join")
 	public String join() {
@@ -45,7 +53,8 @@ public class LoginController {
 	@PostMapping(path="/join")
 	public String joinFin(Member member, HttpServletRequest request) {
 		System.out.println(member);
-		member.setAuthority(9);
+		member.setAuthority("USER");
+		member.setAuthorityCode(1);
 		
 		try {
 			memberService.insertMember(member);
@@ -59,7 +68,7 @@ public class LoginController {
 	}
 	
 	// id 중복체크
-	@RequestMapping("/idcheck.do")
+	@RequestMapping("/idcheck")
     @ResponseBody
     public Map<Object, Object> idcheck(@RequestBody String userid) {
         
@@ -75,13 +84,6 @@ public class LoginController {
 	@RequestMapping(value = "/loginform", method = { RequestMethod.GET})
 	public String loginform() {
 		return "loginform";
-	}
-
-	// 로그인실패 페이지 요청
-	@RequestMapping(value = "/loginfail", method = RequestMethod.GET)
-	public String loginfail() {
-
-		return "loginfail";
 	}
 
 	// 로그아웃폼 페이지 요청
@@ -105,8 +107,7 @@ public class LoginController {
 
 		return "loginsuccess";// "/WEB-INF/views/loginsuccess.jsp"
 	}
-	
-	
+
 	@PostMapping(path="/loginform")
 	@ResponseBody
 	public int userLoingPass(Member userVO, HttpSession httpSession, HttpServletRequest request,
@@ -118,7 +119,7 @@ public class LoginController {
 		
 		String user_id = request.getParameter("user_id");	// form에 입력한 id
 		userVO = memberService.selectOneMember(user_id);	// db에 있는 member
-		System.out.println(userVO.getPwd());
+//		System.out.println(userVO.getPwd());
 		
 		if(userVO == null) {
 			// 로그인 메서드
@@ -147,4 +148,14 @@ public class LoginController {
 
 		return "joinSuccess";
 	}
+	
+	// 로그인 안하면 이용 불가.
+	@RequestMapping(value="/loginfail")
+	public ModelAndView needLogin() throws Exception{
+		ModelAndView mav = new ModelAndView("/loginfail");
+		mav.addObject("msg", "로그인 후 이용해주시기 바랍니다.");
+		return mav;
+	}
+	
+	
 }

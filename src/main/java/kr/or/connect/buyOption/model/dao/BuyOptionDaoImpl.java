@@ -33,4 +33,9 @@ public class BuyOptionDaoImpl implements BuyOptionDao {
 		return buyOptionOne;
 	}
 
+	@Override
+	public BuyOption buyOption(int buyOption) {
+		return sqlSession.selectOne(ns+".selectOneOption", buyOption);
+	}
+
 }

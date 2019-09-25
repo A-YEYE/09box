@@ -5,14 +5,11 @@
 <mapper namespace="kr.or.connect.mybatis.goods">
 	<resultMap type="Goods" id="goodsResult">
 		<result	property="rnum" column="rnum"/>
-		<result	property="dealCode" column="DEALCODE"/>
 		<result	property="categoryCode" column="categoryCode"/>
 		<result	property="goodsName" column="goodsname"/>
-		<result	property="price" column="PRICE"/>
 		<result	property="deliveryCharge" column="DELIVERYCHARGE"/>
 		<result	property="sellStart" column="SELLSTART"/>
 		<result	property="sellEnd" column="SELLEND"/>
-		<result	property="period" column="PERIOD"/>
 		<result	property="goalNum" column="GOALNUM"/>
 		<result	property="content" column="CONTENT"/>
 		<result	property="sellNum" column="SELLNUM"/>
@@ -27,54 +24,53 @@
             *
         FROM
             goods
-        ORDER BY rnum DESC
+        ORDER BY FIELD(progress, 0) DESC,
+        		 rnum DESC
         LIMIT #{pageStart}, #{perPageNum}
     	]]>
 	</select>
 	
 	<select id="optionGoods" resultType="Goods">
-		select * from goods;
+		select * from goods ORDER BY rnum DESC;
 	</select>
-	<!--	
-	<select id="selectPaging" parameterType="HashMap" resultType="Goods">
-		SELECT *
-		FROM ( SELECT ROWNUM RN, P.* 
-			FROM( SELECT *
-				FROM GOODS
-				ORDER BY SEQ DESC) P)
-		WHERE RN BETWEEN #{start} AND #{limt}
+	
+	<select id="selectPopular" resultType="Goods">
+		select * from goods
+		ORDER BY FIELD(progress, 0) DESC, 
+				 sellNum DESC
+		LIMIT 7;
 	</select>
- -->	
+	
  	<select id="selectCategory" resultType="GOODS">
-		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
+		SELECT rnum, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, content, sellNum, image, progress
 		FROM goods A, category B
-		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = #{categoryCode}
+		WHERE A.categoryCode = B.categoryCode AND A.categoryCode = #{categoryCode}
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryOne" resultType="GOODS">
-		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
+		SELECT rnum, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate100'
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryTwo" resultType="GOODS">
-		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
+		SELECT rnum, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate200'
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryThree" resultType="GOODS">
-		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
+		SELECT rnum, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate300'
 		ORDER BY rnum DESC 
 	</select>
 	
 	<select id="selectCategoryFour" resultType="GOODS">
-		SELECT rnum, price, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, period, content, sellNum, image, progress
+		SELECT rnum, goalNum, goodsName, B.categoryName,  deliveryCharge, sellEnd, sellStart, content, sellNum, image, progress
 		FROM goods A, category B
 		WHERE A.categoryCode = B.categoryCode AND B.categoryCode = 'cate400'
 		ORDER BY rnum DESC 
@@ -82,20 +78,35 @@
 	
 	
 	<select id="selectOneGoods" resultType="GOODS">
-		SELECT categoryCode, goodsName, price, deliveryCharge, sellEnd, goalNum, content, sellNum, image FROM goods WHERE rnum =#{rnum} 
+		SELECT categoryCode, goodsName, deliveryCharge, sellEnd, goalNum, content, sellNum, image FROM goods WHERE rnum =#{rnum} 
 	</select>
 
 	<insert id="insertGoods" parameterType="GOODS">
-		INSERT into goods values (#{rnum}, #{dealCode}, #{categoryCode}, #{goodsName}, #{price}, ${deliveryCharge}, NOW(), #{sellEnd}, #{period}, #{goalNum}, #{content}, #{sellNum}, #{progress}, #{id}, #{image});
+		INSERT into goods values (#{rnum}, #{categoryCode}, #{goodsName}, ${deliveryCharge}, NOW(), #{sellEnd}, #{goalNum}, #{content}, #{sellNum}, #{progress}, #{id}, #{image});
 	</insert>
-		
-	<delete id="delete" parameterType="Integer">
-		DELETE FROM goods WHERE dealCode=#{dealCode} 
+	
+	<delete id="deleteGoods" parameterType="Integer">
+		DELETE FROM goods WHERE rnum=#{rnum} 
 	</delete>
 	
 	<update id="sellNumupdate" parameterType="Goods" >
 		UPDATE goods SET sellNum = #{sellNum} where rnum = #{rnum}
 	</update>
+	
+	<update id="schedulerupdate" parameterType="Goods" >
+		UPDATE goods SET progress = #{progress} where rnum = #{rnum}
+	</update>
+	
+	<select id="selectAllByRnum" resultType="GOODS">
+		SELECT * FROM goods WHERE rnum =#{rnum} 
+	</select>
+	
+	<!-- 자신이 판매한 물품 -->
+  	<select id="selectMySell" resultType="GOODS">
+  		SELECT * 
+  		FROM goods
+  		WHERE id =#{id} 
+  	</select>
 	
 	<!-- paging관련 -->
 	<!-- 전체 데이터 개수 -->

@@ -125,33 +125,32 @@
 				
 				<!-- nav -->
 				<div id="logo">
-					<a href="./"><img  src="img/logo.png" alt="Simpler"></a>
+					<a href="./"><img  src="img/gonggu_logo.png" alt="Simpler"></a>
 				</div>
 				
 				<ul id="nav" class="sf-menu">
-						<li class="current-menu-item"><a href="./">HOME</a></li>
-						<li><a href="./blog">상품올리기</a></li>
-						<li><a href="#">카테고리</a>  
-							<ul>
-								<li><a href="#" data-filter="*">전체보기</a></li>
-								<li><a href="#" data-filter=".web"  class="selected">식품</a></li>
-								<li><a href="#" data-filter=".print">KIDS</a></li>
-								<li><a href="#" data-filter=".design">굿즈</a></li>
-								<li><a href="#" data-filter=".photo">반려동물</a></li>
-							</ul>
-						</li>
-						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
-						<li><c:choose>
-								<c:when test="${userSession != null}">
-									<a>${userSession.id} 님</a>
-									<ul><li><a href="logout">로그아웃</a></li></ul>
-								</c:when>  
-								<c:otherwise> 
-									<a href="./loginform">회원가입/로그인</a>
-								</c:otherwise>
-							</c:choose>
-						</li>
-					</ul>
+					<li><a href="./">HOME</a></li>
+					<li class="current-menu-item"><a href="./blog">상품올리기</a></li>
+					<li><a href="#">카테고리</a>  
+						<ul>
+							<li><a href="#" data-filter="*">전체보기</a></li>
+							<li><a href="#" data-filter=".web"  class="selected">식품</a></li>
+							<li><a href="#" data-filter=".print">KIDS</a></li>
+							<li><a href="#" data-filter=".design">굿즈</a></li>
+							<li><a href="#" data-filter=".photo">반려동물</a></li>
+						</ul>
+					</li>
+					<li><c:choose>
+							<c:when test="${userSession != null}">
+								<a>${userSession.id} 님</a>
+								<ul><li><a href="logout">로그아웃</a></li></ul>
+							</c:when>  
+							<c:otherwise> 
+								<a href="./loginform">회원가입/로그인</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				</ul>
 				<div id="combo-holder"></div>
 				<!-- ends nav -->
 
@@ -182,20 +181,21 @@
 					<div class="panes">
 						<div>
 							<c:if test="${!empty category}">
-		        		<select id="category" name="categoryCode" class="form-control" style="min-width:404px; max-width:404px">
+		        		<select id="category" name="categoryCode" class="form-control" style="min-width:404px; max-width:404px" required="required">
 							<option value="">카테고리를 선택하세요</option>
 							<c:forEach var="category" items="${category}">
-								<option value="${category.categoryCode}">${category.categoryName}</option>
+								<option value="${category.categoryCode}" >${category.categoryName}</option>
 							</c:forEach>
 						</select>
 						</c:if>
 							<br>
+							<input type="hidden" name="id" value="${userSession.id}" required="required">
 							<input type="text" name="goodsName" value='' id="goodsName" class="form-control"
-								   style="height: 35px;" placeholder="상품명을 입력하세요"/>
+								   style="height: 35px;" placeholder="상품명을 입력하세요" required="required"/>
 							<br>
 							<div class="inputArea" >
 							 <label for="gdsImg">썸네일</label>
-							 <input type="file" id="gdsImg" name="file" />
+							 <input type="file" id="gdsImg" name="file" required="required"/>
 							 <div class="select_img" ><img src="" /></div>
 							 <script>
 							  $("#gdsImg").change(function(){
@@ -213,25 +213,23 @@
 			        <!-- 		<textarea class="form-control" id="summary" name="summary" placeholder="간략한 소개를 입력해 주세요" 
 		        					style=" height: 60px; min-width:404px; max-width:912px; resize: horizontal;"></textarea>
 							<br>
-					 -->	<textarea id="summernote" name="content" ></textarea>
+					 -->	<textarea id="summernote" name="content" required="required"></textarea>
 						</div>
 						<div>
 						
 	  		 			
 	        			<br>
 		        		<h5>마감일</h5><br>		
-		    	 	 		<input type="date" class="form-control" id="sellEnd" name="sellEnd" style="height:35px; min-width:404px; max-width:404px" >
+		    	 	 		<input type="date" class="form-control" id="sellEnd" name="sellEnd" style="height:35px; min-width:404px; max-width:404px" required="required">
   		 			  
 	        			<br>
 		        		<h5>목표수량</h5><br>
 						<ul>
-							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1" style="height:35px; min-width:404px; max-width:404px"/>
+							<input name="goalNum" value='' id="goalNum" type="number" class="form-control" min="1" style="height:35px; min-width:404px; max-width:404px" required="required"/>
 						</ul>
 	         			
 	        			<br>
 		        		<h5>옵션</h5><p>
-		        		
-<!-- 여기부터였음 -->
 						<table id="dyntbl1">
 
 							<tr>
@@ -246,8 +244,8 @@
 								</th>
 							</tr>
 							<tr onMouseOver="dyntbl1.clickedRowIndex=this.rowIndex">
-								<td ><input class="form-control" style="width:100%" type=text name=itemcode></td> 
-								<td><input class="form-control" style="width:100%" type="number" name=itemname></td>
+								<td ><input class="form-control" style="width:100%" type=text name=itemcode required="required"></td> 
+								<td><input class="form-control" style="width:100%" type="number" name=itemname required="required"></td>
 								<td>
 									<!--input type=file name=itemnum-->
 								</td>
@@ -338,10 +336,13 @@
 						    	
 						    });
 						</script>
-							<br>
-							<input type="submit" value="저장" onclick="check()"/>
-                			<input type="button" value="취소"/>
-						</div>
+							<br><br>
+							<input type="submit" value="저장" onclick="check()"/ style=" width:100px; background-color: #000000; border: none; color:#fff; padding: 10px 0; 
+								text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px; cursor: pointer;">
+                			<!-- <input type="button" value="취소" style=" width:100px; background-color: #B2CCFF; border: none; color:#fff; padding: 10px 0; 
+								text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 4px; cursor: pointer;"/>
+							 -->
+						</div>  
 					</div>
 					
 					<script>

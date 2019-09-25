@@ -10,6 +10,7 @@
  		<result property="email" column="EMAIL"></result>
  		<result property="emailCheck" column="EMAILCHECK"></result>
  		<result property="authority" column="AUTHORITY"></result>
+ 		<result property="authorityCode" column="AUTHORITYCODE"></result>
  		<result property="odate" column="ODATE"></result>
  		<result property="idate" column="IDATE"></result> 	
  	</resultMap>
@@ -18,9 +19,19 @@
  		SELECT * FROM member WHERE id=#{id}
  	</select>
  	
+ 	<select id="selectAllMember" resultType="hashmap" parameterType="hashmap">
+		<![CDATA[
+        SELECT
+            *
+        FROM
+            member
+        ORDER BY id ASC
+    	]]>
+	</select>
+ 	
  	<insert id="memberInsert" parameterType="Member">
  		INSERT INTO member
- 		VALUES (#{id}, #{pwd}, #{name}, #{email}, #{emailCheck}, #{authority}, #{odate}, Now())
+ 		VALUES (#{id}, #{pwd}, #{name}, #{email}, #{emailCheck}, #{authority}, #{authorityCode}, #{odate}, Now())
  	</insert>
  	
  	<select id="idcheck" parameterType="String" resultType="Integer">
@@ -39,4 +50,12 @@
  	<select id="loginUser" resultType="Member">
  		SELECT * FROM member WHERE id=#{id}
  	</select>
+ 	
+ 	<delete id="deleteMember" parameterType="Integer">
+ 		DELETE FROM member WHERE id=#{id} 
+ 	</delete>
+ 		
+ 	<update id="updateMember" parameterType="Member">
+ 		UPDATE member SET id=#{id}, name=#{name}, email=#{email}, authority=#{authority} WHERE id=#{id}
+ 	</update>
  </mapper>

@@ -5,7 +5,6 @@
   <mapper namespace="kr.or.connect.paymentInfo">
   	<resultMap type="PaymentInfo" id="paymentInfoResult">
   		<result property="dealCode" column="dealCode"/>
-  		<result property="payOptionCode" column ="payOptionCode"/>
   		<result property="dealDate" column ="dealDate"/>
   		<result property="paymentTf" column ="paymentTf"/>
   		<result property="id" column ="id"/>  		
@@ -20,22 +19,42 @@
   		<result property="impUid" column="impUid"/>
   	</resultMap>
   
+  <!-- 구매완료 후 한 건 select -->
   	<select id="SelectOnePayInfo" resultType="PAYMENTINFO">
   		SELECT *
-  		FROM PaymentInfo 
+  		FROM PaymentInfo
   		WHERE dealCode =#{dealCode}
   	</select>
   	
   	<insert id="insertPayInfo" parameterType="PaymentInfo">
-  		INSERT INTO PaymentInfo VALUES (#{dealCode}, #{payOptionCode}, Now(), #{paymentTf}, #{id}, #{receiveName}, #{receivePhon},
+  		INSERT INTO PaymentInfo VALUES (#{dealCode}, Now(), #{paymentTf}, #{id}, #{receiveName}, #{receivePhon},
 								#{receiveAddr1}, #{receiveAddr2}, #{receivePostCode}, #{rnum}, #{payDeliveryCharge}, #{totalPrice}, #{impUid})
   	</insert>
   	
-  	<select id="SelectAllPayInfo" resultType="PAYMENTINFO">
-  		SELECT * FROM PaymentInfo
+  	<select id="SelectAll" resultType="PAYMENTINFO">
+  		SELECT * 
+  		FROM PaymentInfo
   	</select>
   	
-  
+  	<!-- 회원 당 구매한 물품 select -->
+  	<select id="SelectAllPayInfo" resultType="PAYMENTINFO">
+  		SELECT A.dealCode, A.dealDate, A.id, A.receiveName, A.receivePhon, A.receiveAddr1, A.receiveAddr2, A.receivePostCode, 
+  			   A.rnum, A.payDeliveryCharge, A.totalPrice,
+			   B.goodsName, B.sellEnd, B.sellNum, B.image 
+  		FROM PaymentInfo A, Goods B
+  		WHERE A.id = #{id} AND A.rnum = B.rnum
+  		ORDER BY dealDate DESC  		
+  	</select>
+  	
+  	<!-- 회원 당 구매한 물품 select -->
+  	<select id="SelectAllPayInfoMap" resultType="map" parameterType="hashmap">
+  		SELECT A.dealCode, A.dealDate, A.id, A.receiveName, A.receivePhon, A.receiveAddr1, A.receiveAddr2, A.receivePostCode, 
+  			   A.rnum, A.payDeliveryCharge, A.totalPrice,
+			   B.goodsName, B.sellEnd, B.sellNum, B.image 
+  		FROM PaymentInfo A, Goods B
+  		WHERE A.id = #{id} AND A.rnum = B.rnum
+  		ORDER BY dealDate DESC  		
+  	</select>
   </mapper>
   
   

@@ -20,14 +20,13 @@
 		WHERE A.rnum = B.rnum AND B.rnum =#{rnum}
 		ORDER BY buyOptionCode desc
 	</select>
-<!--
-	<select id="selectOneBuyOption" resultType="BuyOption" parameterType="int">
-		SELECT optionName, optionPrice 
+
+	<select id="selectOneOption" resultType="BuyOption" parameterType="int">
+		SELECT *
 		FROM buyOption
-		WHERE rnum = #{rnum} 
-		ORDER BY buyOptionCode desc
+		WHERE buyOptionCode = #{buyOptionCode} 
 	</select>
--->	
+
 	<insert id="insertBuyOption" parameterType="BuyOption">
 		INSERT INTO buyOption(buyOptionCode, optionName, optionPrice, rnum) VALUES(#{buyOptionCode}, #{optionName}, #{optionPrice}, #{rnum})
 	</insert>

@@ -18,6 +18,11 @@ public interface GoodsDao {
 	void insert(Goods goods);
 	Goods selectOne(int rnum);
 	List<Goods> select();
+	List<Goods> selectPopular();
 	public int totalCount();
 	void updateSellNum(Goods goods);
+	void updateScheduler(Goods goods);
+	void deleteGoods(int rnum);
+	List<Goods> selectAllById(int rnum);
+	List<Goods> selectMySell(String id);
 }

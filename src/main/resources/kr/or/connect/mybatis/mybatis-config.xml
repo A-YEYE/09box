@@ -15,6 +15,7 @@
 		<typeAlias alias="Reply" type="kr.or.connect.dto.Reply"/>
 		<typeAlias alias="Criteria" type="kr.or.connect.dto.Criteria"/>
 		<typeAlias alias="PageMaker" type="kr.or.connect.dto.PageMaker"/>
+		<typeAlias alias="Authority" type="kr.or.connect.dto.Authority"/>
 	</typeAliases>
 
 
@@ -25,15 +26,7 @@
 		<mapper resource="kr/or/connect/mybatis/PaymentInfo.xml" />		<!-- 결제 정보 -->
 		<mapper resource="kr/or/connect/mybatis/PaymentOption.xml" />	<!-- 구매한 상품 옵션 정보 -->
 		<mapper resource="kr/or/connect/mybatis/Member2.xml" />
+		<mapper resource="kr/or/connect/mybatis/Reply.xml" />
+		<mapper resource="kr/or/connect/mybatis/Authority.xml" /> 
 	</mappers>
-<!-- 
-	<mappers>
- 		
-		<mapper resource="kr/or/connect/mybatis/Member.xml" />
-		<mapper resource="kr/or/connect/mybatis/Deal.xml" />
-		<mapper resource="kr/or/connect/mybatis/PaymentInfo.xml" />
-		<mapper resource="kr/or/connect/mybatis/Goods.xml" />
-		<mapper resource="kr/or/connect/mybatis/Reply.xml" /> 	
-	</mappers>
- -->
 </configuration>

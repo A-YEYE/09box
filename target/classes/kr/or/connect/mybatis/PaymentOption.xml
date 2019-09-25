@@ -10,16 +10,15 @@
 		<result property="optionCount" column="optionCount"/>
 	</resultMap>  	
 	
-	<select id="SelectOnePayOption" resultType="PaymentOption">
-		SELECT * FROM paymentOption
-	</select>
-	
 	<insert id="InsertPayOption" parameterType="PaymentOption">
 		INSERT INTO paymentOption 
 		VALUES (#{payOptionCode}, #{buyOptionCode}, #{dealCode}, #{optionCount})
 	</insert>
 	
-	
+	<select id="SelectPayOptionOne" resultType="PaymentOption">
+		SELECT * FROM paymentOption
+		WHERE dealCode = #{dealCode}
+	</select>
   
   
 </mapper>

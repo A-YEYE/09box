@@ -2,6 +2,7 @@
 <%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="kr.or.connect.dto.Member" %>
 <!doctype html> 
 <html class="no-js">
 
@@ -86,8 +87,289 @@
 		integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
 		crossorigin="anonymous">
 		
-	</head>
-	
+		<style>
+						
+		/* GENERAL BUTTON STYLING */
+		button,
+		button:after {           
+		  -webkit-transition: all 0.3s;               
+			-moz-transition: all 0.3s;
+		  -o-transition: all 0.3s;
+			transition: all 0.3s;
+		}
+		          
+		button {
+		  background: none;
+		  border: 3px solid #595959;
+		  border-radius: 5px;
+		  color: #595959;
+		  display: block;  
+		  font-weight: bold;
+		  position: relative;
+		  text-transform: uppercase;
+		}
+		
+		button::before,
+		button::after {
+		  background: #EAEAEA;
+		  content: '';
+		  position: absolute;
+		  z-index: -1;
+		}
+		
+		button:hover {
+		  border: 3px solid gray;
+		  color: gray;
+		}
+		
+		/* BUTTON 2 */
+		.btn-2::after {
+		  height: 100%;
+		  left: 0;
+		  top: 0;
+		  width: 0;
+		}
+		
+		.btn-2:hover:after {
+		  width: 100%;
+		}
+
+		</style>
+		<!-- 댓글 style -->
+		<style>
+		.entry-date2 {
+		    color: #dcd2be;
+		    background: #2d2d2d;
+		  	margin: auto;
+		    width: 100px;
+		    height: 40px;
+		   	line-height: 40px;
+		    display: block;
+		    /*font-family: 'Voltaire', Arial, sans-serif;*/
+		    
+		    font-size:30%;
+		    text-align: center;
+		    -moz-border-radius: 60px 60px 60px 60px;
+		    -webkit-border-radius: 60px 60px 60px 60px;
+		    border-radius: 60px 60px 60px 60px;
+		    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+		}
+
+
+		.select-wrapper li {
+		    padding: 10px 0;
+		    border-bottom: 1px solid #cdcdcd;
+		    position: relative;
+		    list-style: none;
+		    display: list-item;
+		    text-align: -webkit-match-parent;
+		    font-size: 14px;
+		}
+
+		.select-wrapper input {
+		    margin: 0;
+		    padding: 0;
+		    font-size: 1em;
+		    height: 30px;
+		    vertical-align: middle;
+		    text-rendering: auto;
+		    color: initial;
+		    letter-spacing: normal;
+		    word-spacing: normal;
+		    text-transform: none;
+		    text-indent: 0px;
+		    text-shadow: none;
+		}
+		
+		.select-wrapper input[type="hidden"]{
+		    display: none;
+		}
+		
+		.select-wrapper li .opt_name {
+		    line-height: 18px;
+		    padding: 0 0 5px;
+		    width: 100%;
+		    text-align: left;
+		}
+		
+		.select-wrapper .sound_only {
+			display:none;
+		}
+		
+		.select-wrapper li div .sit_qty_minus ,
+		.select-wrapper li div .sit_qty_plus,
+		.select-wrapper li div .sit_qty_del{
+		    border: none;
+		    width: 30px;
+		    height: 30px;
+		    font-size: 16px;
+		    cursor: pointer;
+		    border-bottom: 1px solid #cdcdcd;
+		}
+		
+		.select-wrapper div[id=total_price],
+		.select-wrapper div[id=ship]{
+			font-size: 18px;
+		}
+		.select-wrapper li div span{
+		    width:100%;
+		    text-align: right;
+		
+		}
+								
+		.tabcontent2 {
+		    display: none;
+		    padding: 6px 12px;
+		    padding: 6px 0 6px 0;
+		    /*border: 1px solid #999;*/
+		    border-top: none;
+		}
+		/* Create an active/current tablink class */
+		.tab2 button.active {
+		    /*background-color: #ccc;*/
+		    font-weight: bold;
+		    border-bottom: 2px solid #ff0000;
+		    color:#ffffff;
+		}
+		
+		.select_table table[id=buytable]{
+				font-size: 14px; 
+				width: 100%; /* 원하는 너비설정 */ 
+				padding: .8em .5em; /* 여백으로 높이 설정 */ 
+				/*font-family: inherit;*/ /* 폰트 상속 */
+				/*border: 1px solid #999;*/
+				border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+				-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+				-moz-appearance: none; 
+				appearance: none;
+		}
+		.select_table table input,
+		.select_table table button[class=mybtn2]{
+				font-size: 14px; 
+				width: 100%; /* 원하는 너비설정 */
+				height:100%; 
+				padding: .8em .5em; /* 여백으로 높이 설정 */ 
+				/*font-family: inherit; *//* 폰트 상속 */
+				/*border: 1px solid #999;*/
+				border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+				-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+				-moz-appearance: none; 
+				appearance: none;
+				border:0;
+		}
+		.select_table table input[name=item_count],
+		.select_table table input[name=item_price]{
+			text-align: center;
+		}
+		.select_table table tr{
+			border:1px solid #a9a9a9;
+			/*background-color:#a9a9a9;*/
+		}
+		.total_price{
+				width:100%;
+				text-align:right;
+				font-size: 15px;
+		}
+		.total_price input[class=totalPrice]{
+				display: inline-block;
+				font-size: 23px; 
+				width: 50%;
+				/*width: 100%;
+				height:100%; */
+				padding: .8em .5em ; /* 여백으로 높이 설정 */ 
+				/*font-family: inherit;*/ /* 폰트 상속 */
+				/*border: 1px solid #999;*/
+				/*border-radius: 0px;
+				-webkit-appearance: none;
+				-moz-appearance: none; 
+				appearance: none;*/
+				border:0;
+				color:red;
+				text-align:right;
+		}
+		/*total_price">총 <input class="totalPrice*/
+		.ship_pay{
+				width:100%;
+				text-align:right;
+				font-size: 15px;
+		}
+		.tabcontent2 img{
+			max-width: 100%;
+		}
+		.select-wrapper{
+			position:relative;
+			float: left;
+			width:100%;
+			margin:0;
+			padding-bottom:5px;
+			padding-top:5px;
+		}
+		.select-wrapper select {
+			font-size: 14px;
+			width: 100%; /* 원하는 너비설정 */
+			padding: .15em .8em; /* 여백으로 높이 설정 */ 
+			/*font-family: inherit;*/ /* 폰트 상속 */ 
+			background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+			/*border: 1px solid #999;*/
+			border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+			-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+			-moz-appearance: none; 
+			appearance: none;
+		}
+		.select-wrapper select:focus{
+		    outline: 0;
+		}
+		
+		/* Article Reply */
+		
+		.reply-wrap {padding:20px; background:#fff}
+		/* Reply Form */
+		.reply-form {}
+		.reply-form dl.reply-guest {}
+		.reply-form dl.reply-guest dt {position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;}
+		.reply-form dl.reply-guest dd {margin-bottom:10px}
+		.reply-form dl.reply-guest dd input {width:100%; padding:10px 0; border:1px solid #ddd; background:#f9f9f9; color:#999; text-indent:10px;}
+		.reply-form dl.reply-guest dd input:focus, .reply-form dl.reply-guest dd input:active {background:#fff; color:#111}
+		.reply-form .secret {}
+		.reply-form .secret label {cursor:pointer}
+		.reply-form .secret input {width:24px; height:24px; margin-right:10px; vertical-align:bottom;}
+		.reply-form dl.reply-write {margin-top:10px;}
+		.reply-form dl.reply-write dt {position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;}
+		.reply-form dl.reply-write dd {}
+		.reply-form dl.reply-write dd textarea {width:100%; margin-bottom:10px; padding:10px 0; height:80px; border:1px solid #ddd; background:#f9f9f9; color:#999; text-indent:10px;}
+		.reply-form dl.reply-write dd textarea:focus, .reply-form dl.reply-write dd textarea:active {background:#fff; color:#111}
+		.reply-form button {display:block; width:100%; margin:10px 0 0 0; /*padding:10px 0;*/ border:1px solid #ff7035; background:#ff8149; color:#fff; text-align:center;}
+		
+		
+		/* Reply list */
+		.reply-list {margin-bottom:30px; list-style:none; border-bottom:1px solid #e9e9e9}
+		.reply-list li {padding:20px 0; border-top:1px solid #e9e9e9}
+		.reply-list li:after {display:block; clear:both; content:''}
+		.reply-list li .thumb {float:left; width:10%; text-align:center}
+		.reply-list li .thumb img {border-radius: 50%;}
+		.reply-list li .reply-content {float:right; width:90%}
+		.reply-list li .reply-content:after {display:block; clear:both; content:''}
+		.reply-list li .reply-content ul {}
+		.reply-list li .reply-content ul li {border:0; padding:0}
+		.reply-list li .reply-content .info {float:left;}
+		.reply-list li .reply-content .info li {font-size:1.2em; display:inline-block}
+		.reply-list li .reply-content .info li.date {font-size:1em; color:#bbb} 
+		.reply-list li .reply-content .control {float:right}
+		.reply-list li .reply-content .control li {display:inline-block; margin-right:10px}
+		.reply-list li .reply-content .control li a {color:#ff8149; font:normal 1em /*'NanumBarunGothic', 'Noto Sans', sans-serif*/;}
+		.reply-list li .reply-content .control li a .fa {color:#ff8149;}
+		.reply-list li .reply-content .control li a.reply-url, .reply-list li .reply-content .control li a.reply-url .fa {color:#999;}
+		.reply-list li .reply-content .control li a.reply-modify, .reply-list li .reply-content .control li a.reply-modify .fa {color:#ed145b}
+		.reply-list li .reply-content .text {clear:both; padding:10px 0 0; color:#777; font:normal 0.875em /*'NanumBarunGothic', 'Noto Sans', sans-serif*/; line-height:1.5em}
+		.reply-list li .reply-content .text{font-size:15px;}
+		/* @ 비밀글 */ .reply-list li.rp_secret .reply-content .text {color:#999}
+		/* @ 일반 */   .reply-list li.rp_general {}
+		/* @ 관리자 */ .reply-list li.rp_admin .reply-content .nickname a {color:#ff8149}
+		/* Reply Form */
+		/* RE Reply list */
+		.reply-list li.re-reply {width:90%; margin-left:10%; border-top:1px solid #f5f5f5}
+		</style>
+	</head>	
 	
 	<body class="blog">
 	
@@ -96,12 +378,12 @@
 			<div class="wrapper cf">
 				
 				<div id="logo">
-					<a href="./"><img  src="img/logo.png" alt="Simpler"></a>
+					<a href="./"><img  src="img/gonggu_logo.png" alt="Simpler"></a>
 				</div>
 				
 				<!-- nav -->
 				<ul id="nav" class="sf-menu">
-						<li class="current-menu-item"><a href="./">HOME</a></li>
+						<li><a href="./">HOME</a></li>
 						<li><a href="./blog">상품올리기</a></li>
 						<li><a href="#">카테고리</a>  
 							<ul>
@@ -112,7 +394,6 @@
 								<li><a href="#" data-filter=".photo">반려동물</a></li>
 							</ul>
 						</li>
-						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
 						<li><c:choose>
 								<c:when test="${userSession != null}">
 									<a>${userSession.id} 님</a>
@@ -134,23 +415,15 @@
 		<!-- MAIN -->
 		<div id="main">
 			<div class="wrapper cf">
-			
-				
 				<!-- posts list -->
 	        	<div id="posts-list" class="cf">   
-					
-					
 					<div class="card mb-3">
-						  <h2 class="card-header">${goodsName}</h2><br><br>
-				<!-- 		  <div class="card-body">
-						    <h5 class="card-title">Special title treatment</h5>
-						    <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-						  </div>
-				 -->		</div>
+						<h2 class="card-header">${goodsName}</h2><br><br>
+					</div>
 					
 					<article class="format-standard">
 						<div class="feature-image">
-							<img src="${pageContext.request.contextPath}/${image}"  />
+							<img src="${pageContext.request.contextPath}/${image}" style="width:100%"/>
 						</div>
 					</article>
 						
@@ -158,16 +431,71 @@
 					<ul class="tabs">
 						<li><a href="#"><span>상품설명</span></a></li>
 						<li><a href="#"><span>댓글</span></a></li>
-						<li><a href="#"><span>Tab number 3</span></a></li>
 					</ul>
 	
-					<div class="panes">
+					<div class="panes">   
+						<!-- 상품설명 -->
 						<div>
 							${content}
 						</div>
-						<div>
-							<p>Mauris habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat s</p>
-	
+					<!-- 댓글 -->
+					<div id="reply" class="tabcontent2" <c:if test="${reply ne null}">style="display: block"</c:if>>
+					<!-- article reply -->
+					<div class="article-reply">
+			        <div class="reply-wrap">
+			            <form name="form0" action="replySave" method="post" id="form0">
+			                <div class="reply-form">
+			                    <fieldset>
+			                        <legend class="sr-only">댓글쓰기 폼</legend>
+			                        <dl class="reply-write">
+			                        	<input type="hidden" name="loginId" value="${userSession.id}" id="loginId">
+			                            <dt><label for="rp_input_comment" class="lab_write screen_out">내용</label></dt>
+			                            <input type="hidden" value="${product_code}" name="product_code">
+			                            <input type="hidden" value=1 name="reply_order">
+			                            <input type="hidden" value="${replyParent}" name="reply_parent">
+			                            <dd><textarea name="reply_content" id="rp_input_comment" placeholder="여러분의 소중한 댓글을 입력해주세요" title="댓글 내용 이력"></textarea></dd>
+			                        </dl>
+			                        <button type="button" class="reply-btn" onclick="rp_onclick_submit('form0')"><i class="fa fa-send"></i> Comment Send</button>
+			                    </fieldset>
+			                </div>
+			            </form> 
+			        </div>
+					</div>   
+					<!-- //article reply -->
+				    <ul class="reply-list">
+				    <c:forEach items="${listReply}" var="list_reply">
+		            <li id="rp_rep_id" class="rp_rep_class <c:if test="${list_reply.replyOrder!=1}">re-reply</c:if>">
+		                <div class="thumb">
+		                		<c:if test="${list_reply.replyOrder==1}">
+		                			<img src="img/Tube.png" style="width:50%;height:50%" class="img_profile" alt="프로필사진">
+		                		</c:if>
+								<c:if test="${list_reply.replyOrder!=1}">
+		                			<img src="img/jayG2.png" width="50%" height="50%" class="img_profile" alt="프로필사진">
+		                		</c:if>	
+		                </div>
+		                <div class="reply-content">
+		                    <ul class="info">
+		                        <li class="id">${list_reply.id}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+		                        <li class="date"><fmt:formatDate value="${list_reply.replyDate}" pattern="yyyy-MM-dd"/></li>
+		                    </ul>
+		                    <p class="text">${list_reply.replyContent}</p>
+		                    <ul class="control">
+		                    <c:set var="sessionId" value="${userSession.id}" scope="request" />
+		                     	<c:if test="${loginId eq sessionId}">  
+			                    	<c:if test="${list_reply.replyOrder==1}">
+			                    		<li class=""><a href="#none" onclick="rp_rep_onclick_reply('${list_reply.replyCode}', '${list_reply.replyOrder+1}')" class="reply-reply"><i class="fa fa-mail-reply"></i> 댓글쓰기</a></li>
+			                    	</c:if>
+		                     	</c:if>  
+		                    </ul>
+		                </div>
+		            </li>
+		            <div class="re-reply-form${list_reply.replyCode}">
+		            
+		            </div>
+	            </c:forEach>
+	           
+				    </ul>
+		            
 						</div>
 						
 						<div>
@@ -212,9 +540,12 @@
 	        		<li class="block">
 		        		<h4>남은기간</h4>
 						<div class="card-body">
-						
-						    <h3 class="card-title">${(-1)*day} 일 ${(-1)*hour} 시간</h3>
-						    
+						    <c:if test="${time>=0}">
+								<h3 class="card-title">0일 0시간</h3>
+							</c:if>
+							<c:if test="${time<0}">  
+								<h3 class="card-title">${(-1)*(day)} 일 ${(-1)*(hour)} 시간</h3>
+							</c:if>	
 					<!-- 	    <h6 class="card-subtitle text-muted"><fmt:parseNumber var="test" value="${sellNum/goalNum*100}" integerOnly="true"/>${test}%</h6>  -->
 						  </div>
 	        		</li>
@@ -244,7 +575,13 @@
 		        		<h4>구매</h4>        
 		        		<!-- 추가 -->
 						<!-- Trigger/Open The Modal -->
-					    <button id="myBtn" style="font-size: 20px; padding: 10px 50px; margin: 1em auto;">옵션 선택</button>
+						<c:if test="${time>=0}">
+								<button type="none" id="myBtn" style="font-size: 20px; padding: 10px 50px; margin: 1em auto;">판매 종료</button>
+							</c:if>
+							<c:if test="${time<0}">
+								<button id="myBtn" style="font-size: 20px; padding: 10px 50px; margin: 1em auto;">옵션 선택</button>
+							</c:if>	
+					    
 					 	<form id="saleForm" action="sale" method="post">
 					    <!-- The Modal -->
 					    <div id="myModal" class="modal" style="display: none; /* Hidden by default */
@@ -310,6 +647,7 @@
 							    function success(name, baseprice, price, num, rnum)
 							   {      	
 							    	var oRow = document.all.dyntbl1.insertRow();
+							    	var loginId = $('#loginId').val();
 							 		
 							        // onmouseover이벤트가 발생될때 fncOnMouseOver함수를 호출한다.
 							        oRow.onmouseover=function(){fncOnMouseOver(this.rowIndex)};
@@ -323,20 +661,21 @@
 							        var oCell7 = oRow.insertCell();
 							        var oCell8 = oRow.insertCell();
 							        var oCell9 = oRow.insertCell();
+							        var oCell10 = oRow.insertCell();
 							        oCell1.innerHTML = "<input type=text name=item_index id=\"num\" style=\display:none\ value="+ num +">"; // option_code
-							        oCell2.innerHTML = "<input type=text name=item_name value="+ name +">";	// option_name
+							        oCell2.innerHTML = "<input type=text name=item_name style=\"width:100%; border:3px solid #808080; border-right:0px; border-left:0px; border-top:0px\" value="+ name +">";	// option_name
 							        oCell3.innerHTML = "<button class=mybtn2 type=button onClick=\"minusCount()\" name=buytable_minusCount><i class=\"fas fa-minus\"></i></button>";
-							        oCell4.innerHTML = "<input type = number name=option_count id=\"count\" value=0>";	// option_count
+							        oCell4.innerHTML = "<input type = number style=\"text-align:center; border:3px solid #808080; border-style:solid; border-right:0px; border-left:0px; border-top:0px\" name=option_count id=\"count\" value=0>";	// option_count
 							        oCell5.innerHTML = "<button class=mybtn2 type=button onClick=\"plusCount()\" name=buytable_plusCount><i class=\"fas fa-plus\"></i></button>";
-							        oCell6.innerHTML = "<input type = number name=item_price id=\"price\" value="+ (price-price) +">";	// option_price_total
+							        oCell6.innerHTML = "<input type = number name=item_price style=\"text-align:right; border:3px solid #808080; border-style:solid; border-right:0px; border-left:0px; border-top:0px\" id=\"price\" value="+ (price-price) +">";	// option_price_total
 							        oCell7.innerHTML = "<button class=mybtn2 type=button onClick=\"delRow()\" name=buytable_deleteRow><i class=\"fas fa-times\" ></i></button>";
 							        oCell8.innerHTML = "<input type = number name=base_price style=\display:none\ id=\"base_price\" value="+ baseprice +">";	// option_price_base
 							        oCell9.innerHTML = "<input type = number name=rnum style=\display:none\ id=\"rnum\" value="+ rnum +">";	// 상품코드
-							        
+							        oCell10.innerHTML = "<input type=\"hidden\" value="+loginId+" name=\"loginId\">";
 							        // RowIndex는 자동으로 재설정 된다는 것을 보여 주기 위한 함수 호출.
 							        fncReOrderByTdRowIndex();
 							       
-							        // RowIndex의 자동 재설정을 보여주기 위해 생성시마다 1씩 증가하는 변수.
+							        // RowIndex의 자동 재설정을 보여주기 위해 생성시마다 1씩 증가하는 변수.   
 							        liRowIdx++;
 							       	
 							     
@@ -382,8 +721,8 @@
 							   function delRow() 
 							  {
 								   var num = $("#dyntbl1 tr").find('input[id="num"]').val();	// 상품 코드 값
-							       set.delete(num);
-								          
+								   set.delete(num);
+								   
 							       // table에서 지정한 줄(tr)을 rows 컬렉션에서 삭제한다.
 							       document.all.dyntbl1.deleteRow(dyntbl1.clickedRowIndex);
 							    	
@@ -418,7 +757,58 @@
 							 //           document.all.dyntbl1.rows(i).cells(1).innerHTML = document.all.dyntbl1.rows(i).rowIndex;
 							  //      }
 							    }
-							
+								
+							    // 댓글  
+							    var loginId = $('#loginId').val();
+							    function rp_onclick_submit(formName){
+									var form = document.getElementById(formName);
+									console.log("formName: "+formName);
+									if(loginId==""){ 	
+										alert("로그인 먼저 해주세요.");
+										return false;										
+									}
+									  
+									if (form.reply_content.value=="") {
+										alert(loginId);
+										alert("댓글을 입력해주세요.");
+										form.reply_content.focus();
+										return false;
+									}
+									form.submit();
+								}
+							    function rp_rep_onclick_reply(reply_code, reply_order){
+									if($(".re-reply-form"+reply_code).hasClass('on')){
+										$(".re-reply-form"+reply_code).html("");
+										$(".re-reply-form"+reply_code).removeClass('on');
+									}else{
+										var str = "";
+										var formName = "form"+reply_code;
+										console.log("reply_code: "+reply_code);
+										console.log("formName: "+formName);
+										str+="<div class=\"article-reply\">"
+								        +"<div class=reply-wrap>"
+								        +"<form name=\"form\" action=\"replySave\" method=\"post\" id=\""+formName+"\">"
+								        +"<div class=\"reply-form\">"
+								        +"<fieldset>"
+								        +"<legend class=\"sr-only\">댓글쓰기 폼</legend>"
+								        +"<dl class=\"reply-write\">"
+								        +"<input type=\"hidden\" value=\"${userSession.id}\" name=\"loginId\">"
+								        +"<dt><label for=\"rp_input_comment\" class=\"lab_write screen_out\">내용</label></dt>"
+								        +"<input type=\"hidden\" value=\"${product_code}\" name=\"product_code\">"
+						                +"<input type=\"hidden\" value="+reply_order+" name=\"reply_order\">"
+						                +"<input type=\"hidden\" value="+reply_code+" name=\"reply_parent\">"
+								        +"<dd><textarea name=\"reply_content\" id=\"rp_input_comment\" placeholder=\"답글을 입력해주세요\" title=\"댓글 내용 이력\"></textarea></dd>"
+								        +"</dl>"
+								        +"<button type=\"button\" class=\"reply-btn\" onclick=\"rp_onclick_submit('"+formName+"')\"><i class=\"fa fa-send\"></i> Comment Send</button>"
+								        +"</fieldset>"
+								        +"</div>"
+								        +"</form>"
+								        +"</div>"
+												+"</div>";
+											$(".re-reply-form"+reply_code).html(str);
+											$(".re-reply-form"+reply_code).addClass('on');
+									}
+								}
 							</script>
  
  
@@ -430,79 +820,35 @@
 							<select id="selectOption" name="selectOption" class="form-control" 
 							style="display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px;
 										line-height: 1.42857143; color: #555; background-color: #fff; background-image: none;
-										border: 1px solid #ccc; border-radius: 4px;" onchange="javascript:myListener(this);">
+										border: 1px solid #BDBDBD; border-radius: 4px;" onchange="javascript:myListener(this);">
 							<option value="">선택하세요</option>
 								<c:forEach var="buyOption" items="${buyOption}">
-									<option id="${buyOption.buyOptionCode}" value="${buyOption.optionPrice}" name="${buyOption.rnum}">${buyOption.optionName}  (￦ ${buyOption.optionPrice})</option>
-									
+									<option id="${buyOption.buyOptionCode}" value="${buyOption.optionPrice}" name="${buyOption.rnum}">${buyOption.optionName}  
+									<fmt:parseNumber var="num" value="${buyOption.optionPrice}" pattern="00,000" integerOnly="true"/>￦ ${num}</option>
 								</c:forEach>
 							</select>
 								<br>
 						</tr>
 						<tr>
 							<td></td>
-						    <td style='width:50%;'></td>
+						    <td style='width:50%;'></td>  
 						    <td style='width:5%;'></td>
 						    <td style='width:10%;'></td>
 						    <td style='width:5%;'></td>
 						    <td style='width:20%;'></td>
 						    <td style='width:10%;'></td>
+						    <td></td>
+						    <td></td>
 						</tr>
 						</table>
 						</div>
 							<br>
-							<div class="total_price"><input type="number" class="total_price" id="total_price" value="0" readonly style="width:95%; height:30px; size=15px; text-align:right"> 원</div>
+							<div class="total_price"><input type="number" class="total_price" id="total_price" value="0" readonly 
+															style="width:95%; height:30px; size=15px; text-align:right; border-style:solid gray; border-right:0px; border-left:0px; border-top:0px"> 원</div>
 						<div class="modal-footer">
 						<button type="submit" class="btn-2" style="font-size: 15px; padding: 10px 50px; margin: 1em auto;">구매하기</button>
 						</div>
-						<style>
 						
-						/* GENERAL BUTTON STYLING */
-						button,
-						button:after {           
-						  -webkit-transition: all 0.3s;               
-							-moz-transition: all 0.3s;
-						  -o-transition: all 0.3s;
-							transition: all 0.3s;
-						}
-						          
-						button {
-						  background: none;
-						  border: 3px solid #595959;
-						  border-radius: 5px;
-						  color: #595959;
-						  display: block;  
-						  font-weight: bold;
-						  position: relative;
-						  text-transform: uppercase;
-						}
-						
-						button::before,
-						button::after {
-						  background: #EAEAEA;
-						  content: '';
-						  position: absolute;
-						  z-index: -1;
-						}
-						
-						button:hover {
-						  border: 3px solid gray;
-						  color: gray;
-						}
-						
-						/* BUTTON 2 */
-						.btn-2::after {
-						  height: 100%;
-						  left: 0;
-						  top: 0;
-						  width: 0;
-						}
-						
-						.btn-2:hover:after {
-						  width: 100%;
-						}
-
-						</style>
 						</div>
 						</div>		
 						<script type="text/javascript">

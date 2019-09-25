@@ -39,7 +39,6 @@ public class HomeController {
 	// main
 	@GetMapping(path="/")
 	public String behindCreate(HttpServletRequest request,
-								HttpSession httpSession,
 								Criteria criteria,
 								ModelMap model) {
 	//	int totalCount = goodsService.totalcount();
@@ -50,8 +49,12 @@ public class HomeController {
 		pageMaker.setTotalCount(goodsService.totalcount());
 		
 		List<Map<String, Object>> all = goodsService.selectAll(criteria);
-		model.addAttribute("all", all);
+		model.addAttribute("list", all);
 		model.addAttribute("pageMaker", pageMaker);
+		
+		// 메인 슬라이드
+		List<Goods> mainList = goodsService.selectPopular();
+		model.addAttribute("mainList", mainList);
 		
 		// 전체
 	//	List<Goods> list2 = goodsService.selectAll();
@@ -90,38 +93,33 @@ public class HomeController {
 	}
 	
 //	@RequestMapping(value="/")
-	@GetMapping(path="category/{categoryCode}")
-	public ModelAndView search(@PathVariable(value="categoryCode")String categoryCode) {
+	@GetMapping(path="{categoryCode}")
+	public ModelAndView search(@PathVariable(value="categoryCode")String categoryCode, Criteria criteria, ModelMap model) {
 		// 선택된 카테고리(list) 
 		List<Goods> list = goodsService.selectCategory(categoryCode);
 
 		ModelAndView mv = new ModelAndView("list2", "list", list);
 		mv.addObject("categoryCode", categoryCode);
-		mv.addObject("root", "../");
+		mv.addObject("root", "./");
 		
 		List<Category> category = categoryService.selectAllCategory();
 		mv.addObject("category", category);
+		
+		// 페이징
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		
+		pageMaker.setTotalCount(goodsService.totalcount());
+		
+		List<Map<String, Object>> all = goodsService.selectAll(criteria);
+		model.addAttribute("all", all);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		// 메인 슬라이드
+		List<Goods> mainList = goodsService.selectPopular();
+		model.addAttribute("mainList", mainList);
 		
 		return mv;
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

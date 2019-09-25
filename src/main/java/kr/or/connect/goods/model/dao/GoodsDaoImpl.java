@@ -50,9 +50,15 @@ public class GoodsDaoImpl implements GoodsDao{
 	
 	@Override
 	public List<Goods> select() {
-		List<Goods> list2 = sqlSession.selectList(ns+".optionGoods");
+		List<Goods> list = sqlSession.selectList(ns+".optionGoods");
 		
-		return list2;
+		return list;
+	}
+	
+	@Override
+	public List<Goods> selectPopular() {
+		List<Goods> list = sqlSession.selectList(ns+".selectPopular");
+		return list;
 	}
 	
 //	@Override
@@ -119,11 +125,25 @@ public class GoodsDaoImpl implements GoodsDao{
 		sqlSession.update(ns+".sellNumupdate", goods);
 		
 	}
-	
-//	@Override
-//	public int totalCount() {
-//		return sqlSession.selectOne(ns+".totalCount");
-//	}
-	
-	
+
+	@Override
+	public void deleteGoods(int rnum) {
+		sqlSession.delete(ns+".deleteGoods", rnum);
+		
+	}
+
+	@Override
+	public void updateScheduler(Goods goods) {
+		sqlSession.update(ns+".schedulerupdate", goods);
+	}
+
+	@Override
+	public List<Goods> selectAllById(int rnum) {
+		return sqlSession.selectList(ns+".selectAllByRnum", rnum);
+	}
+
+	@Override
+	public List<Goods> selectMySell(String id) {
+		return sqlSession.selectList(ns+".selectMySell", id);
+	}
 }

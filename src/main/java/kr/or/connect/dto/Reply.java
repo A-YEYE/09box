@@ -3,75 +3,86 @@ package kr.or.connect.dto;
 import java.util.Date;
 
 public class Reply {
-	private int replyNem;
-	private int rNum;				// f.k
-	private String dealCode;		// f.k
-	private String categoryCode;	// f.k
+	private int replyCode;
 	private String id;				// f.k
-	private String replyContent;
-	private int replyP;
-	private int replyC;
-	private Date replyDate;
+	private String replyContent;		// f.k
+	private Date replyDate;	// f.k
+	private int rnum;				// f.k
+	private int replyParent;
+	private int replyOrder;
 	
-	public int getReplyNem() {
-		return replyNem;
+	public Reply(int replyCode, String id, String replyContent, Date replyDate, int rnum, int replyParent, int replyOrder) {
+		this.replyCode = replyCode;
+		this.id = id;
+		this.replyContent = replyContent;
+		this.replyDate = replyDate;
+		this.rnum = rnum;
+		this.replyParent = replyParent;
+		this.replyOrder = replyOrder;
 	}
-	public void setReplyNem(int replyNem) {
-		this.replyNem = replyNem;
+
+	public Reply() {
 	}
-	public int getrNum() {
-		return rNum;
+
+	public int getReplyCode() {
+		return replyCode;
 	}
-	public void setrNum(int rNum) {
-		this.rNum = rNum;
+
+	public void setReplyCode(int replyCode) {
+		this.replyCode = replyCode;
 	}
-	public String getDealCode() {
-		return dealCode;
-	}
-	public void setDealCode(String dealCode) {
-		this.dealCode = dealCode;
-	}
-	public String getCategoryCode() {
-		return categoryCode;
-	}
-	public void setCategoryCode(String categoryCode) {
-		this.categoryCode = categoryCode;
-	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getReplyContent() {
 		return replyContent;
 	}
+
 	public void setReplyContent(String replyContent) {
 		this.replyContent = replyContent;
 	}
-	public int getReplyP() {
-		return replyP;
-	}
-	public void setReplyP(int replyP) {
-		this.replyP = replyP;
-	}
-	public int getReplyC() {
-		return replyC;
-	}
-	public void setReplyC(int replyC) {
-		this.replyC = replyC;
-	}
+
 	public Date getReplyDate() {
 		return replyDate;
 	}
+
 	public void setReplyDate(Date replyDate) {
 		this.replyDate = replyDate;
 	}
-	
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	public int getReplyParent() {
+		return replyParent;
+	}
+
+	public void setReplyParent(int replyParent) {
+		this.replyParent = replyParent;
+	}
+
+	public int getReplyOrder() {
+		return replyOrder;
+	}
+
+	public void setReplyOrder(int replyOrder) {
+		this.replyOrder = replyOrder;
+	}
+
 	@Override
 	public String toString() {
-		return "Reply [replyNem=" + replyNem + ", rNum=" + rNum + ", dealCode=" + dealCode + ", categoryCode="
-				+ categoryCode + ", id=" + id + ", replyContent=" + replyContent + ", replyP=" + replyP + ", replyC="
-				+ replyC + ", replyDate=" + replyDate + "]";
-	}	
+		return "Reply [replyCode=" + replyCode + ", id=" + id + ", replyContent=" + replyContent + ", replyDate="
+				+ replyDate + ", rnum=" + rnum + ", replyParent=" + replyParent + ", replyOrder=" + replyOrder + "]";
+	}
 }

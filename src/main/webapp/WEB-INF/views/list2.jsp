@@ -81,7 +81,33 @@
 	        background-size: cover;
 	      }
 		</style>
-
+		
+		<style>
+	.paging {  
+	list-style:none;
+	
+	display:inline;
+	}
+	.paging {
+		
+	}
+	.paging a {
+		
+		padding:4px;
+		margin-right:3px;
+		width:15px;
+		color:#000;
+		font:bold 12px tahoma;
+		border:1px solid #eee;
+		text-align:center;
+		text-decoration:none;
+	}
+	.paging a:hover, .paging ul li a:focus {
+		color:#fff;
+		border:1px solid #f40;
+		background-color:#f40;
+	}
+		</style>
 	</head>
 	
 	
@@ -108,16 +134,19 @@
 								<li><a href="#" data-filter=".photo">반려동물</a></li>
 							</ul>
 						</li>
-						<li><a href="portfolio.do">포폴/WORK이건 멀루하징</a></li>
 						<li><c:choose>
-								<c:when test="${userSession != null}">
-									<a>${userSession.id} 님</a>
-									<ul><li><a href="logout">로그아웃</a></li></ul>
-								</c:when>  
-								<c:otherwise> 
-									<a href="./loginform">회원가입/로그인</a>
-								</c:otherwise>
-							</c:choose>
+							<c:when test="${userSession != null}">
+								<a>${userSession.id} 님</a>
+								<ul>
+									<li><a href="logout">로그아웃</a></li>
+									<li><a href="http://localhost:8080/09box/myOrder" class="selected">주문 확인</a></li>
+									<li><a href="http://localhost:8080/09box/mySell" data-filter="*">판매 확인</a></li>
+								</ul>
+							</c:when>  
+							<c:otherwise> 
+								<a href="./loginform">회원가입/로그인</a>
+							</c:otherwise>
+						</c:choose>
 						</li>
 					</ul>
 					<div id="combo-holder"></div>
@@ -127,97 +156,37 @@
 				
 				<!-- SLIDER -->				
 				<div id="home-slider" class="lof-slidecontent">
-					
-					<div class="preload"><div></div></div>
+					<td><input type="hidden" name="loginId" value="${userSession.id}" id="loginId"></td>
+					<div class="preload"><div></div></div>  
 					
 					<!-- slider content --> 
 					<div class="main-slider-content" >
 					<ul class="sliders-wrap-inner">
-					    <li>
-					          <img src="${root}img/dummies/slides/01.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>고양이야옹야옹</h4>
-					            <p>고양이는 호랑이가 낳은 새끼입니다.
-					            <a class="link" href="#">더보기</a>
-					            </p>
-					         </div>
+					<c:forEach items="${mainList}" var="mainList">
+						<li>
+					    	<img src="${pageContext.request.contextPath}/${mainList.image}" title="" alt="alt" 
+					    		 style="width:100%; height:380px"/>           
+					        <div class="slider-description">
+					        <h4>${mainList.goodsName}</h4>
+				<!-- 	        <p>${mainList.sellNum/mainList.goalNum*100}%  -->
+					        <a class="link" href="#">더보기</a>
+				<!--	        </p> -->
+					        </div>
 					    </li>
+					</c:forEach> 
 					    
-					    <li>
-					          <img src="${root}img/dummies/slides/02.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>2번슬라이더/no.2 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
 					    
-					    <li>
-					          <img src="${root}img/dummies/slides/03.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>3번슬라이더/no.3 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="${root}img/dummies/slides/04.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>4번슬라이더/no.4 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="${root}img/dummies/slides/05.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>5번슬라이더/no.5 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="${root}img/dummies/slides/06.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>6번슬라이더/no.6 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					    <li>
-					          <img src="${root}img/dummies/slides/07.jpg" title="" alt="alt" />           
-					          <div class="slider-description">
-					            <h4>7번슬라이더/no.7 slider</h4>
-					            <p>상세문구
-					            <a class="link" href="#">Read more </a>
-					            </p>
-					         </div>
-					    </li>
-					    
-					  </ul>  	
-					</div>
+					  </ul>  	   
+					</div>  
 					<!-- ENDS slider content --> 
 				           
 					<!-- slider nav -->
 					<div class="navigator-content">
 					  <div class="navigator-wrapper">
 					        <ul class="navigator-wrap-inner">
-					           <li><img src="${root}img/dummies/slides/01_thumb.jpg" alt="alt" /></li>
-					           <li><img src="${root}img/dummies/slides/02_thumb.jpg" alt="alt" /></li>
-					           <li><img src="${root}img/dummies/slides/03_thumb.jpg" alt="alt" /></li>
-					           <li><img src="${root}img/dummies/slides/04_thumb.jpg" alt="alt" /></li>
-					           <li><img src="${root}img/dummies/slides/05_thumb.jpg" alt="alt" /></li>
-					           <li><img src="${root}img/dummies/slides/06_thumb.jpg" alt="alt" /></li>
-					           <li><img src="${root}img/dummies/slides/07_thumb.jpg" alt="alt" /></li>
+					        	<c:forEach items="${mainList}" var="mainList">
+					           <li><img src="${pageContext.request.contextPath}/${mainList.image}" alt="alt" style="width:100%; height:70px;" /></li>
+					           </c:forEach>
 					        </ul>
 					  </div>
 					  <div class="button-next">Next</div>
@@ -241,28 +210,25 @@
 		                
  		<div class="home-featured">
 		 	<ul id="filter-buttons" class="category">
-	<!--	 		<li><a href="#" data-filter="*" class="selected" >전체보기</a></li>
-	-->		<c:if test="${!empty category}">
+	 	 		<li><a href="#" data-filter="*">전체보기</a></li>  
+			<c:if test="${!empty category}">
 				<c:forEach var="category" items="${category}">
-				 	<li><a href="category/${category.categoryCode}" data-filter="*" onclick="buttonClick('${category.categoryCode}'); return false" <c:if test="${list eq category.categoryCode}">class="selected"</c:if>>${category.categoryName}</a></li>
-				
-				 	
-		<!-- 		 <li><a href="#" onclick="buttonClick('${category.categoryCode}'); return false" >${category.categoryName}</a></li>
-		 -->		</c:forEach>	
+				 	<li><a href="http://localhost:8080/09box/${category.categoryCode}" data-filter="*" onclick="buttonClick('${category.categoryCode}'); return false" <c:if test="${list eq category.categoryCode}">class="selected"</c:if>>${category.categoryName}</a></li>
+				</c:forEach>	
 			</c:if>
 			</ul>
 		
 
 		<script>           
 			function buttonClick(list){
-				location.replace("${root}category/"+list); 
+				location.replace("${root}"+list); 
 			}
 		</script>	
 		
 		<div class="list">
 			<article class="post" data-cat="list">
 			<div id="filter-container" class="cf">
-				<c:forEach items="${all}" var="list">
+				<c:forEach items="${list}" var="list">
 	 			<!-- Filter container -->
 					<figure class="list">
 				<a href='detail?rnum=${list.rnum}' background-size:cover class="thumb"><img src="${pageContext.request.contextPath}/${list.image}" width="300" height="180"/></a>
@@ -271,10 +237,15 @@
 							<span class="font_weight">
 								<a href='detail?rnum=${list.rnum}'>${list.goodsName}</a>
 							</span>
-						</h5>
+						</h5>  
 					<!-- 프로그레스바 -->					
 					<div id="myProgress">
-					  	<div id="myBar"></div>
+						<c:if test="${list.sellNum/list.goalNum*100 <='100'}">
+					  	<div id="myBar" style="width:${list.sellNum/list.goalNum*100}%"></div>
+					  	</c:if>
+					  	<c:if test="${list.sellNum/list.goalNum*100 > '100'}">
+					  	<div id="myBar" style="width:100%"></div>
+					  	</c:if>
 					</div>
 					<div class="period">
 						<div class="p_left">
@@ -283,7 +254,7 @@
 							
 							<fmt:parseDate var="regDate" value="${list.sellEnd}" pattern="yyyy-MM-dd"/>
 		        			<fmt:parseNumber var="nowDays" value="${toDay.time/(1000*60*60*24)}" integerOnly="true"/>
-		        			<fmt:parseNumber var="oldDays" value="${regDate.time/(1000*60*60*24)}" integerOnly="true"/>
+		        			<fmt:parseNumber var="oldDays" value="${(regDate.time/(1000*60*60*24))+1}" integerOnly="true"/>
 		        			<fmt:parseNumber var="result" value="${(-1)*(nowDays-oldDays)}" integerOnly="true"/>
 							</span>
 							
@@ -310,8 +281,8 @@
 						</div>
 						
 						<div class="p_right">
-							<span class="font_weight">5,693,000 원</span>
-							<span class="font_percent">600%</span>
+							<span class="font_weight">${list.sellNum} 개</span>
+							<span class="font_percent"><fmt:parseNumber var="test" value="${list.sellNum/list.goalNum*100}" integerOnly="true"/>${test}%</span>
 						</div>
 					</div>
 				</figcaption>
@@ -320,27 +291,28 @@
 					</div>
 			</article>
 			</div> 
-		
+		 
 		</div>			
-			<!-- 페이징 -->	 
-			<ul class="btn-group pagination">
+			<!-- 페이징 -->	
+			<div style="margin:auto; width:5%; height:auto; align:center">
+			<ul class="paging">
 			    <c:if test="${pageMaker.prev }">
-			    <li>
-			        <a href='<c:url value="/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+			    <li class="paging">
+			        <a href='<c:url value="/?page=${pageMaker.startPage-1 }"/>'></a>
 			    </li>
 			    </c:if>
 			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="rnum">
-			    <li>
-			        <a href='<c:url value="/?page=${rnum}"/>'><i class="fa">${rnum}</i></a>
+			    <li class="paging">
+			        <a href='<c:url value="/?page=${rnum}"/>'>${rnum}</a>
 			    </li>
 			    </c:forEach>
 			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li>
-			        <a href='<c:url value="/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+			    <li class="paging">
+			        <a href='<c:url value="/?page=${pageMaker.endPage+1 }"/>' style="float:left;"></a>
 			    </li>
-			    </c:if>
+			    </c:if> 
 			</ul>
-		
+			</div>
 				
 			<!-- ENDS featured -->
 			

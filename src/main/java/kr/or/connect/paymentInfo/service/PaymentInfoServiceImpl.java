@@ -1,6 +1,8 @@
 package kr.or.connect.paymentInfo.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,17 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 
 	@Override
 	public List<PaymentInfo> selectAll() {
-		return dao.selectAllPayinfo();
+		return dao.selectAll();
+	}
+
+	@Override
+	public List<PaymentInfo> selectAllPayinfo(String id) {
+		return dao.selectAllPayinfo(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllPayinfoMap(HashMap map) {
+		return dao.selectAllPayinfoMap(map);
 	}
 
 }

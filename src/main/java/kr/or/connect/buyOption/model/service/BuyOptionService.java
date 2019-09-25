@@ -8,4 +8,5 @@ public interface BuyOptionService {
 	void insert(BuyOption buyOption);
 	List<BuyOption> selectAll();
 	List<BuyOption> selectOneBuyOption(int rnum);
+	BuyOption buyOption(int buyOption);
 }
