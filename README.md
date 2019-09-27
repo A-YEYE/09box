@@ -3,6 +3,21 @@
 ## 시연영상
 https://blog.naver.com/leeparaang/221661084206 
 
+## 개발 환경
+### FRONT END
+-  jquery, ajax, html, js, css, bootstrap
+
+### BACK END
+
+- spring4, mybatis, spring security, java, junit, tomcat
+
+###  DATA BASE
+
+- My SQL
+
+### API
+- 결제(I’mport, kakaoPay), 우편번호 검색(daum), 글 작성(Summernote)
+
 ## 사이트 설명
 -	공동구매를 원하는 회원이 제품을 마감 날짜, 목표 수량, 상품 옵션과 함께 글을 작성합니다.
 -	공동구매에 참여하고 싶은 회원은 물건을 구매합니다.
