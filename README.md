@@ -9,7 +9,7 @@ https://blog.naver.com/leeparaang/221661084206
 
 ### BACK END
 
-- spring4, mybatis, spring security, java, junit, tomcat
+- spring4, mybatis, java1.8, junit, tomcat
 
 ###  DATA BASE
 
